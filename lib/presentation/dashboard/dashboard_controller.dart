@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:app_1point2_store/core/app_export.dart';
+import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
+import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/home_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/models/home_model.dart';
 import 'package:app_1point2_store/presentation/dashboard/offer_screen/offer_screen.dart';
@@ -47,12 +49,12 @@ class BottomNavMenuModel {
 List<Widget> bottomNavWidgetList = [
   HomeScreen(),
   OfferScreen(),
-  QrScannerScreen(),
+  AddOrderScreen(),
   QrScannerScreen(),
   QrScannerScreen(),
 ];
 
-class DashboardController extends GetxController {
+class DashboardController extends AuthController {
   TextEditingController searchController = TextEditingController();
 
   Rx<HomeModel> homeModelObj = HomeModel().obs;
@@ -61,7 +63,7 @@ class DashboardController extends GetxController {
     BottomNavMenuModel(
       icon: ImageConstant.homeIcon,
       activeIcon: ImageConstant.imgNavHomePrimary,
-      title: "lbl_home".tr,
+      title: "Home",
       type: BottomNavEnum.Home,
       width: 20.w,
       height: 20.w,
@@ -69,7 +71,7 @@ class DashboardController extends GetxController {
     BottomNavMenuModel(
       icon: ImageConstant.ftbIcon,
       activeIcon: ImageConstant.ftbIcon,
-      title: "lbl_matches".tr,
+      title: "History",
       type: BottomNavEnum.Matches,
       width: 20.w,
       height: 20.w,
@@ -85,7 +87,7 @@ class DashboardController extends GetxController {
     BottomNavMenuModel(
       icon: ImageConstant.catelogueIcon,
       activeIcon: ImageConstant.catelogueIcon,
-      title: "lbl_bookmarks".tr,
+      title: "Requests",
       type: BottomNavEnum.Bookmarks,
       width: 25.w,
       height: 25.w,
@@ -93,7 +95,7 @@ class DashboardController extends GetxController {
     BottomNavMenuModel(
       icon: ImageConstant.tabsIcon,
       activeIcon: ImageConstant.tabsIcon,
-      title: "lbl_tabs".tr,
+      title: "Complaint",
       type: BottomNavEnum.Tabs,
       width: 20.w,
       height: 20.w,

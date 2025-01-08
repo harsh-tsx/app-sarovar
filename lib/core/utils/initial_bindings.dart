@@ -7,7 +7,6 @@ class InitialBindings extends Bindings {
   @override
   void dependencies() {
     Get.put(PrefUtils());
-    Get.put(ApiClient());
     Get.put(AuthController());
     Connectivity connectivity = Connectivity();
     Get.put(NetworkInfo(connectivity));

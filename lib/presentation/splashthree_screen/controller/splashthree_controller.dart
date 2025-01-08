@@ -1,7 +1,9 @@
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
+import 'package:app_1point2_store/data/apiClient/api_client.dart';
 import 'package:app_1point2_store/presentation/splashthree_screen/models/splashthree_model.dart';
+import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 
 /// A controller class for the SplashthreeScreen.
 ///
@@ -15,12 +17,16 @@ class SplashthreeController extends AuthController {
 
   @override
   void onReady() {
-    Future.delayed(const Duration(milliseconds: 3000), () {
+    Future.delayed(const Duration(milliseconds: 3000), () async {
+      var request = await ApiClient.employeeStoreAuthLoginPost(
+          body: EmployeeStoreAuthLoginPost$RequestBody(
+              id: "id", password: "password"));
+      print("request: ${request.body}");
       if (getToken() != null) {
         Get.offNamed(AppRoutes.dashboard);
         return;
       }
-      Get.offNamed(AppRoutes.dashboard);
+      Get.offNamed(AppRoutes.loginScreen);
     });
   }
 }

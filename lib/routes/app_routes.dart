@@ -1,3 +1,4 @@
+import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.dart';
 import 'package:app_1point2_store/presentation/dashboard/dashboard.dart';
 import 'package:app_1point2_store/presentation/dashboard/dashboard_binding.dart';
 import 'package:app_1point2_store/presentation/dashboard/offer_screen/offer_screen.dart';
@@ -143,6 +144,7 @@ class AppRoutes {
   static const String historyScreen = "/history_screen";
 
   static const String redeemScreen = "/redeem_screen";
+  static const String addOrderScreen = "/addorder_screen";
 
   static const String usedVoucherScreen = "/used_voucher_screen";
 
@@ -154,13 +156,17 @@ class AppRoutes {
         FaqBinding(),
       ],
     ),
-    GetPage(
-      name: historyScreen,
-      page: () => HistoryScreen(),
-    ),
+    // GetPage(
+    //   name: historyScreen,
+    //   page: () => HistoryScreen(),
+    // ),
     GetPage(
       name: redeemScreen,
       page: () => RedeemScreen(),
+    ),
+    GetPage(
+      name: addOrderScreen,
+      page: () => AddOrderScreen(),
     ),
     GetPage(
       name: usedVoucherScreen,

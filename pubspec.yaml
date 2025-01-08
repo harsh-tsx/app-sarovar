@@ -47,7 +47,7 @@ dependencies:
   permission_handler: ^11.3.0
   device_preview: ^1.1.0
   flutter_advanced_switch: ^3.1.0
-  openapi_generator_annotations: ^6.0.0
+  openapi_generator_annotations: ^6.1.0
   # custom_api:
   #   path: api/custom_api
   get_storage: ^2.1.1
@@ -71,8 +71,15 @@ dependencies:
   share_plus: ^10.0.0
   gradient_borders: ^1.0.1
   mobile_scanner: ^6.0.2
+  google_fonts: ^6.2.1
+  chopper: ^8.0.0
+  json_annotation: ^4.8.0
 dev_dependencies:
-  openapi_generator: ^6.0.0
+  build_runner: ^2.4.13
+  openapi_generator: ^6.1.0
+  chopper_generator: ^8.0.0
+  json_serializable: ^6.6.1
+  swagger_dart_code_generator: ^3.0.1
   flutter_test:
     sdk: flutter
 flutter:

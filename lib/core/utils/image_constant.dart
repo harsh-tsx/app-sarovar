@@ -373,7 +373,8 @@ class ImageConstant {
 
   static String qrBg = 'assets/images/qr_bg.png';
 
-  static String appLogo = 'assets/images/app_logo.jpeg';
+  static String appLogo = 'assets/images/app_logo.png';
+  static String can = 'assets/images/can.png';
 
   static String imgOnboardings(sno) {
     return 'assets/images/onboard_${sno}.png';

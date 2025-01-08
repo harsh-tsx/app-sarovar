@@ -30,7 +30,8 @@ class Dashboard extends GetWidget<DashboardController> {
           floatingActionButton: FloatingActionButton(
             key: controller.keyButton3,
             onPressed: () {
-              controller.handlBottomNavChange(2);
+              // controller.handlBottomNavChange(2);
+              Get.toNamed(AppRoutes.addOrderScreen);
             },
             child: CustomImageView(
               imagePath: ImageConstant.bottomCenterIcon,
@@ -88,7 +89,6 @@ class Dashboard extends GetWidget<DashboardController> {
                                       .bottomNavMenuList[index].height,
                                   width:
                                       controller.bottomNavMenuList[index].width,
-                                  color: appTheme.primaryBlue,
                                   margin: EdgeInsets.only(top: 8),
                                 ),
                               )
