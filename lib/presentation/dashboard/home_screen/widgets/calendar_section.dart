@@ -1,4 +1,6 @@
 import 'package:app_1point2_store/core/app_export.dart';
+import 'package:app_1point2_store/core/utils/app_utils.dart';
+import 'package:app_1point2_store/presentation/dashboard/home_screen/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -12,12 +14,14 @@ class _CalendarSectionState extends State<CalendarSection> {
   late DateTime selectedDate;
   late DateTime currentMonth;
   late DateTime today;
+  var controller = isControllerRegistered<HomeController>(HomeController());
 
   @override
   void initState() {
     super.initState();
     selectedDate = DateTime.now();
     today = selectedDate;
+    controller.getHomeDashboardData(selectedDate);
     currentMonth = DateTime(selectedDate.year, selectedDate.month);
   }
 
@@ -99,12 +103,11 @@ class _CalendarSectionState extends State<CalendarSection> {
                       date.month == selectedDate.month &&
                       date.year == selectedDate.year;
 
-                  print("istoday date: ${today == date}");
-
                   return GestureDetector(
                     onTap: () {
                       setState(() {
                         selectedDate = date;
+                        controller.getHomeDashboardData(date);
                       });
                     },
                     child: today == date

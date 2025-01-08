@@ -18,10 +18,6 @@ class SplashthreeController extends AuthController {
   @override
   void onReady() {
     Future.delayed(const Duration(milliseconds: 3000), () async {
-      var request = await ApiClient.employeeStoreAuthLoginPost(
-          body: EmployeeStoreAuthLoginPost$RequestBody(
-              id: "id", password: "password"));
-      print("request: ${request.body}");
       if (getToken() != null) {
         Get.offNamed(AppRoutes.dashboard);
         return;

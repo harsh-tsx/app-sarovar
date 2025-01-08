@@ -5,182 +5,185 @@ import 'package:app_1point2_store/presentation/dashboard/qr_scanner_screen/contr
 import 'package:app_1point2_store/widgets/custom_icon_button.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-class QrScannerScreen extends StatefulWidget {
-  const QrScannerScreen({super.key});
+// class QrScannerScreen extends StatefulWidget {
+//   const QrScannerScreen({super.key});
 
-  @override
-  State<QrScannerScreen> createState() => _QrScannerScreenState();
-}
+//   @override
+//   State<QrScannerScreen> createState() => _QrScannerScreenState();
+// }
 
-class _QrScannerScreenState extends State<QrScannerScreen>
-    with WidgetsBindingObserver {
-  final MobileScannerController controller = MobileScannerController(
-    formats: const [BarcodeFormat.qrCode],
-    autoStart: false,
-    torchEnabled: true,
-    useNewCameraSelector: true,
-  );
+// class _QrScannerScreenState extends State<QrScannerScreen>
+//     with WidgetsBindingObserver {
+//   final MobileScannerController controller = MobileScannerController(
+//     formats: const [BarcodeFormat.qrCode],
+//     autoStart: false,
+//     torchEnabled: false,
+//     useNewCameraSelector: true,
+//   );
 
-  Barcode? _barcode;
-  StreamSubscription<Object?>? _subscription;
-  QrScannerController qrScannerController = Get.put(QrScannerController());
+//   Barcode? _barcode;
+//   StreamSubscription<Object?>? _subscription;
+//   QrScannerController qrScannerController = Get.put(QrScannerController());
 
-  Widget _buildBarcode(Barcode? value) {
-    if (value == null) {
-      return const Text(
-        'Scan something!',
-        overflow: TextOverflow.fade,
-        style: TextStyle(color: Colors.white),
-      );
-    }
+//   Widget _buildBarcode(Barcode? value) {
+//     if (value == null) {
+//       return const Text(
+//         'Scan something!',
+//         overflow: TextOverflow.fade,
+//         style: TextStyle(color: Colors.white),
+//       );
+//     }
 
-    return Text(
-      value.displayValue ?? 'No display value.',
-      overflow: TextOverflow.fade,
-      style: const TextStyle(color: Colors.white),
-    );
-  }
+//     return Text(
+//       value.displayValue ?? 'No display value.',
+//       overflow: TextOverflow.fade,
+//       style: const TextStyle(color: Colors.white),
+//     );
+//   }
 
-  void _handleBarcode(BarcodeCapture barcodes) {
-    if (mounted) {
-      setState(() {
-        _barcode = barcodes.barcodes.firstOrNull;
-      });
-    }
-  }
+//   void _handleBarcode(BarcodeCapture barcodes) {
+//     if (mounted) {
+//       setState(() {
+//         _barcode = barcodes.barcodes.firstOrNull;
+//       });
+//     }
+//   }
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
+//   @override
+//   void initState() {
+//     super.initState();
+//     WidgetsBinding.instance.addObserver(this);
 
-    _subscription = controller.barcodes.listen(_handleBarcode);
+//     _subscription = controller.barcodes.listen(_handleBarcode);
 
-    unawaited(controller.start());
-  }
+//     unawaited(controller.start());
+//   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (!controller.value.hasCameraPermission) {
-      return;
-    }
+//   @override
+//   void didChangeAppLifecycleState(AppLifecycleState state) {
+//     if (!controller.value.hasCameraPermission) {
+//       return;
+//     }
 
-    switch (state) {
-      case AppLifecycleState.detached:
-      case AppLifecycleState.hidden:
-      case AppLifecycleState.paused:
-        return;
-      case AppLifecycleState.resumed:
-        _subscription = controller.barcodes.listen(_handleBarcode);
+//     switch (state) {
+//       case AppLifecycleState.detached:
+//       case AppLifecycleState.hidden:
+//       case AppLifecycleState.paused:
+//         return;
+//       case AppLifecycleState.resumed:
+//         _subscription = controller.barcodes.listen(_handleBarcode);
 
-        unawaited(controller.start());
-      case AppLifecycleState.inactive:
-        unawaited(_subscription?.cancel());
-        _subscription = null;
-        unawaited(controller.stop());
-    }
-  }
+//         unawaited(controller.start());
+//       case AppLifecycleState.inactive:
+//         unawaited(_subscription?.cancel());
+//         _subscription = null;
+//         unawaited(controller.stop());
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    final scanWindow = Rect.fromCenter(
-      center: MediaQuery.sizeOf(context).center(Offset.zero),
-      width: 200,
-      height: 200,
-    );
+//   @override
+//   Widget build(BuildContext context) {
+//     final scanWindow = Rect.fromCenter(
+//       center: MediaQuery.sizeOf(context).center(Offset.zero),
+//       width: 200,
+//       height: 200,
+//     );
 
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Center(
-            child: MobileScanner(
-              fit: BoxFit.fitHeight,
-              controller: controller,
-              scanWindow: createCornerBorderBoxWidget(
-                  context, Offset(50, 100), Size(200, 150)),
-              errorBuilder: (context, error, child) {
-                return ScannerErrorWidget(error: error);
-              },
-              onDetect: (barcodes) {
-                _barcode = barcodes.barcodes.firstOrNull;
-                if (_barcode != null) {
-                  qrScannerController.sendQr(id: _barcode!.rawValue!);
-                }
-              },
-              overlayBuilder: (context, constraints) {
-                return Container(
-                  padding: const EdgeInsets.all(16.0),
-                  margin: EdgeInsets.only(
-                    bottom: 20.h,
-                  ),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: ScannedBarcodeLabel(barcodes: controller.barcodes),
-                  ),
-                );
-              },
-            ),
-          ),
-          ValueListenableBuilder(
-            valueListenable: controller,
-            builder: (context, value, child) {
-              if (!value.isInitialized ||
-                  !value.isRunning ||
-                  value.error != null) {
-                return const SizedBox();
-              }
+//     return Scaffold(
+//       body: Stack(
+//         fit: StackFit.expand,
+//         children: [
+//           Center(
+//             child: MobileScanner(
+//               fit: BoxFit.fitHeight,
+//               controller: controller,
+//               scanWindow: createCornerBorderBoxWidget(
+//                   context, Offset(50, 100), Size(200, 150)),
+//               errorBuilder: (context, error, child) {
+//                 return ScannerErrorWidget(error: error);
+//               },
+//               onDetect: (barcodes) {
+//                 print("detects: ${barcodes}");
+//                 _barcode = barcodes.barcodes.firstOrNull;
+//                 if (_barcode != null) {
+//                   qrScannerController.sendQr(id: _barcode!.rawValue!);
+//                 }
+//               },
+//               overlayBuilder: (context, constraints) {
+//                 return Container(
+//                   padding: const EdgeInsets.all(16.0),
+//                   margin: EdgeInsets.only(
+//                     bottom: 20.h,
+//                   ),
+//                   child: Align(
+//                     alignment: Alignment.bottomCenter,
+//                     child: ScannedBarcodeLabel(barcodes: controller.barcodes),
+//                   ),
+//                 );
+//               },
+//             ),
+//           ),
+//           ValueListenableBuilder(
+//             valueListenable: controller,
+//             builder: (context, value, child) {
+//               if (!value.isInitialized ||
+//                   !value.isRunning ||
+//                   value.error != null) {
+//                 return const SizedBox();
+//               }
 
-              return CustomPaint(
-                painter: ScannerOverlay(scanWindow: scanWindow),
-              );
-            },
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Row(
-                    children: [
-                      ToggleFlashlightButton(controller: controller),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      // SwitchCameraButton(controller: controller),
-                      AnalyzeImageFromGalleryButton(controller: controller),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+//               return CustomPaint(
+//                 painter: ScannerOverlay(scanWindow: scanWindow),
+//               );
+//             },
+//           ),
+//           Align(
+//             alignment: Alignment.topCenter,
+//             child: Padding(
+//               padding: const EdgeInsets.all(16.0),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   IconButton(
+//                     icon: Icon(
+//                       Icons.arrow_back,
+//                       color: Colors.white,
+//                     ),
+//                     onPressed: () {
+//                       Navigator.pop(context);
+//                     },
+//                   ),
+//                   Row(
+//                     children: [
+//                       ToggleFlashlightButton(controller: controller),
+//                       SizedBox(
+//                         width: 20.w,
+//                       ),
+//                       // SwitchCameraButton(controller: controller),
+//                       AnalyzeImageFromGalleryButton(controller: controller),
+//                     ],
+//                   )
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
 
-  @override
-  Future<void> dispose() async {
-    await controller.dispose();
-    super.dispose();
-  }
-}
+//   @override
+//   Future<void> dispose() async {
+//     await controller.dispose();
+//     super.dispose();
+//   }
+// }
 
 class ScannerOverlay extends CustomPainter {
   const ScannerOverlay({
@@ -586,4 +589,94 @@ Rect createCornerBorderBoxWidget(
       boxRect:
           boxRect); // Creates the widget but does not render it directly here
   return boxRect;
+}
+
+class QrScannerScreen extends StatefulWidget {
+  @override
+  _QrScannerScreenState createState() => _QrScannerScreenState();
+}
+
+class _QrScannerScreenState extends State<QrScannerScreen> {
+  String _scanBarcode = 'Unknown';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> startBarcodeScanStream() async {
+    FlutterBarcodeScanner.getBarcodeStreamReceiver(
+            '#ff6666', 'Cancel', true, ScanMode.BARCODE)!
+        .listen((barcode) => print(barcode));
+  }
+
+  Future<void> scanQR() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(title: const Text('Barcode scan')),
+            body: Builder(builder: (BuildContext context) {
+              return Container(
+                  alignment: Alignment.center,
+                  child: Flex(
+                      direction: Axis.vertical,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ElevatedButton(
+                            onPressed: () => scanBarcodeNormal(),
+                            child: Text('Start barcode scan')),
+                        ElevatedButton(
+                            onPressed: () => scanQR(),
+                            child: Text('Start QR scan')),
+                        ElevatedButton(
+                            onPressed: () => startBarcodeScanStream(),
+                            child: Text('Start barcode scan stream')),
+                        Text('Scan result : $_scanBarcode\n',
+                            style: TextStyle(fontSize: 20))
+                      ]));
+            })));
+  }
 }

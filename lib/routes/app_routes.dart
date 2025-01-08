@@ -2,6 +2,7 @@ import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.dar
 import 'package:app_1point2_store/presentation/dashboard/dashboard.dart';
 import 'package:app_1point2_store/presentation/dashboard/dashboard_binding.dart';
 import 'package:app_1point2_store/presentation/dashboard/offer_screen/offer_screen.dart';
+import 'package:app_1point2_store/presentation/dashboard/qr_scanner_screen/qr_scanner_screen.dart';
 import 'package:app_1point2_store/presentation/history_screen/history_screen.dart';
 import 'package:app_1point2_store/presentation/my_profile_screen/my_profile_screen.dart';
 import 'package:app_1point2_store/presentation/redeem_screen/redeem_screen.dart';
@@ -145,6 +146,7 @@ class AppRoutes {
 
   static const String redeemScreen = "/redeem_screen";
   static const String addOrderScreen = "/addorder_screen";
+  static const String qrScanScreen = "/qr_scan_screen";
 
   static const String usedVoucherScreen = "/used_voucher_screen";
 
@@ -163,6 +165,10 @@ class AppRoutes {
     GetPage(
       name: redeemScreen,
       page: () => RedeemScreen(),
+    ),
+    GetPage(
+      name: qrScanScreen,
+      page: () => QrScannerScreen(),
     ),
     GetPage(
       name: addOrderScreen,

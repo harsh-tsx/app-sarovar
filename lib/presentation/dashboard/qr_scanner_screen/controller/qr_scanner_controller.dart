@@ -3,5 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class QrScannerController extends GetxController {
-  sendQr({required String id}) {}
+  sendQr({required String id}) {
+    print("scanned Qr code value: ${id}");
+  }
 }

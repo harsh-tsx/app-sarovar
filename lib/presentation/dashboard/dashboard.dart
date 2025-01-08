@@ -89,6 +89,7 @@ class Dashboard extends GetWidget<DashboardController> {
                                       .bottomNavMenuList[index].height,
                                   width:
                                       controller.bottomNavMenuList[index].width,
+                                  color: Color(0xff1E1E1E),
                                   margin: EdgeInsets.only(top: 8),
                                 ),
                               )

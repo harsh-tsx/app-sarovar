@@ -1,7 +1,9 @@
 import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/utils/api_client.dart';
+import 'package:app_1point2_store/data/apiClient/api_client.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/models/home_model.dart';
+import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 import 'package:flutter/material.dart';
 
 import '../models/userprofilelistsection_item_model.dart';
@@ -14,6 +16,7 @@ class HomeController extends AuthController {
   TextEditingController searchController = TextEditingController();
 
   Rx<HomeModel> homeModelObj = HomeModel().obs;
+  var homeDashboard = EmployeeStoreDashboardHomeGet$Response$Data().obs;
 
   @override
   void onInit() {
@@ -21,24 +24,15 @@ class HomeController extends AuthController {
     super.onInit();
   }
 
-  init() {}
+  getHomeDashboardData(DateTime date) async {
+    var request =
+        await ApiClient.employeeStoreDashboardHomeGet(date: date.toString());
+    print("request dashboard data: ${request.body}");
 
-  getNews() {
-    print("CALLING NEWS API");
+    homeDashboard.value =
+        request.body?.data ?? EmployeeStoreDashboardHomeGet$Response$Data();
+    update();
   }
-
-  getCategoryData(String page) {}
-
-  getLatestFixtures() {
-    print("CALLING FIXTURE LATEST API");
-  }
-
-  getPastFixtures() {
-    print("CALLING FIXTURE LATEST API");
-  }
-
-  //* This method will convert api data into UserprofilelistsectionItemModel
-  //* It is used in online astrologer list widget at home screen
 
   @override
   void onClose() {

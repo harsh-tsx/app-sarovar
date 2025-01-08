@@ -49,7 +49,7 @@ class BottomNavMenuModel {
 List<Widget> bottomNavWidgetList = [
   HomeScreen(),
   OfferScreen(),
-  AddOrderScreen(),
+  QrScannerScreen(),
   QrScannerScreen(),
   QrScannerScreen(),
 ];

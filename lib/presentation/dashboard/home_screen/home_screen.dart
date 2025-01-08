@@ -97,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 _buildField(
                   title: "Location",
-                  isLocation: true,
+                  value: "${controller.distance}m",
+                  // isLocation: true,
                 )
               ],
             ),
@@ -129,18 +130,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 4),
                   CalendarSection(),
                   const SizedBox(height: 24),
-                  GridView.count(
-                    shrinkWrap: true,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    children: [
-                      _buildStatsCard(
-                          'Today\'s In', '00', Icons.arrow_downward),
-                      _buildStatsCard('Today\'s Out', '00', Icons.arrow_upward),
-                      _buildStatsCard('Live Stock', '50', Icons.inventory),
-                      _buildStatsCard('This Month', '50', Icons.calendar_month),
-                    ],
+                  Obx(
+                    () => GridView.count(
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      children: [
+                        _buildStatsCard(
+                            'Today\'s In',
+                            "${controller.homeDashboard.value?.todaysIn}",
+                            Icons.arrow_downward),
+                        _buildStatsCard(
+                            'Today\'s Out',
+                            "${controller.homeDashboard.value?.todaysOut}",
+                            Icons.arrow_upward),
+                        _buildStatsCard(
+                            'Live Stock',
+                            "${controller.homeDashboard.value?.liveStock}",
+                            Icons.inventory),
+                        _buildStatsCard(
+                            'This Month',
+                            "${controller.homeDashboard.value?.thisMonth}",
+                            Icons.calendar_month),
+                      ],
+                    ),
                   ),
                 ],
               ),
