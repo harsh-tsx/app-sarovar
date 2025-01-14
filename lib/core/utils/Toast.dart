@@ -1,6 +1,5 @@
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class Toast {
   static custom(

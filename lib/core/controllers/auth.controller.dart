@@ -13,6 +13,7 @@ class AuthController extends GetxController {
       EmployeeStoreAuthMeGet$Response$Data().obs;
 
   var distance = 0.0.obs;
+  var outSide = true.obs;
 
   @override
   void onInit() {
@@ -101,6 +102,12 @@ class AuthController extends GetxController {
               user.value.store?.coordinate.lat ?? 0.0,
               user.value.store?.coordinate.long ?? 0.0))
           .toStringAsFixed(1));
+      print("distance: ${distance.value}");
+      if (distance.value <= 10) {
+        outSide.value = false;
+      } else {
+        outSide.value = true;
+      }
       update();
     });
   }

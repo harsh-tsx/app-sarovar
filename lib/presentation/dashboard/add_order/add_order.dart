@@ -145,7 +145,7 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                                             fit: BoxFit.contain,
                                           ),
                                           Text(
-                                            "Sr no. 1",
+                                            "${item?.watercan?.$id?.toInt()}",
                                             style: TextStyle(
                                               fontSize: fontSize.fSize,
                                               fontWeight: FontWeight.w600,
@@ -202,17 +202,23 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                     )
                   ],
                 )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "No Active Order!",
-                      style: TextStyle(
-                        fontSize: 20.fSize,
+              : controller.loading.value
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
                       ),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "No Active Order!",
+                          style: TextStyle(
+                            fontSize: 20.fSize,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
         );
       })),
     );

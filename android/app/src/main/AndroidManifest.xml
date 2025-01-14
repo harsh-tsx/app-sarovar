@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="Baam Reward App"
+        android:label="1.2% Store"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

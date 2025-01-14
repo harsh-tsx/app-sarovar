@@ -12,27 +12,22 @@ import 'core/app_export.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   GetStorage.init();
-  var loader = SvgAssetLoader(ImageConstant.imgSignInOptionsBg);
-  svg.cache
-      .putIfAbsent(loader.cacheKey(null), () => loader.loadBytes(null))
-      .then((value) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]).then((value) {
-      // Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
-      // runApp(MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((value) {
+    // Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
+    // runApp(MyApp());
 
-      Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      ).then(
-        (value) {
-          runApp(DevicePreview(
-              enabled: !kReleaseMode,
-              builder: (context) => MyApp() // Wrap your app
-              ));
-        },
-      );
-    });
+    Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    ).then(
+      (value) {
+        runApp(DevicePreview(
+            enabled: !kReleaseMode,
+            builder: (context) => MyApp() // Wrap your app
+            ));
+      },
+    );
   });
 }
 

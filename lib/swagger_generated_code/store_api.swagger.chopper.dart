@@ -169,6 +169,28 @@ final class _$StoreApi extends StoreApi {
   }
 
   @override
+  Future<Response<EmployeeStoreEmployeeOrdersOutPost$Response>>
+      _employeeStoreEmployeeOrdersOutPost({
+    String? authorization,
+    required EmployeeStoreEmployeeOrdersOutPost$RequestBody? body,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/employee-orders/out');
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreEmployeeOrdersOutPost$Response,
+        EmployeeStoreEmployeeOrdersOutPost$Response>($request);
+  }
+
+  @override
   Future<Response<EmployeeStoreEmployeeOrdersConfirmPost$Response>>
       _employeeStoreEmployeeOrdersConfirmPost({
     String? authorization,
@@ -210,5 +232,80 @@ final class _$StoreApi extends StoreApi {
     );
     return client.send<EmployeeStoreDashboardHomeGet$Response,
         EmployeeStoreDashboardHomeGet$Response>($request);
+  }
+
+  @override
+  Future<Response<EmployeeStoreOrdersGet$Response>> _employeeStoreOrdersGet({
+    String? authorization,
+    required String? page,
+    required String? size,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/orders/');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'page': page,
+      'size': size,
+    };
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreOrdersGet$Response,
+        EmployeeStoreOrdersGet$Response>($request);
+  }
+
+  @override
+  Future<Response<EmployeeStoreForecastGet$Response>>
+      _employeeStoreForecastGet({
+    String? authorization,
+    required String? page,
+    required String? size,
+    required String? date,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/forecast/');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'page': page,
+      'size': size,
+      'date': date,
+    };
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreForecastGet$Response,
+        EmployeeStoreForecastGet$Response>($request);
+  }
+
+  @override
+  Future<Response<EmployeeStoreForecastPost$Response>>
+      _employeeStoreForecastPost({
+    String? authorization,
+    required EmployeeStoreForecastPost$RequestBody? body,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/forecast/');
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreForecastPost$Response,
+        EmployeeStoreForecastPost$Response>($request);
   }
 }

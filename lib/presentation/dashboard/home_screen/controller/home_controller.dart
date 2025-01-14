@@ -1,12 +1,8 @@
 import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/app_export.dart';
-import 'package:app_1point2_store/core/utils/api_client.dart';
 import 'package:app_1point2_store/data/apiClient/api_client.dart';
-import 'package:app_1point2_store/presentation/dashboard/home_screen/models/home_model.dart';
 import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 import 'package:flutter/material.dart';
-
-import '../models/userprofilelistsection_item_model.dart';
 
 /// A controller class for the HomeScreen.
 ///
@@ -14,8 +10,6 @@ import '../models/userprofilelistsection_item_model.dart';
 /// current homeModelObj
 class HomeController extends AuthController {
   TextEditingController searchController = TextEditingController();
-
-  Rx<HomeModel> homeModelObj = HomeModel().obs;
   var homeDashboard = EmployeeStoreDashboardHomeGet$Response$Data().obs;
 
   @override
@@ -25,12 +19,15 @@ class HomeController extends AuthController {
   }
 
   getHomeDashboardData(DateTime date) async {
+    homeDashboard.value = EmployeeStoreDashboardHomeGet$Response$Data(
+        liveStock: 0, thisMonth: 0, todaysIn: 0, todaysOut: 0);
     var request =
         await ApiClient.employeeStoreDashboardHomeGet(date: date.toString());
     print("request dashboard data: ${request.body}");
 
-    homeDashboard.value =
-        request.body?.data ?? EmployeeStoreDashboardHomeGet$Response$Data();
+    homeDashboard.value = request.body?.data ??
+        EmployeeStoreDashboardHomeGet$Response$Data(
+            liveStock: 0, thisMonth: 0, todaysIn: 0, todaysOut: 0);
     update();
   }
 

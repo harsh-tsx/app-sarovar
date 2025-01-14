@@ -1,13 +1,11 @@
-import 'dart:ui';
-
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/controllers/auth.controller.dart';
-import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.dart';
+import 'package:app_1point2_store/presentation/dashboard/can_out_screen/can_out_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/home_screen.dart';
-import 'package:app_1point2_store/presentation/dashboard/home_screen/models/home_model.dart';
 import 'package:app_1point2_store/presentation/dashboard/offer_screen/offer_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/qr_scanner_screen/qr_scanner_screen.dart';
+import 'package:app_1point2_store/presentation/dashboard/request_screen/request_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -49,20 +47,18 @@ class BottomNavMenuModel {
 List<Widget> bottomNavWidgetList = [
   HomeScreen(),
   OfferScreen(),
-  QrScannerScreen(),
-  QrScannerScreen(),
-  QrScannerScreen(),
+  AddOrderScreen(),
+  RequestScreen(),
+  CanOutScreen(),
 ];
 
 class DashboardController extends AuthController {
   TextEditingController searchController = TextEditingController();
 
-  Rx<HomeModel> homeModelObj = HomeModel().obs;
-
   List<BottomNavMenuModel> bottomNavMenuList = [
     BottomNavMenuModel(
       icon: ImageConstant.homeIcon,
-      activeIcon: ImageConstant.imgNavHomePrimary,
+      activeIcon: ImageConstant.homeIconActive,
       title: "Home",
       type: BottomNavEnum.Home,
       width: 20.w,
@@ -70,7 +66,7 @@ class DashboardController extends AuthController {
     ),
     BottomNavMenuModel(
       icon: ImageConstant.ftbIcon,
-      activeIcon: ImageConstant.ftbIcon,
+      activeIcon: ImageConstant.ftbIconActive,
       title: "History",
       type: BottomNavEnum.Matches,
       width: 20.w,
@@ -78,7 +74,7 @@ class DashboardController extends AuthController {
     ),
     BottomNavMenuModel(
       icon: ImageConstant.ftbIcon,
-      activeIcon: ImageConstant.ftbIcon,
+      activeIcon: ImageConstant.ftbIconActive,
       title: "",
       type: BottomNavEnum.Matches,
       width: 20.w,
@@ -86,7 +82,7 @@ class DashboardController extends AuthController {
     ),
     BottomNavMenuModel(
       icon: ImageConstant.catelogueIcon,
-      activeIcon: ImageConstant.catelogueIcon,
+      activeIcon: ImageConstant.catelogueIconActive,
       title: "Requests",
       type: BottomNavEnum.Bookmarks,
       width: 25.w,
@@ -94,7 +90,7 @@ class DashboardController extends AuthController {
     ),
     BottomNavMenuModel(
       icon: ImageConstant.tabsIcon,
-      activeIcon: ImageConstant.tabsIcon,
+      activeIcon: ImageConstant.tabsIconActive,
       title: "Complaint",
       type: BottomNavEnum.Tabs,
       width: 20.w,

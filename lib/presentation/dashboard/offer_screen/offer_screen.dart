@@ -1,8 +1,13 @@
 import 'package:app_1point2_store/core/app_export.dart';
+import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/core/utils/types.dart';
+import 'package:app_1point2_store/presentation/dashboard/home_screen/controller/home_controller.dart';
+import 'package:app_1point2_store/presentation/dashboard/offer_screen/offer_screen.controller.dart';
+import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 import 'package:app_1point2_store/widgets/custom_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class OfferScreen extends StatelessWidget {
   OfferScreen({super.key});
@@ -16,132 +21,143 @@ class OfferScreen extends StatelessWidget {
 }
 
 class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({super.key});
+  HistoryScreen({super.key});
 
   @override
   State<HistoryScreen> createState() => _HistoryScreenState();
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  var homeControllr = isControllerRegistered<HomeController>(HomeController());
+  var controller =
+      isControllerRegistered<OfferScreenController>(OfferScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: theme.primaryColor,
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: Get.height * .12,
-              width: Get.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(height: 12),
-                  Text(
-                    "History",
-                    style: GoogleFonts.comfortaa(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: Get.width * .49,
-                        height: 40.h,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Today’s In: ",
-                              style: TextStyle(
-                                color: appTheme.primaryYellow,
-                              ),
-                            ),
-                            Text(
-                              "15",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
+        child: GetBuilder<OfferScreenController>(builder: (_context) {
+          return Column(
+            children: [
+              SizedBox(
+                height: Get.height * .12,
+                width: Get.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 12.h),
+                    Text(
+                      "History",
+                      style: GoogleFonts.comfortaa(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
                       ),
-                      Container(
-                        width: Get.width * .49,
-                        height: 40.h,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
+                    ),
+                    SizedBox(height: 12.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: Get.width * .45,
+                          height: 40.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Today’s In: ",
+                                style: TextStyle(
+                                  color: appTheme.primaryYellow,
+                                ),
+                              ),
+                              Text(
+                                "${(homeControllr.homeDashboard?.value?.todaysIn ?? 0.0)?.toInt()}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Today’s In: ",
-                              style: TextStyle(
-                                color: appTheme.primaryYellow,
-                              ),
+                        Container(
+                          width: Get.width * .45,
+                          height: 40.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
                             ),
-                            Text(
-                              "15",
-                              style: TextStyle(
-                                color: Colors.white,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Today’s Out: ",
+                                style: TextStyle(
+                                  color: appTheme.primaryYellow,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
+                              Text(
+                                "${(homeControllr.homeDashboard?.value?.todaysOut ?? 0.0)?.toInt()}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            Container(
-              height: Get.height * .69,
-              decoration: BoxDecoration(color: Color(0xffE4DABA)),
-              child: ListView.builder(
-                itemCount: 18,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => _buildHistoryRow(),
-              ),
-            )
-          ],
-        ),
+              Container(
+                height: Get.height * .69,
+                decoration: BoxDecoration(color: Color(0xffE4DABA)),
+                child: ListView.builder(
+                  itemCount: controller.historyList.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) =>
+                      _buildHistoryRow(controller.historyList[index]),
+                ),
+              )
+            ],
+          );
+        }),
       ),
     );
   }
 
-  Widget _buildHistoryRow() {
+  Widget _buildHistoryRow(EmployeeStoreOrdersGet$Response$Data$Item item) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    var formatted = formatter.format(DateTime.parse(item.date ?? ""));
+
+    print(formatted);
+
     return Padding(
-      padding: EdgeInsets.only(top: 10, left: 10.w, right: 10.w),
+      padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
-              SizedBox(width: 20),
+              SizedBox(width: 20.w),
               Text(
-                "05/01/2025",
+                "${formatted}",
                 style: GoogleFonts.comfortaa(
-                    fontSize: 10, fontWeight: FontWeight.w700),
+                    fontSize: 10.fSize, fontWeight: FontWeight.w700),
               ),
             ],
           ),
@@ -156,10 +172,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildField(title: "Order ID:", value: "12345678"),
-                _buildField(title: "Cans:", value: "10"),
                 _buildField(
-                    title: "Status:", value: "Delivered", isStatus: true),
+                    title: "Order ID:",
+                    value: "${item.id?.substring(0, 5)}..."),
+                _buildField(
+                    title: "Cans:", value: "${item?.watercans?.toInt()}"),
+                _buildField(
+                    title: "Status:", value: "${item?.status}", isStatus: true),
               ],
             ),
           )
@@ -182,7 +201,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
         Text(
           value,
           style: GoogleFonts.comfortaa(
-            color: isStatus ? Color(0xff008B23) : appTheme.black900,
+            color: isStatus
+                ? value == "DELIVERED"
+                    ? Color(0xff008B23)
+                    : Colors.orange
+                : appTheme.black900,
             fontSize: 12.fSize,
             fontWeight: FontWeight.w900,
           ),

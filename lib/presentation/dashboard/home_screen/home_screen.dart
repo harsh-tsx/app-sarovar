@@ -1,15 +1,8 @@
 import 'package:app_1point2_store/core/app_export.dart';
-import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
-import 'package:app_1point2_store/core/utils/types.dart';
-import 'package:app_1point2_store/presentation/dashboard/dashboard_controller.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/widgets/calendar_section.dart';
-import 'package:app_1point2_store/widgets/custom_elevated_button.dart';
-import 'package:app_1point2_store/widgets/custom_outlined_button.dart';
-import 'package:app_1point2_store/widgets/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
 import 'controller/home_controller.dart';
 
@@ -47,39 +40,49 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHeaderSection() {
-    return SizedBox(
+    return Container(
       height: Get.height * .2,
       width: Get.width,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(ImageConstant.pageBg),
+          fit: BoxFit.cover,
+          alignment: Alignment.topCenter,
+        ),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           InkWell(
+            onTap: () {
+              logout();
+            },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.logout,
-                    size: 18,
+                    size: 18.w,
                   ),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Text(
                     "Logout",
                     style: GoogleFonts.comfortaa(
-                        fontSize: 12, fontWeight: FontWeight.w700),
+                        fontSize: 12.fSize, fontWeight: FontWeight.w700),
                   ),
-                  const SizedBox(width: 24)
+                  SizedBox(width: 24.w)
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           Obx(
             () => Text(
               "${controller.user?.value?.name}",
               style: GoogleFonts.comfortaa(
-                  fontSize: 24, fontWeight: FontWeight.w700),
+                  fontSize: 24.fSize, fontWeight: FontWeight.w700),
             ),
           ),
           const Spacer(),
@@ -98,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 _buildField(
                   title: "Location",
                   value: "${controller.distance}m",
-                  // isLocation: true,
+                  isLocation: true,
                 )
               ],
             ),
@@ -112,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: theme.scaffoldBackgroundColor,
+            color: appTheme.pageBg,
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(20), topLeft: Radius.circular(20))),
         child: Column(
@@ -139,19 +142,24 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         _buildStatsCard(
                             'Today\'s In',
-                            "${controller.homeDashboard.value?.todaysIn}",
+                            "${(controller.homeDashboard.value?.todaysIn ?? 0.0).toInt()}",
                             Icons.arrow_downward),
-                        _buildStatsCard(
-                            'Today\'s Out',
-                            "${controller.homeDashboard.value?.todaysOut}",
-                            Icons.arrow_upward),
+                        InkWell(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.canOutScreen);
+                          },
+                          child: _buildStatsCard(
+                              'Today\'s Out',
+                              "${(controller.homeDashboard.value?.todaysOut ?? 0.0).toInt()}",
+                              Icons.arrow_upward),
+                        ),
                         _buildStatsCard(
                             'Live Stock',
-                            "${controller.homeDashboard.value?.liveStock}",
+                            "${(controller.homeDashboard.value?.liveStock ?? 0.0).toInt()}",
                             Icons.inventory),
                         _buildStatsCard(
                             'This Month',
-                            "${controller.homeDashboard.value?.thisMonth}",
+                            "${(controller.homeDashboard.value?.thisMonth ?? 0.0).toInt()}",
                             Icons.calendar_month),
                       ],
                     ),
@@ -172,36 +180,45 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           title,
-          style:
-              GoogleFonts.comfortaa(fontSize: 12, fontWeight: FontWeight.w400),
+          style: GoogleFonts.comfortaa(
+              fontSize: 12.fSize, fontWeight: FontWeight.w400),
         ),
         Container(
-          height: 55,
-          width: Get.width * 0.327,
+          height: 55.h,
+          width: Get.width * 0.30,
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    appTheme.black900.withOpacity(0.5),
-                    appTheme.black900.withOpacity(0.3)
-                  ]),
+              border: Border(
+                top: BorderSide(
+                  color: Color(0xff666666),
+                  width: 1,
+                ),
+                left: BorderSide(
+                  color: Color(0xff666666),
+                  width: 1,
+                ),
+                right: BorderSide(
+                  color: Color(0xff666666),
+                  width: 1,
+                ),
+              ),
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(10), topLeft: Radius.circular(10))),
           child: Container(
-            margin: const EdgeInsets.only(left: 1, right: 1, top: 1),
+            margin: EdgeInsets.only(left: 1.w, right: 1.w, top: 1.h),
             decoration: BoxDecoration(
-                color: appTheme.primaryYellow,
+                color: Colors.transparent,
                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(10),
                     topLeft: Radius.circular(10))),
             child: Center(
               child: isLocation
-                  ? Icon(Icons.check, color: appTheme.greenA700)
+                  ? controller.outSide.value
+                      ? Icon(Icons.close, color: appTheme.red60002)
+                      : Icon(Icons.check, color: appTheme.greenA700)
                   : Text(
                       value ?? "",
                       style: GoogleFonts.comfortaa(
-                          fontSize: 16, fontWeight: FontWeight.w700),
+                          fontSize: 16.fSize, fontWeight: FontWeight.w700),
                     ),
             ),
           ),
@@ -212,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildStatsCard(String label, String value, IconData icon) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: appTheme.black900,
         // boxShadow: [
@@ -252,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Icon(
                   icon,
                   color: appTheme.primaryYellow,
-                  size: 14,
+                  size: 14.w,
                 ),
               ),
               Expanded(
@@ -263,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
             ],
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14.h),
           Text(label,
               style: GoogleFonts.comfortaa(
                   fontSize: 16,

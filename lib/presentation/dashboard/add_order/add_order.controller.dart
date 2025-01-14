@@ -1,8 +1,10 @@
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/utils/Toast.dart';
+import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/data/apiClient/api_client.dart';
 import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.model.dart';
+import 'package:app_1point2_store/presentation/dashboard/home_screen/controller/home_controller.dart';
 import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -12,6 +14,8 @@ class AddOrderController extends AuthController {
   var crossAxisCount = 1.obs;
   var activeOrder =
       EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data().obs;
+  var homeController = isControllerRegistered<HomeController>(HomeController());
+  var loading = true.obs;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -23,6 +27,7 @@ class AddOrderController extends AuthController {
 
   getActiveOrder() async {
     try {
+      loading.value = true;
       print("calling get active order");
       var request = await ApiClient.employeeStoreEmployeeOrdersActiveOrderGet();
       print("activeOrder: ${request.body?.data}");
@@ -38,8 +43,10 @@ class AddOrderController extends AuthController {
       } else {
         crossAxisCount.value = canCount.value;
       }
+      loading.value = false;
       update();
     } catch (error, stacktrace) {
+      loading.value = false;
       print("error: ${error}");
       print("stacktrace: ${stacktrace}");
     }
@@ -92,6 +99,7 @@ class AddOrderController extends AuthController {
   }
 
   confirmOrder(id) async {
+    Toast.loading("submitting....");
     var request =
         await ApiClient.employeeStoreEmployeeOrdersConfirmPost(order: id);
 
@@ -99,8 +107,8 @@ class AddOrderController extends AuthController {
       Toast.error(request.body?.message);
       return;
     }
-
+    homeController.getHomeDashboardData(DateTime.now());
     Toast.success(request.body?.message);
-    Get.back();
+    Get.back(closeOverlays: true);
   }
 }

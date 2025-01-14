@@ -1,5 +1,5 @@
 import 'package:app_1point2_store/core/app_export.dart';
-import 'package:app_1point2_store/widgets/custom_bottom_bar.dart';
+import 'package:app_1point2_store/core/utils/Toast.dart';
 import 'package:flutter/material.dart';
 
 import 'dashboard_controller.dart';
@@ -31,10 +31,15 @@ class Dashboard extends GetWidget<DashboardController> {
             key: controller.keyButton3,
             onPressed: () {
               // controller.handlBottomNavChange(2);
+              if (controller.outSide.value) {
+                Toast.error("Your're outside of the Store!");
+                return;
+              }
               Get.toNamed(AppRoutes.addOrderScreen);
             },
             child: CustomImageView(
               imagePath: ImageConstant.bottomCenterIcon,
+              width: 300.w,
             ),
             elevation: 0.0,
             backgroundColor: Colors.transparent,
@@ -133,12 +138,12 @@ class Dashboard extends GetWidget<DashboardController> {
                                     .bottomNavMenuList[index].title!.isNotEmpty
                                 ? CustomImageView(
                                     imagePath: controller
-                                        .bottomNavMenuList[index].icon,
+                                        .bottomNavMenuList[index].activeIcon,
                                     height: controller
                                         .bottomNavMenuList[index].height,
                                     width: controller
                                         .bottomNavMenuList[index].width,
-                                    color: appTheme.primaryBlue,
+                                    // color: appTheme.primaryBlue,
                                     margin: EdgeInsets.only(top: 8),
                                   )
                                 : Container(),
@@ -184,18 +189,4 @@ class Dashboard extends GetWidget<DashboardController> {
   /// Section Widget
 
   ///Handling route based on bottom click actions
-  String getCurrentRoute(BottomBarEnum type) {
-    switch (type) {
-      case BottomBarEnum.Home:
-        return AppRoutes.astrologerslistPage;
-      case BottomBarEnum.Services:
-        return "/";
-      case BottomBarEnum.Ecommerce:
-        return "/";
-      case BottomBarEnum.Chat:
-        return AppRoutes.chatlistPage;
-      default:
-        return "/";
-    }
-  }
 }

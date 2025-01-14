@@ -318,7 +318,7 @@ class PrimaryColors {
   // Yellow
   Color get yellow100 => Color(0XFFFFF1CC);
 
-  Color get pageBg => Color(0xffF1F1F1);
+  Color get pageBg => Color(0xffE4DABA);
 }
 
 PrimaryColors get appTheme => ThemeHelper().themeColor();

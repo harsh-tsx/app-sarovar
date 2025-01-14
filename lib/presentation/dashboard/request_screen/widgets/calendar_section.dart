@@ -1,8 +1,9 @@
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
-import 'package:app_1point2_store/core/utils/types.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/controller/home_controller.dart';
+import 'package:app_1point2_store/presentation/dashboard/request_screen/controller/request_screen_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -16,6 +17,8 @@ class _CalendarSectionState extends State<CalendarSection> {
   late DateTime currentMonth;
   late DateTime today;
   var controller = isControllerRegistered<HomeController>(HomeController());
+  var requestController = isControllerRegistered<RequestScreenController>(
+      RequestScreenController());
 
   @override
   void initState() {
@@ -45,6 +48,7 @@ class _CalendarSectionState extends State<CalendarSection> {
     setState(() {
       selectedDate = selectedDate.subtract(const Duration(days: 7));
       currentMonth = DateTime(selectedDate.year, selectedDate.month);
+      requestController.handleDateUpdate(selectedDate);
     });
   }
 
@@ -52,7 +56,27 @@ class _CalendarSectionState extends State<CalendarSection> {
     setState(() {
       selectedDate = selectedDate.add(const Duration(days: 7));
       currentMonth = DateTime(selectedDate.year, selectedDate.month);
+      requestController.handleDateUpdate(selectedDate);
     });
+  }
+
+  dateTimePickerWidget(BuildContext context) {
+    return DatePicker.showDatePicker(context,
+        showTitleActions: true,
+        minTime: today,
+        maxTime: DateTime(today.year + 1, 9, 4), onChanged: (date) {
+      print('change $date');
+      setState(() {
+        selectedDate = date;
+        requestController.handleDateUpdate(selectedDate);
+      });
+    }, onConfirm: (date) {
+      print('confirm $date');
+      setState(() {
+        selectedDate = date;
+        requestController.handleDateUpdate(selectedDate);
+      });
+    }, currentTime: DateTime.now(), locale: LocaleType.en);
   }
 
   @override
@@ -62,16 +86,17 @@ class _CalendarSectionState extends State<CalendarSection> {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
-                child: Divider(
-              thickness: 1,
-              indent: 50,
-            )),
+            // const Expanded(
+            //     child: Divider(
+            //   thickness: 1,
+            //   indent: 50,
+            // )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                DateFormat('MMMM yyyy').format(currentMonth),
+                DateFormat('MMMM yyyy').format(selectedDate),
                 style: GoogleFonts.comfortaa(
                   fontSize: 12,
                   color: appTheme.black900,
@@ -79,11 +104,17 @@ class _CalendarSectionState extends State<CalendarSection> {
                 ),
               ),
             ),
-            const Expanded(
-                child: Divider(
-              thickness: 1,
-              endIndent: 50,
-            )),
+            IconButton(
+                onPressed: () {
+                  dateTimePickerWidget(context);
+                },
+                icon: Icon(Icons.calendar_month))
+
+            // const Expanded(
+            //     child: Divider(
+            //   thickness: 1,
+            //   endIndent: 50,
+            // )),
           ],
         ),
         const SizedBox(height: 16),
@@ -108,7 +139,7 @@ class _CalendarSectionState extends State<CalendarSection> {
                     onTap: () {
                       setState(() {
                         selectedDate = date;
-                        controller.getHomeDashboardData(date);
+                        requestController.handleDateUpdate(selectedDate);
                       });
                     },
                     child: today == date
@@ -121,12 +152,12 @@ class _CalendarSectionState extends State<CalendarSection> {
                                       .format(date)
                                       .substring(0, 3),
                                   style: TextStyle(
-                                    fontSize: 12.fSize,
+                                    fontSize: 12,
                                     color: Colors.grey[600],
                                   ),
                                 ),
                                 Container(
-                                  width: 100.w,
+                                  width: 100,
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
                                     color:
@@ -158,7 +189,7 @@ class _CalendarSectionState extends State<CalendarSection> {
                             ),
                           )
                         : SizedBox(
-                            width: 40.w,
+                            width: 40,
                             child: Column(
                               children: [
                                 Text(

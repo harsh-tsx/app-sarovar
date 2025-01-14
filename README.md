@@ -63,3 +63,7 @@ Privacy policy
 Terms and conditions
 Contact page
 Faq page
+
+rm -rf input*folder/*.json && rm -rf lib/swagger*generated_code/*.dart && dart run build_runner build --delete-conflicting-outputs
+
+inactive the future dates

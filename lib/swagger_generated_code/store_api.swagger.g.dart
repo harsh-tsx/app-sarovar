@@ -63,6 +63,34 @@ Map<String, dynamic> _$EmployeeStoreEmployeeOrdersPut$RequestBodyToJson(
       'forecast': instance.forecast,
     };
 
+EmployeeStoreEmployeeOrdersOutPost$RequestBody
+    _$EmployeeStoreEmployeeOrdersOutPost$RequestBodyFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$RequestBody(
+          watercans: (json['watercans'] as num).toDouble(),
+        );
+
+Map<String, dynamic> _$EmployeeStoreEmployeeOrdersOutPost$RequestBodyToJson(
+        EmployeeStoreEmployeeOrdersOutPost$RequestBody instance) =>
+    <String, dynamic>{
+      'watercans': instance.watercans,
+    };
+
+EmployeeStoreForecastPost$RequestBody
+    _$EmployeeStoreForecastPost$RequestBodyFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreForecastPost$RequestBody(
+          watercans: (json['watercans'] as num).toDouble(),
+          date: json['date'] as String,
+        );
+
+Map<String, dynamic> _$EmployeeStoreForecastPost$RequestBodyToJson(
+        EmployeeStoreForecastPost$RequestBody instance) =>
+    <String, dynamic>{
+      'watercans': instance.watercans,
+      'date': instance.date,
+    };
+
 EmployeeStoreAuthLoginPost$Response
     _$EmployeeStoreAuthLoginPost$ResponseFromJson(Map<String, dynamic> json) =>
         EmployeeStoreAuthLoginPost$Response(
@@ -199,6 +227,26 @@ Map<String, dynamic> _$EmployeeStoreEmployeeOrdersActiveOrderGet$ResponseToJson(
       'data': instance.data?.toJson(),
     };
 
+EmployeeStoreEmployeeOrdersOutPost$Response
+    _$EmployeeStoreEmployeeOrdersOutPost$ResponseFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response(
+          status: json['status'] as bool,
+          message: json['message'] as String,
+          data: json['data'] == null
+              ? null
+              : EmployeeStoreEmployeeOrdersOutPost$Response$Data.fromJson(
+                  json['data'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$EmployeeStoreEmployeeOrdersOutPost$ResponseToJson(
+        EmployeeStoreEmployeeOrdersOutPost$Response instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data?.toJson(),
+    };
+
 EmployeeStoreEmployeeOrdersConfirmPost$Response
     _$EmployeeStoreEmployeeOrdersConfirmPost$ResponseFromJson(
             Map<String, dynamic> json) =>
@@ -233,6 +281,69 @@ EmployeeStoreDashboardHomeGet$Response
 
 Map<String, dynamic> _$EmployeeStoreDashboardHomeGet$ResponseToJson(
         EmployeeStoreDashboardHomeGet$Response instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data?.toJson(),
+    };
+
+EmployeeStoreOrdersGet$Response _$EmployeeStoreOrdersGet$ResponseFromJson(
+        Map<String, dynamic> json) =>
+    EmployeeStoreOrdersGet$Response(
+      status: json['status'] as bool,
+      message: json['message'] as String,
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => EmployeeStoreOrdersGet$Response$Data$Item.fromJson(
+              e as Map<String, dynamic>))
+          .toList(),
+      meta: EmployeeStoreOrdersGet$Response$Meta.fromJson(
+          json['meta'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$EmployeeStoreOrdersGet$ResponseToJson(
+        EmployeeStoreOrdersGet$Response instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data?.map((e) => e.toJson()).toList(),
+      'meta': instance.meta.toJson(),
+    };
+
+EmployeeStoreForecastGet$Response _$EmployeeStoreForecastGet$ResponseFromJson(
+        Map<String, dynamic> json) =>
+    EmployeeStoreForecastGet$Response(
+      status: json['status'] as bool,
+      message: json['message'] as String,
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => EmployeeStoreForecastGet$Response$Data$Item.fromJson(
+              e as Map<String, dynamic>))
+          .toList(),
+      meta: EmployeeStoreForecastGet$Response$Meta.fromJson(
+          json['meta'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$EmployeeStoreForecastGet$ResponseToJson(
+        EmployeeStoreForecastGet$Response instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data?.map((e) => e.toJson()).toList(),
+      'meta': instance.meta.toJson(),
+    };
+
+EmployeeStoreForecastPost$Response _$EmployeeStoreForecastPost$ResponseFromJson(
+        Map<String, dynamic> json) =>
+    EmployeeStoreForecastPost$Response(
+      status: json['status'] as bool,
+      message: json['message'] as String,
+      data: json['data'] == null
+          ? null
+          : EmployeeStoreForecastPost$Response$Data.fromJson(
+              json['data'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$EmployeeStoreForecastPost$ResponseToJson(
+        EmployeeStoreForecastPost$Response instance) =>
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
@@ -506,6 +617,42 @@ Map<String, dynamic>
               instance.employeeOrder?.map((e) => e.toJson()).toList(),
         };
 
+EmployeeStoreEmployeeOrdersOutPost$Response$Data
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$DataFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data(
+          id: json['_id'] as String,
+          type: json['type'] as String,
+          order:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order.fromJson(
+                  json['order'] as Map<String, dynamic>),
+          employee: EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee
+              .fromJson(json['employee'] as Map<String, dynamic>),
+          watercan: EmployeeStoreEmployeeOrdersOutPost$Response$Data$Watercan
+              .fromJson(json['watercan'] as Map<String, dynamic>),
+          store:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store.fromJson(
+                  json['store'] as Map<String, dynamic>),
+          forecast: EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast
+              .fromJson(json['forecast'] as Map<String, dynamic>),
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic> _$EmployeeStoreEmployeeOrdersOutPost$Response$DataToJson(
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'type': instance.type,
+      'order': instance.order.toJson(),
+      'employee': instance.employee.toJson(),
+      'watercan': instance.watercan.toJson(),
+      'store': instance.store.toJson(),
+      'forecast': instance.forecast.toJson(),
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
+
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data
     _$EmployeeStoreEmployeeOrdersConfirmPost$Response$DataFromJson(
             Map<String, dynamic> json) =>
@@ -561,6 +708,116 @@ Map<String, dynamic> _$EmployeeStoreDashboardHomeGet$Response$DataToJson(
       'todays_out': instance.todaysOut,
       'live_stock': instance.liveStock,
       'this_month': instance.thisMonth,
+    };
+
+EmployeeStoreOrdersGet$Response$Data$Item
+    _$EmployeeStoreOrdersGet$Response$Data$ItemFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreOrdersGet$Response$Data$Item(
+          id: json['_id'] as String?,
+          watercans: (json['watercans'] as num?)?.toDouble(),
+          date: json['date'] as String?,
+          status: json['status'] as String?,
+          store: json['store'] as String?,
+          forecast: json['forecast'] as String?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreOrdersGet$Response$Data$ItemToJson(
+        EmployeeStoreOrdersGet$Response$Data$Item instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'watercans': instance.watercans,
+      'date': instance.date,
+      'status': instance.status,
+      'store': instance.store,
+      'forecast': instance.forecast,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
+
+EmployeeStoreOrdersGet$Response$Meta
+    _$EmployeeStoreOrdersGet$Response$MetaFromJson(Map<String, dynamic> json) =>
+        EmployeeStoreOrdersGet$Response$Meta(
+          pages: (json['pages'] as num).toDouble(),
+          total: (json['total'] as num).toDouble(),
+          page: (json['page'] as num).toDouble(),
+          size: (json['size'] as num).toDouble(),
+        );
+
+Map<String, dynamic> _$EmployeeStoreOrdersGet$Response$MetaToJson(
+        EmployeeStoreOrdersGet$Response$Meta instance) =>
+    <String, dynamic>{
+      'pages': instance.pages,
+      'total': instance.total,
+      'page': instance.page,
+      'size': instance.size,
+    };
+
+EmployeeStoreForecastGet$Response$Data$Item
+    _$EmployeeStoreForecastGet$Response$Data$ItemFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreForecastGet$Response$Data$Item(
+          id: json['_id'] as String?,
+          watercans: (json['watercans'] as num?)?.toDouble(),
+          date: json['date'] as String?,
+          store: json['store'] as String?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreForecastGet$Response$Data$ItemToJson(
+        EmployeeStoreForecastGet$Response$Data$Item instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'watercans': instance.watercans,
+      'date': instance.date,
+      'store': instance.store,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
+
+EmployeeStoreForecastGet$Response$Meta
+    _$EmployeeStoreForecastGet$Response$MetaFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreForecastGet$Response$Meta(
+          pages: (json['pages'] as num).toDouble(),
+          total: (json['total'] as num).toDouble(),
+          page: (json['page'] as num).toDouble(),
+          size: (json['size'] as num).toDouble(),
+        );
+
+Map<String, dynamic> _$EmployeeStoreForecastGet$Response$MetaToJson(
+        EmployeeStoreForecastGet$Response$Meta instance) =>
+    <String, dynamic>{
+      'pages': instance.pages,
+      'total': instance.total,
+      'page': instance.page,
+      'size': instance.size,
+    };
+
+EmployeeStoreForecastPost$Response$Data
+    _$EmployeeStoreForecastPost$Response$DataFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreForecastPost$Response$Data(
+          id: json['_id'] as String?,
+          watercans: (json['watercans'] as num?)?.toDouble(),
+          date: json['date'] as String?,
+          store: json['store'] as String?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreForecastPost$Response$DataToJson(
+        EmployeeStoreForecastPost$Response$Data instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'watercans': instance.watercans,
+      'date': instance.date,
+      'store': instance.store,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
     };
 
 EmployeeStoreAuthLoginPost$Response$Data$Store
@@ -680,11 +937,11 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Watercan
     _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$WatercanFromJson(
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Watercan(
-          id: json['_id'] as String,
-          $id: (json['id'] as num).toDouble(),
-          qrUrl: json['qr_url'] as String,
-          status: json['status'] as String,
-          plant: json['plant'] as String,
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          qrUrl: json['qr_url'] as String?,
+          status: json['status'] as String?,
+          plant: json['plant'] as String?,
         );
 
 Map<String,
@@ -817,11 +1074,11 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Watercan
     _$EmployeeStoreEmployeeOrdersPost$Response$Data$WatercanFromJson(
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPost$Response$Data$Watercan(
-          id: json['_id'] as String,
-          $id: (json['id'] as num).toDouble(),
-          qrUrl: json['qr_url'] as String,
-          status: json['status'] as String,
-          plant: json['plant'] as String,
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          qrUrl: json['qr_url'] as String?,
+          status: json['status'] as String?,
+          plant: json['plant'] as String?,
         );
 
 Map<String, dynamic>
@@ -953,11 +1210,11 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Watercan
     _$EmployeeStoreEmployeeOrdersPut$Response$Data$WatercanFromJson(
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPut$Response$Data$Watercan(
-          id: json['_id'] as String,
-          $id: (json['id'] as num).toDouble(),
-          qrUrl: json['qr_url'] as String,
-          status: json['status'] as String,
-          plant: json['plant'] as String,
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          qrUrl: json['qr_url'] as String?,
+          status: json['status'] as String?,
+          plant: json['plant'] as String?,
         );
 
 Map<String, dynamic>
@@ -1089,11 +1346,11 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Watercan
     _$EmployeeStoreEmployeeOrdersDelete$Response$Data$WatercanFromJson(
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersDelete$Response$Data$Watercan(
-          id: json['_id'] as String,
-          $id: (json['id'] as num).toDouble(),
-          qrUrl: json['qr_url'] as String,
-          status: json['status'] as String,
-          plant: json['plant'] as String,
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          qrUrl: json['qr_url'] as String?,
+          status: json['status'] as String?,
+          plant: json['plant'] as String?,
         );
 
 Map<String,
@@ -1193,7 +1450,10 @@ EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$EmployeeOrder$Item
           type: json['type'] as String?,
           order: json['order'] as String?,
           employee: json['employee'] as String?,
-          watercan: json['watercan'] as String?,
+          watercan: json['watercan'] == null
+              ? null
+              : EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$EmployeeOrder$Item$Watercan
+                  .fromJson(json['watercan'] as Map<String, dynamic>),
           store: json['store'] as String?,
           forecast: json['forecast'] as String?,
           createdAt: json['createdAt'] as String?,
@@ -1209,12 +1469,149 @@ Map<String, dynamic>
           'type': instance.type,
           'order': instance.order,
           'employee': instance.employee,
-          'watercan': instance.watercan,
+          'watercan': instance.watercan?.toJson(),
           'store': instance.store,
           'forecast': instance.forecast,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$OrderFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order(
+          id: json['_id'] as String,
+          watercans: (json['watercans'] as num).toDouble(),
+          date: json['date'] as String,
+          status: json['status'] as String,
+          store: EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store
+              .fromJson(json['store'] as Map<String, dynamic>),
+          forecast:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast
+                  .fromJson(json['forecast'] as Map<String, dynamic>),
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$OrderToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'watercans': instance.watercans,
+          'date': instance.date,
+          'status': instance.status,
+          'store': instance.store.toJson(),
+          'forecast': instance.forecast.toJson(),
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$EmployeeFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee(
+          id: json['_id'] as String?,
+          $id: json['id'] as String?,
+          name: json['name'] as String?,
+          token: json['token'] as String?,
+          password: json['password'] as String?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+          store: json['store'] == null
+              ? null
+              : EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store
+                  .fromJson(json['store'] as Map<String, dynamic>),
+          status: json['status'] as String?,
+        );
+
+Map<String,
+    dynamic> _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$EmployeeToJson(
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'id': instance.$id,
+      'name': instance.name,
+      'token': instance.token,
+      'password': instance.password,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+      'store': instance.store?.toJson(),
+      'status': instance.status,
+    };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Watercan
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$WatercanFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Watercan(
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          qrUrl: json['qr_url'] as String?,
+          status: json['status'] as String?,
+          plant: json['plant'] as String?,
+        );
+
+Map<String,
+    dynamic> _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$WatercanToJson(
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Watercan instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'id': instance.$id,
+      'qr_url': instance.qrUrl,
+      'status': instance.status,
+      'plant': instance.plant,
+    };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$StoreFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          address: json['address'] as String,
+          coordinate:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$Coordinate
+                  .fromJson(json['coordinate'] as Map<String, dynamic>),
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$StoreToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'address': instance.address,
+          'coordinate': instance.coordinate.toJson(),
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$ForecastFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast(
+          id: json['_id'] as String,
+          watercans: (json['watercans'] as num).toDouble(),
+          date: json['date'] as String,
+          store: EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store
+              .fromJson(json['store'] as Map<String, dynamic>),
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String,
+    dynamic> _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$ForecastToJson(
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'watercans': instance.watercans,
+      'date': instance.date,
+      'store': instance.store.toJson(),
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
 
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order
     _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$OrderFromJson(
@@ -1286,11 +1683,11 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Watercan
     _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$WatercanFromJson(
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Watercan(
-          id: json['_id'] as String,
-          $id: (json['id'] as num).toDouble(),
-          qrUrl: json['qr_url'] as String,
-          status: json['status'] as String,
-          plant: json['plant'] as String,
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          qrUrl: json['qr_url'] as String?,
+          status: json['status'] as String?,
+          plant: json['plant'] as String?,
         );
 
 Map<String, dynamic>
@@ -1913,6 +2310,156 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$EmployeeOrder$Item$Watercan
+    _$EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$EmployeeOrder$Item$WatercanFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$EmployeeOrder$Item$Watercan(
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          qrUrl: json['qr_url'] as String?,
+          status: json['status'] as String?,
+          plant: json['plant'] as String?,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$EmployeeOrder$Item$WatercanToJson(
+            EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$EmployeeOrder$Item$Watercan
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'id': instance.$id,
+          'qr_url': instance.qrUrl,
+          'status': instance.status,
+          'plant': instance.plant,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$StoreFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          address: json['address'] as String,
+          coordinate:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate
+                  .fromJson(json['coordinate'] as Map<String, dynamic>),
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$StoreToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'address': instance.address,
+          'coordinate': instance.coordinate.toJson(),
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$ForecastFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast(
+          id: json['_id'] as String,
+          watercans: (json['watercans'] as num).toDouble(),
+          date: json['date'] as String,
+          store:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
+                  .fromJson(json['store'] as Map<String, dynamic>),
+          status: json['status'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$ForecastToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'watercans': instance.watercans,
+          'date': instance.date,
+          'store': instance.store.toJson(),
+          'status': instance.status,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$StoreFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          address: json['address'] as String,
+          coordinate:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate
+                  .fromJson(json['coordinate'] as Map<String, dynamic>),
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$StoreToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'address': instance.address,
+          'coordinate': instance.coordinate.toJson(),
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$Coordinate
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$CoordinateFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$Coordinate(
+          lat: (json['lat'] as num).toDouble(),
+          long: (json['long'] as num).toDouble(),
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$CoordinateToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$Coordinate
+                instance) =>
+        <String, dynamic>{
+          'lat': instance.lat,
+          'long': instance.long,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          address: json['address'] as String,
+          coordinate:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coordinate
+                  .fromJson(json['coordinate'] as Map<String, dynamic>),
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'address': instance.address,
+          'coordinate': instance.coordinate.toJson(),
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store
     _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$StoreFromJson(
             Map<String, dynamic> json) =>
@@ -2352,6 +2899,84 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CoordinateFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate(
+          lat: (json['lat'] as num).toDouble(),
+          long: (json['long'] as num).toDouble(),
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CoordinateToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate
+                instance) =>
+        <String, dynamic>{
+          'lat': instance.lat,
+          'long': instance.long,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$StoreFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          address: json['address'] as String,
+          coordinate:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate
+                  .fromJson(json['coordinate'] as Map<String, dynamic>),
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$StoreToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'address': instance.address,
+          'coordinate': instance.coordinate.toJson(),
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$CoordinateFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate(
+          lat: (json['lat'] as num).toDouble(),
+          long: (json['long'] as num).toDouble(),
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$CoordinateToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate
+                instance) =>
+        <String, dynamic>{
+          'lat': instance.lat,
+          'long': instance.long,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coordinate
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CoordinateFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coordinate(
+          lat: (json['lat'] as num).toDouble(),
+          long: (json['long'] as num).toDouble(),
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CoordinateToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coordinate
+                instance) =>
+        <String, dynamic>{
+          'lat': instance.lat,
+          'long': instance.long,
+        };
+
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -2492,6 +3117,23 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate
 Map<String, dynamic>
     _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$CoordinateToJson(
             EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate
+                instance) =>
+        <String, dynamic>{
+          'lat': instance.lat,
+          'long': instance.long,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CoordinateFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate(
+          lat: (json['lat'] as num).toDouble(),
+          long: (json['long'] as num).toDouble(),
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CoordinateToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate
                 instance) =>
         <String, dynamic>{
           'lat': instance.lat,
