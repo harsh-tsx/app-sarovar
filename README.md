@@ -67,3 +67,40 @@ Faq page
 rm -rf input*folder/*.json && rm -rf lib/swagger*generated_code/*.dart && dart run build_runner build --delete-conflicting-outputs
 
 inactive the future dates
+
+## 16th jan 2025
+
+Minutes of Meeting
+Date: 16th Jan 2025
+Deadline for Next Milestone: 25th Jan 2025
+
+Key Points Discussed:
+
+App:
+Implement scan-out option for store employees.
+Add outside scan, reasons with options, with an image upload feature.
+
+Admin:
+Enable forecast sheet upload functionality.
+Develop account management module.
+Add export to Excel and PDF for reports.
+
+Backend:
+Resolve slow API performance issues.
+Please review and share updates on your respective tasks. Let’s aim to complete everything by 25th Jan 2025.
+
+## 17th jan 2025
+
+Minutes of Meeting
+Date: 16th Jan 2025
+Deadline for Next Milestone: 25th Jan 2025
+
+Key Points Discussed:
+
+Plant, warehouse, store
+
+Plant - scan out
+
+## OPTIONAL - warehouse - scan in
+
+store - scan in

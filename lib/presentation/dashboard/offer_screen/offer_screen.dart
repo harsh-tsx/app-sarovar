@@ -59,62 +59,104 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
-                          width: Get.width * .45,
-                          height: 40.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
+                        InkWell(
+                          onTap: () {
+                            controller.handleCurrentTabChange("IN");
+                          },
+                          child: Container(
+                            width: Get.width * .45,
+                            height: 40.h,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: controller.currentTab.value == "IN"
+                                  ? appTheme.pageBg
+                                  : Colors.black,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                              ),
+                              border: Border(
+                                top: BorderSide(
+                                  color: Colors.black,
+                                ),
+                                right: BorderSide(
+                                  color: Colors.black,
+                                ),
+                                left: BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Today’s In: ",
-                                style: TextStyle(
-                                  color: appTheme.primaryYellow,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "IN",
+                                  style: TextStyle(
+                                    color: controller.currentTab.value == "IN"
+                                        ? Colors.black
+                                        : appTheme.primaryYellow,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "${(homeControllr.homeDashboard?.value?.todaysIn ?? 0.0)?.toInt()}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
+                                // Text(
+                                //   "${(homeControllr.homeDashboard?.value?.todaysIn ?? 0.0)?.toInt()}",
+                                //   style: TextStyle(
+                                //     color: controller.currentTab.value == "IN"
+                                //         ? Colors.white
+                                //         : Colors.black,
+                                //   ),
+                                // ),
+                              ],
+                            ),
                           ),
                         ),
-                        Container(
-                          width: Get.width * .45,
-                          height: 40.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
+                        InkWell(
+                          onTap: () {
+                            controller.handleCurrentTabChange("OUT");
+                          },
+                          child: Container(
+                            width: Get.width * .45,
+                            height: 40.h,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: controller.currentTab.value == "OUT"
+                                  ? appTheme.pageBg
+                                  : Colors.black,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                              ),
+                              border: Border(
+                                top: BorderSide(
+                                  color: Colors.black,
+                                ),
+                                right: BorderSide(
+                                  color: Colors.black,
+                                ),
+                                left: BorderSide(
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Today’s Out: ",
-                                style: TextStyle(
-                                  color: appTheme.primaryYellow,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "OUT",
+                                  style: TextStyle(
+                                    color: controller.currentTab.value == "OUT"
+                                        ? Colors.black
+                                        : appTheme.primaryYellow,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "${(homeControllr.homeDashboard?.value?.todaysOut ?? 0.0)?.toInt()}",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
+                                // Text(
+                                //   "${(homeControllr.homeDashboard?.value?.todaysOut ?? 0.0)?.toInt()}",
+                                //   style: TextStyle(
+                                //     color: Colors.white,
+                                //   ),
+                                // ),
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -122,16 +164,27 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   ],
                 ),
               ),
-              Container(
-                height: Get.height * .69,
-                decoration: BoxDecoration(color: Color(0xffE4DABA)),
-                child: ListView.builder(
-                  itemCount: controller.historyList.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) =>
-                      _buildHistoryRow(controller.historyList[index]),
-                ),
-              )
+              controller.currentTab.value == "IN"
+                  ? Container(
+                      height: Get.height * .69,
+                      decoration: BoxDecoration(color: Color(0xffE4DABA)),
+                      child: ListView.builder(
+                        itemCount: controller.inHistoryList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) =>
+                            _buildHistoryRow(controller.inHistoryList[index]),
+                      ),
+                    )
+                  : Container(
+                      height: Get.height * .69,
+                      decoration: BoxDecoration(color: Color(0xffE4DABA)),
+                      child: ListView.builder(
+                        itemCount: controller.outHistoryList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) =>
+                            _buildHistoryRow(controller.outHistoryList[index]),
+                      ),
+                    )
             ],
           );
         }),
@@ -157,7 +210,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               Text(
                 "${formatted}",
                 style: GoogleFonts.comfortaa(
-                    fontSize: 10.fSize, fontWeight: FontWeight.w700),
+                    fontSize: 14.fSize, fontWeight: FontWeight.w900),
               ),
             ],
           ),

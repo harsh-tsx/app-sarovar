@@ -76,6 +76,21 @@ Map<String, dynamic> _$EmployeeStoreEmployeeOrdersOutPost$RequestBodyToJson(
       'watercans': instance.watercans,
     };
 
+EmployeeStoreEmployeeOrdersConfirmPost$RequestBody
+    _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPost$RequestBody(
+          remark: json['remark'] as String?,
+          scannedOutside: json['scanned_outside'] as bool?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyToJson(
+        EmployeeStoreEmployeeOrdersConfirmPost$RequestBody instance) =>
+    <String, dynamic>{
+      'remark': instance.remark,
+      'scanned_outside': instance.scannedOutside,
+    };
+
 EmployeeStoreForecastPost$RequestBody
     _$EmployeeStoreForecastPost$RequestBodyFromJson(
             Map<String, dynamic> json) =>
@@ -825,10 +840,12 @@ EmployeeStoreAuthLoginPost$Response$Data$Store
             Map<String, dynamic> json) =>
         EmployeeStoreAuthLoginPost$Response$Data$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate: EmployeeStoreAuthLoginPost$Response$Data$Store$Coordinate
               .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -837,9 +854,11 @@ Map<String, dynamic> _$EmployeeStoreAuthLoginPost$Response$Data$StoreToJson(
         EmployeeStoreAuthLoginPost$Response$Data$Store instance) =>
     <String, dynamic>{
       '_id': instance.id,
+      'id': instance.$id,
       'name': instance.name,
       'address': instance.address,
       'coordinate': instance.coordinate.toJson(),
+      'code': instance.code,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -849,11 +868,13 @@ EmployeeStoreAuthMeGet$Response$Data$Store
             Map<String, dynamic> json) =>
         EmployeeStoreAuthMeGet$Response$Data$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreAuthMeGet$Response$Data$Store$Coordinate.fromJson(
                   json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -862,9 +883,11 @@ Map<String, dynamic> _$EmployeeStoreAuthMeGet$Response$Data$StoreToJson(
         EmployeeStoreAuthMeGet$Response$Data$Store instance) =>
     <String, dynamic>{
       '_id': instance.id,
+      'id': instance.$id,
       'name': instance.name,
       'address': instance.address,
       'coordinate': instance.coordinate.toJson(),
+      'code': instance.code,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -960,11 +983,13 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -974,9 +999,11 @@ Map<String, dynamic>
             EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1097,11 +1124,13 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPost$Response$Data$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPost$Response$Data$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1111,9 +1140,11 @@ Map<String, dynamic>
             EmployeeStoreEmployeeOrdersPost$Response$Data$Store instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1233,11 +1264,13 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPut$Response$Data$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPut$Response$Data$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1246,9 +1279,11 @@ Map<String, dynamic> _$EmployeeStoreEmployeeOrdersPut$Response$Data$StoreToJson(
         EmployeeStoreEmployeeOrdersPut$Response$Data$Store instance) =>
     <String, dynamic>{
       '_id': instance.id,
+      'id': instance.$id,
       'name': instance.name,
       'address': instance.address,
       'coordinate': instance.coordinate.toJson(),
+      'code': instance.code,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -1369,11 +1404,13 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersDelete$Response$Data$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersDelete$Response$Data$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1383,9 +1420,11 @@ Map<String, dynamic>
             EmployeeStoreEmployeeOrdersDelete$Response$Data$Store instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1420,11 +1459,13 @@ EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1435,9 +1476,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1567,11 +1610,13 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1581,9 +1626,11 @@ Map<String, dynamic>
             EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1707,11 +1754,13 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1721,9 +1770,11 @@ Map<String,
         EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store instance) =>
     <String, dynamic>{
       '_id': instance.id,
+      'id': instance.$id,
       'name': instance.name,
       'address': instance.address,
       'coordinate': instance.coordinate.toJson(),
+      'code': instance.code,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -1792,11 +1843,13 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1807,9 +1860,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1848,11 +1903,13 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1863,9 +1920,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1892,11 +1951,13 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1907,9 +1968,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1919,11 +1982,13 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1933,9 +1998,11 @@ Map<String,
         EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store instance) =>
     <String, dynamic>{
       '_id': instance.id,
+      'id': instance.$id,
       'name': instance.name,
       'address': instance.address,
       'coordinate': instance.coordinate.toJson(),
+      'code': instance.code,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -1974,11 +2041,13 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1989,9 +2058,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2018,11 +2089,13 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2033,9 +2106,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2045,11 +2120,13 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2059,9 +2136,11 @@ Map<String,
         EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store instance) =>
     <String, dynamic>{
       '_id': instance.id,
+      'id': instance.$id,
       'name': instance.name,
       'address': instance.address,
       'coordinate': instance.coordinate.toJson(),
+      'code': instance.code,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -2100,11 +2179,13 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2115,9 +2196,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2144,11 +2227,13 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2159,9 +2244,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2171,11 +2258,13 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2186,9 +2275,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2227,11 +2318,13 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2242,9 +2335,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2271,11 +2366,13 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2286,9 +2383,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2338,11 +2437,13 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2353,9 +2454,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2394,11 +2497,13 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2409,9 +2514,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2438,11 +2545,13 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2453,9 +2562,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2465,11 +2576,13 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2480,9 +2593,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2521,11 +2636,13 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2536,9 +2653,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2565,11 +2684,13 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2580,9 +2701,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2609,11 +2732,13 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2624,9 +2749,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2687,11 +2814,13 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2702,9 +2831,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2765,11 +2896,13 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2780,9 +2913,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2843,11 +2978,13 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2858,9 +2995,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2921,11 +3060,13 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2936,9 +3077,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2999,11 +3142,13 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store(
           id: json['_id'] as String,
+          $id: (json['id'] as num?)?.toDouble(),
           name: json['name'] as String,
           address: json['address'] as String,
           coordinate:
               EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate
                   .fromJson(json['coordinate'] as Map<String, dynamic>),
+          code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -3014,9 +3159,11 @@ Map<String, dynamic>
                 instance) =>
         <String, dynamic>{
           '_id': instance.id,
+          'id': instance.$id,
           'name': instance.name,
           'address': instance.address,
           'coordinate': instance.coordinate.toJson(),
+          'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };

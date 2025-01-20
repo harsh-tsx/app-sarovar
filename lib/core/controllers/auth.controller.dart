@@ -1,9 +1,6 @@
 import 'dart:async';
 
-import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/core/app_export.dart';
-import 'package:app_1point2_store/core/utils/api_client.dart';
-import 'package:app_1point2_store/core/utils/geo.dart';
 import 'package:app_1point2_store/data/apiClient/api_client.dart';
 import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 import 'package:geolocator/geolocator.dart';
@@ -89,9 +86,8 @@ class AuthController extends GetxController {
       accuracy: LocationAccuracy.best,
       distanceFilter: 0,
     );
-    StreamSubscription<Position> _positionStream =
-        Geolocator.getPositionStream(locationSettings: locationSettings)
-            .listen((Position? position) async {
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position? position) async {
       print(position == null
           ? 'Unknown'
           : 'Current - ${position.latitude.toString()}, ${position.longitude.toString()} Store - ${user.value.store?.coordinate.lat} ${user.value.store?.coordinate.long}');

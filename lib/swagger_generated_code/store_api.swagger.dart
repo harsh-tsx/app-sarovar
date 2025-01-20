@@ -251,13 +251,14 @@ abstract class StoreApi extends ChopperService {
       employeeStoreEmployeeOrdersConfirmPost({
     String? authorization,
     required String? order,
+    required EmployeeStoreEmployeeOrdersConfirmPost$RequestBody? body,
   }) {
     generatedMapping.putIfAbsent(
         EmployeeStoreEmployeeOrdersConfirmPost$Response,
         () => EmployeeStoreEmployeeOrdersConfirmPost$Response.fromJsonFactory);
 
     return _employeeStoreEmployeeOrdersConfirmPost(
-        authorization: authorization?.toString(), order: order);
+        authorization: authorization?.toString(), order: order, body: body);
   }
 
   ///
@@ -271,6 +272,7 @@ abstract class StoreApi extends ChopperService {
       _employeeStoreEmployeeOrdersConfirmPost({
     @Header('authorization') String? authorization,
     @Query('order') required String? order,
+    @Body() required EmployeeStoreEmployeeOrdersConfirmPost$RequestBody? body,
   });
 
   ///
@@ -685,6 +687,69 @@ extension $EmployeeStoreEmployeeOrdersOutPost$RequestBodyExtension
       {Wrapped<double>? watercans}) {
     return EmployeeStoreEmployeeOrdersOutPost$RequestBody(
         watercans: (watercans != null ? watercans.value : this.watercans));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPost$RequestBody {
+  const EmployeeStoreEmployeeOrdersConfirmPost$RequestBody({
+    this.remark,
+    this.scannedOutside,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPost$RequestBody.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyToJson(this);
+
+  @JsonKey(name: 'remark')
+  final String? remark;
+  @JsonKey(name: 'scanned_outside')
+  final bool? scannedOutside;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPost$RequestBody &&
+            (identical(other.remark, remark) ||
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.scannedOutside, scannedOutside) ||
+                const DeepCollectionEquality()
+                    .equals(other.scannedOutside, scannedOutside)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(scannedOutside) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyExtension
+    on EmployeeStoreEmployeeOrdersConfirmPost$RequestBody {
+  EmployeeStoreEmployeeOrdersConfirmPost$RequestBody copyWith(
+      {String? remark, bool? scannedOutside}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$RequestBody(
+        remark: remark ?? this.remark,
+        scannedOutside: scannedOutside ?? this.scannedOutside);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPost$RequestBody copyWithWrapped(
+      {Wrapped<String?>? remark, Wrapped<bool?>? scannedOutside}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$RequestBody(
+        remark: (remark != null ? remark.value : this.remark),
+        scannedOutside: (scannedOutside != null
+            ? scannedOutside.value
+            : this.scannedOutside));
   }
 }
 
@@ -3618,9 +3683,11 @@ extension $EmployeeStoreForecastPost$Response$DataExtension
 class EmployeeStoreAuthLoginPost$Response$Data$Store {
   const EmployeeStoreAuthLoginPost$Response$Data$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -3636,12 +3703,16 @@ class EmployeeStoreAuthLoginPost$Response$Data$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
   final String address;
   @JsonKey(name: 'coordinate')
   final EmployeeStoreAuthLoginPost$Response$Data$Store$Coordinate coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -3655,6 +3726,8 @@ class EmployeeStoreAuthLoginPost$Response$Data$Store {
         (other is EmployeeStoreAuthLoginPost$Response$Data$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -3663,6 +3736,8 @@ class EmployeeStoreAuthLoginPost$Response$Data$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -3677,9 +3752,11 @@ class EmployeeStoreAuthLoginPost$Response$Data$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -3689,33 +3766,41 @@ extension $EmployeeStoreAuthLoginPost$Response$Data$StoreExtension
     on EmployeeStoreAuthLoginPost$Response$Data$Store {
   EmployeeStoreAuthLoginPost$Response$Data$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreAuthLoginPost$Response$Data$Store$Coordinate? coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreAuthLoginPost$Response$Data$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreAuthLoginPost$Response$Data$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreAuthLoginPost$Response$Data$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreAuthLoginPost$Response$Data$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -3725,9 +3810,11 @@ extension $EmployeeStoreAuthLoginPost$Response$Data$StoreExtension
 class EmployeeStoreAuthMeGet$Response$Data$Store {
   const EmployeeStoreAuthMeGet$Response$Data$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -3743,12 +3830,16 @@ class EmployeeStoreAuthMeGet$Response$Data$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
   final String address;
   @JsonKey(name: 'coordinate')
   final EmployeeStoreAuthMeGet$Response$Data$Store$Coordinate coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -3762,6 +3853,8 @@ class EmployeeStoreAuthMeGet$Response$Data$Store {
         (other is EmployeeStoreAuthMeGet$Response$Data$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -3770,6 +3863,8 @@ class EmployeeStoreAuthMeGet$Response$Data$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -3784,9 +3879,11 @@ class EmployeeStoreAuthMeGet$Response$Data$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -3796,33 +3893,41 @@ extension $EmployeeStoreAuthMeGet$Response$Data$StoreExtension
     on EmployeeStoreAuthMeGet$Response$Data$Store {
   EmployeeStoreAuthMeGet$Response$Data$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreAuthMeGet$Response$Data$Store$Coordinate? coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreAuthMeGet$Response$Data$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreAuthMeGet$Response$Data$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreAuthMeGet$Response$Data$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreAuthMeGet$Response$Data$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -4188,9 +4293,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$WatercanExtension
 class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store {
   const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -4206,6 +4313,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -4213,6 +4322,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -4226,6 +4337,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store {
         (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -4234,6 +4347,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -4248,9 +4363,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -4260,34 +4377,42 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$StoreExtension
     on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store {
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -4755,9 +4880,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$WatercanExtension
 class EmployeeStoreEmployeeOrdersPost$Response$Data$Store {
   const EmployeeStoreEmployeeOrdersPost$Response$Data$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -4773,6 +4900,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -4780,6 +4909,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPost$Response$Data$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -4793,6 +4924,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Store {
         (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -4801,6 +4934,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -4815,9 +4950,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -4827,34 +4964,42 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$StoreExtension
     on EmployeeStoreEmployeeOrdersPost$Response$Data$Store {
   EmployeeStoreEmployeeOrdersPost$Response$Data$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPost$Response$Data$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPost$Response$Data$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -5321,9 +5466,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$WatercanExtension
 class EmployeeStoreEmployeeOrdersPut$Response$Data$Store {
   const EmployeeStoreEmployeeOrdersPut$Response$Data$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -5339,6 +5486,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -5346,6 +5495,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPut$Response$Data$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -5359,6 +5510,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Store {
         (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -5367,6 +5520,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -5381,9 +5536,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -5393,33 +5550,41 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$StoreExtension
     on EmployeeStoreEmployeeOrdersPut$Response$Data$Store {
   EmployeeStoreEmployeeOrdersPut$Response$Data$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPut$Response$Data$Store$Coordinate? coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPut$Response$Data$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -5887,9 +6052,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$WatercanExtension
 class EmployeeStoreEmployeeOrdersDelete$Response$Data$Store {
   const EmployeeStoreEmployeeOrdersDelete$Response$Data$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -5905,6 +6072,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -5912,6 +6081,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersDelete$Response$Data$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -5925,6 +6096,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Store {
         (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -5933,6 +6106,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -5947,9 +6122,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -5959,34 +6136,42 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$StoreExtension
     on EmployeeStoreEmployeeOrdersDelete$Response$Data$Store {
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersDelete$Response$Data$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -6102,9 +6287,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$ForecastExtension
 class EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store {
   const EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -6122,6 +6309,8 @@ class EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -6129,6 +6318,8 @@ class EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -6142,6 +6333,8 @@ class EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store {
         (other is EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -6150,6 +6343,8 @@ class EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -6164,9 +6359,11 @@ class EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -6176,34 +6373,42 @@ extension $EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$StoreExtensio
     on EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store {
   EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -6710,9 +6915,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$WatercanExtension
 class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store {
   const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -6728,6 +6935,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -6735,6 +6944,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -6748,6 +6959,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store {
         (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -6756,6 +6969,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -6770,9 +6985,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -6782,34 +6999,42 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$StoreExtension
     on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store {
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -7286,9 +7511,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$WatercanExtensio
 class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store {
   const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -7305,6 +7532,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -7312,6 +7541,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -7325,6 +7556,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store {
         (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -7333,6 +7566,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -7347,9 +7582,11 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -7359,34 +7596,42 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$StoreExtension
     on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store {
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -7624,9 +7869,11 @@ extension $EmployeeStoreAuthMeGet$Response$Data$Store$CoordinateExtension
 class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
   const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -7644,6 +7891,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -7651,6 +7900,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -7664,6 +7915,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
         (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -7672,6 +7925,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -7686,9 +7941,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -7698,34 +7955,42 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$StoreExtensio
     on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -7855,9 +8120,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$ForecastExten
 class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store {
   const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -7875,6 +8142,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -7882,6 +8151,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -7895,6 +8166,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store {
         (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -7903,6 +8176,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -7917,9 +8192,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -7929,34 +8206,42 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$StoreExten
     on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store {
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -8027,9 +8312,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Store$CoordinateExt
 class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
   const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -8047,6 +8334,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -8054,6 +8343,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -8067,6 +8358,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -8075,6 +8368,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -8089,9 +8384,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -8101,34 +8398,42 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$StoreExten
     on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -8138,9 +8443,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$StoreExten
 class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
   const EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -8156,6 +8463,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -8163,6 +8472,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -8176,6 +8487,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
         (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -8184,6 +8497,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -8198,9 +8513,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -8210,34 +8527,42 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$StoreExtension
     on EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
   EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -8366,9 +8691,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$ForecastExtension
 class EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store {
   const EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -8386,6 +8713,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -8393,6 +8722,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -8406,6 +8737,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store {
         (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -8414,6 +8747,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -8428,9 +8763,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -8440,34 +8777,42 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$StoreExtension
     on EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store {
   EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -8538,9 +8883,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Store$CoordinateExtensi
 class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
   const EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -8558,6 +8905,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -8565,6 +8914,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -8578,6 +8929,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -8586,6 +8939,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -8600,9 +8955,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -8612,34 +8969,42 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$StoreExtension
     on EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
   EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -8649,9 +9014,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$StoreExtension
 class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
   const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -8667,6 +9034,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -8674,6 +9043,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -8687,6 +9058,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
         (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -8695,6 +9068,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -8709,9 +9084,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -8721,34 +9098,42 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$StoreExtension
     on EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
   EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -8875,9 +9260,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$ForecastExtension
 class EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store {
   const EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -8894,6 +9281,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -8901,6 +9290,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -8914,6 +9305,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store {
         (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -8922,6 +9315,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -8936,9 +9331,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -8948,34 +9345,42 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$StoreExtension
     on EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store {
   EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -9046,9 +9451,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Store$CoordinateExtensio
 class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
   const EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -9065,6 +9472,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -9072,6 +9481,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -9085,6 +9496,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -9093,6 +9506,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -9107,9 +9522,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -9119,34 +9536,42 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$StoreExtension
     on EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
   EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -9156,9 +9581,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$StoreExtension
 class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
   const EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -9175,6 +9602,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -9182,6 +9611,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -9195,6 +9626,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
         (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -9203,6 +9636,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -9217,9 +9652,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -9229,34 +9666,42 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$StoreExtension
     on EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -9386,9 +9831,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$ForecastExtensi
 class EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store {
   const EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -9406,6 +9853,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -9413,6 +9862,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -9426,6 +9877,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store {
         (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -9434,6 +9887,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -9448,9 +9903,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -9460,34 +9917,42 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$StoreExtensi
     on EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store {
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -9558,9 +10023,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Store$CoordinateExten
 class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
   const EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -9578,6 +10045,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -9585,6 +10054,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -9598,6 +10069,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -9606,6 +10079,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -9620,9 +10095,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -9632,34 +10109,42 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$StoreExtensi
     on EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -9826,9 +10311,11 @@ extension $EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$EmployeeOrder
 class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
   const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -9846,6 +10333,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -9853,6 +10342,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -9866,6 +10357,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
         (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -9874,6 +10367,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -9888,9 +10383,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -9900,34 +10397,42 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$StoreExtension
     on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -10057,9 +10562,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$ForecastExtens
 class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store {
   const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -10077,6 +10584,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -10084,6 +10593,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -10097,6 +10608,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store {
         (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -10105,6 +10618,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -10119,9 +10634,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -10131,34 +10648,42 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$StoreExtens
     on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store {
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -10229,9 +10754,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Store$CoordinateExte
 class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
   const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -10249,6 +10776,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -10256,6 +10785,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -10269,6 +10800,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -10277,6 +10810,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -10291,9 +10826,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -10303,34 +10840,42 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreExtens
     on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -10340,9 +10885,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreExtens
 class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
   const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -10360,6 +10907,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -10367,6 +10916,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -10380,6 +10931,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
         (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -10388,6 +10941,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -10402,9 +10957,11 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -10414,34 +10971,42 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$StoreExten
     on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -10572,9 +11137,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$ForecastEx
 class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store {
   const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -10592,6 +11159,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -10599,6 +11168,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -10612,6 +11183,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store {
         (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -10620,6 +11193,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -10634,9 +11209,11 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -10646,17 +11223,21 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$StoreEx
     on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store {
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -10664,17 +11245,21 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$StoreEx
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store
       copyWithWrapped(
           {Wrapped<String>? id,
+          Wrapped<double?>? $id,
           Wrapped<String>? name,
           Wrapped<String>? address,
           Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store$Coordinate>?
               coordinate,
+          Wrapped<String?>? code,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -10745,9 +11330,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Store$Coordinate
 class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
   const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -10765,6 +11352,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -10772,6 +11361,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -10785,6 +11376,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -10793,6 +11386,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -10807,9 +11402,11 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -10819,17 +11416,21 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$StoreEx
     on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -10837,17 +11438,21 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$StoreEx
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store
       copyWithWrapped(
           {Wrapped<String>? id,
+          Wrapped<double?>? $id,
           Wrapped<String>? name,
           Wrapped<String>? address,
           Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Coordinate>?
               coordinate,
+          Wrapped<String?>? code,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -10918,9 +11523,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Coordin
 class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -10938,6 +11545,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -10945,6 +11554,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -10958,6 +11569,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -10966,6 +11579,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -10980,9 +11595,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -10992,17 +11609,21 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Stor
     on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -11010,17 +11631,21 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Stor
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store
       copyWithWrapped(
           {Wrapped<String>? id,
+          Wrapped<double?>? $id,
           Wrapped<String>? name,
           Wrapped<String>? address,
           Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate>?
               coordinate,
+          Wrapped<String?>? code,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -11213,9 +11838,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CoordinateE
 class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -11233,6 +11860,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -11240,6 +11869,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -11253,6 +11884,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -11261,6 +11894,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -11275,9 +11910,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -11287,17 +11924,21 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$StoreExt
     on EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
   EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -11305,17 +11946,21 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$StoreExt
   EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store
       copyWithWrapped(
           {Wrapped<String>? id,
+          Wrapped<double?>? $id,
           Wrapped<String>? name,
           Wrapped<String>? address,
           Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Coordinate>?
               coordinate,
+          Wrapped<String?>? code,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -11508,9 +12153,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CoordinateEx
 class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -11528,6 +12175,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -11535,6 +12184,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -11548,6 +12199,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -11556,6 +12209,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -11570,9 +12225,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -11582,34 +12239,42 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$StoreExte
     on EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
   EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
 
   EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store copyWithWrapped(
       {Wrapped<String>? id,
+      Wrapped<double?>? $id,
       Wrapped<String>? name,
       Wrapped<String>? address,
       Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coordinate>?
           coordinate,
+      Wrapped<String?>? code,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -11802,9 +12467,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinat
 class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -11822,6 +12489,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -11829,6 +12498,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -11842,6 +12513,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -11850,6 +12523,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -11864,9 +12539,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -11876,17 +12553,21 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$StoreE
     on EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -11894,17 +12575,21 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$StoreE
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store
       copyWithWrapped(
           {Wrapped<String>? id,
+          Wrapped<double?>? $id,
           Wrapped<String>? name,
           Wrapped<String>? address,
           Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate>?
               coordinate,
+          Wrapped<String?>? code,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -12097,9 +12782,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordina
 class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -12117,6 +12804,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -12124,6 +12813,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -12137,6 +12828,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
         (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -12145,6 +12838,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -12159,9 +12854,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -12171,17 +12868,21 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
     on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store copyWith(
       {String? id,
+      double? $id,
       String? name,
       String? address,
       EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate?
           coordinate,
+      String? code,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -12189,17 +12890,21 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
       copyWithWrapped(
           {Wrapped<String>? id,
+          Wrapped<double?>? $id,
           Wrapped<String>? name,
           Wrapped<String>? address,
           Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate>?
               coordinate,
+          Wrapped<String?>? code,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -12392,9 +13097,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coor
 class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store({
     required this.id,
+    this.$id,
     required this.name,
     required this.address,
     required this.coordinate,
+    this.code,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -12412,6 +13119,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
 
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'id')
+  final double? $id;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'address')
@@ -12419,6 +13128,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
   @JsonKey(name: 'coordinate')
   final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate
       coordinate;
+  @JsonKey(name: 'code')
+  final String? code;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -12432,6 +13143,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
         (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.address, address) ||
@@ -12440,6 +13153,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
             (identical(other.coordinate, coordinate) ||
                 const DeepCollectionEquality()
                     .equals(other.coordinate, coordinate)) &&
+            (identical(other.code, code) ||
+                const DeepCollectionEquality().equals(other.code, code)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -12454,9 +13169,11 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(address) ^
       const DeepCollectionEquality().hash(coordinate) ^
+      const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -12467,17 +13184,21 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$S
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store
       copyWith(
           {String? id,
+          double? $id,
           String? name,
           String? address,
           EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate?
               coordinate,
+          String? code,
           String? createdAt,
           String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
+        $id: $id ?? this.$id,
         name: name ?? this.name,
         address: address ?? this.address,
         coordinate: coordinate ?? this.coordinate,
+        code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -12485,17 +13206,21 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$S
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store
       copyWithWrapped(
           {Wrapped<String>? id,
+          Wrapped<double?>? $id,
           Wrapped<String>? name,
           Wrapped<String>? address,
           Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate>?
               coordinate,
+          Wrapped<String?>? code,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
         name: (name != null ? name.value : this.name),
         address: (address != null ? address.value : this.address),
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
+        code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }

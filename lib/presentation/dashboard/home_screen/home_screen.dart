@@ -78,11 +78,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           SizedBox(height: 12.h),
+          CustomImageView(
+            imagePath: ImageConstant.appLogo,
+            width: 60.w,
+          ),
+          SizedBox(height: 5.h),
           Obx(
             () => Text(
               "${controller.user?.value?.name}",
               style: GoogleFonts.comfortaa(
-                  fontSize: 24.fSize, fontWeight: FontWeight.w700),
+                  fontSize: 18.fSize, fontWeight: FontWeight.w700),
             ),
           ),
           const Spacer(),
@@ -92,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 _buildField(
                   title: "Store Number",
-                  value: "${controller?.user?.value?.store?.name}",
+                  value:
+                      "${controller?.user?.value?.store?.code ?? controller?.user?.value?.store?.name}",
                 ),
                 _buildField(
                   title: "Code",

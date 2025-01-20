@@ -2,9 +2,7 @@ import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/core/utils/types.dart';
 import 'package:app_1point2_store/presentation/dashboard/can_out_screen/can_out_screen.controller.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CanOutScreen extends StatefulWidget {

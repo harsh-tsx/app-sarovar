@@ -1,4 +1,4 @@
-export 'package:connectivity_plus/connectivity_plus.dart';
+// export 'package:connectivity_plus/connectivity_plus.dart';
 export 'package:app_1point2_store/core/errors/exceptions.dart';
 export 'package:app_1point2_store/core/network/network_info.dart';
 export 'package:app_1point2_store/core/utils/image_constant.dart';
@@ -16,4 +16,3 @@ export 'package:app_1point2_store/widgets/custom_image_view.dart';
 export 'package:get/get.dart';
 export '../theme/custom_button_style.dart';
 export 'package:app_1point2_store/core/utils/date_time_utils.dart';
-import 'utils/types.dart';

@@ -33,7 +33,7 @@ class Dashboard extends GetWidget<DashboardController> {
               // controller.handlBottomNavChange(2);
               if (controller.outSide.value) {
                 Toast.error("Your're outside of the Store!");
-                return;
+                // return;
               }
               Get.toNamed(AppRoutes.addOrderScreen);
             },

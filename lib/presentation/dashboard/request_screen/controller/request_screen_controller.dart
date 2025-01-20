@@ -49,6 +49,7 @@ class RequestScreenController extends AuthController {
     }
 
     Toast.success(request.body?.message);
+    waterCan.clear();
     getForecastList(0, 10, selectedDate.toString());
   }
 

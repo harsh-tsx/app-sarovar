@@ -1,11 +1,8 @@
 import 'package:device_preview/device_preview.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_storage/get_storage.dart';
-import 'firebase_options.dart';
 
 import 'core/app_export.dart';
 
@@ -18,16 +15,9 @@ void main() {
     // Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
     // runApp(MyApp());
 
-    Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    ).then(
-      (value) {
-        runApp(DevicePreview(
-            enabled: !kReleaseMode,
-            builder: (context) => MyApp() // Wrap your app
-            ));
-      },
-    );
+    runApp(DevicePreview(
+        enabled: !kReleaseMode, builder: (context) => MyApp() // Wrap your app
+        ));
   });
 }
 

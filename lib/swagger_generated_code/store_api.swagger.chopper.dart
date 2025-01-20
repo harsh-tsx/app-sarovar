@@ -195,16 +195,19 @@ final class _$StoreApi extends StoreApi {
       _employeeStoreEmployeeOrdersConfirmPost({
     String? authorization,
     required String? order,
+    required EmployeeStoreEmployeeOrdersConfirmPost$RequestBody? body,
   }) {
     final Uri $url = Uri.parse('/employee-store/employee-orders/confirm');
     final Map<String, dynamic> $params = <String, dynamic>{'order': order};
     final Map<String, String> $headers = {
       if (authorization != null) 'authorization': authorization,
     };
+    final $body = body;
     final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
+      body: $body,
       parameters: $params,
       headers: $headers,
     );

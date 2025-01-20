@@ -2,12 +2,12 @@ import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.dart';
 import 'package:app_1point2_store/presentation/dashboard/can_out_screen/can_out_screen.dart';
+import 'package:app_1point2_store/presentation/dashboard/complain_screen/complain_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/home_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/offer_screen/offer_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/qr_scanner_screen/qr_scanner_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/request_screen/request_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 /// A controller class for the HomeScreen.
 ///
@@ -49,7 +49,7 @@ List<Widget> bottomNavWidgetList = [
   OfferScreen(),
   AddOrderScreen(),
   RequestScreen(),
-  CanOutScreen(),
+  ComplaintScreen(),
 ];
 
 class DashboardController extends AuthController {
@@ -109,8 +109,6 @@ class DashboardController extends AuthController {
   GlobalKey keyBottomNavigation1 = GlobalKey();
   GlobalKey keyBottomNavigation2 = GlobalKey();
   GlobalKey keyBottomNavigation3 = GlobalKey();
-
-  late TutorialCoachMark tutorialCoachMark;
 
   @override
   void onClose() {

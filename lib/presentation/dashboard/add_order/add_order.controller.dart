@@ -6,6 +6,7 @@ import 'package:app_1point2_store/data/apiClient/api_client.dart';
 import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.model.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/controller/home_controller.dart';
 import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
@@ -16,6 +17,7 @@ class AddOrderController extends AuthController {
       EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data().obs;
   var homeController = isControllerRegistered<HomeController>(HomeController());
   var loading = true.obs;
+  var remark = TextEditingController();
   @override
   void onInit() {
     // TODO: implement onInit
@@ -34,7 +36,7 @@ class AddOrderController extends AuthController {
       activeOrder.value = request.body?.data ??
           EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data();
 
-      canCount.value = (activeOrder.value?.employeeOrder ?? []).length;
+      canCount.value = (activeOrder.value.employeeOrder ?? []).length;
 
       if (canCount.value >= 5) {
         crossAxisCount.value = 5;
@@ -100,8 +102,10 @@ class AddOrderController extends AuthController {
 
   confirmOrder(id) async {
     Toast.loading("submitting....");
-    var request =
-        await ApiClient.employeeStoreEmployeeOrdersConfirmPost(order: id);
+    var request = await ApiClient.employeeStoreEmployeeOrdersConfirmPost(
+        order: id,
+        body: EmployeeStoreEmployeeOrdersConfirmPost$RequestBody(
+            remark: "", scannedOutside: false));
 
     if (!(request.body?.status ?? false)) {
       Toast.error(request.body?.message);
