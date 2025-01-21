@@ -25,8 +25,7 @@ class RequestScreenController extends AuthController {
   getForecastList(page, size, date) async {
     forecastList.clear();
 
-    var request = await ApiClient.employeeStoreForecastGet(
-        page: page.toString(), size: size.toString(), date: date);
+    var request = await ApiClient.employeeStoreForecastGet(page: page.toString(), size: size.toString(), date: date);
     print("getForecastList request: ${request.body}");
     if (!(request.body?.status ?? false)) {
       return;
@@ -40,8 +39,7 @@ class RequestScreenController extends AuthController {
     Toast.loading("Requesting....");
     var request = await ApiClient.employeeStoreForecastPost(
         body: EmployeeStoreForecastPost$RequestBody(
-            watercans: double.parse(waterCan.text),
-            date: selectedDate.toString()));
+            watercans: double.parse(waterCan.text), date: selectedDate.toString()));
 
     if (!(request.body?.status ?? false)) {
       Toast.error(request.body?.message);
@@ -55,6 +53,7 @@ class RequestScreenController extends AuthController {
 
   handleDateUpdate(date) {
     selectedDate = date;
+    getForecastList(0, 10, date.toString());
     update();
   }
 

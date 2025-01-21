@@ -108,11 +108,9 @@ final class _$StoreApi extends StoreApi {
   Future<Response<EmployeeStoreEmployeeOrdersPut$Response>>
       _employeeStoreEmployeeOrdersPut({
     String? authorization,
-    required String? id,
     required EmployeeStoreEmployeeOrdersPut$RequestBody? body,
   }) {
     final Uri $url = Uri.parse('/employee-store/employee-orders/');
-    final Map<String, dynamic> $params = <String, dynamic>{'id': id};
     final Map<String, String> $headers = {
       if (authorization != null) 'authorization': authorization,
     };
@@ -122,7 +120,6 @@ final class _$StoreApi extends StoreApi {
       $url,
       client.baseUrl,
       body: $body,
-      parameters: $params,
       headers: $headers,
     );
     return client.send<EmployeeStoreEmployeeOrdersPut$Response,
@@ -195,19 +192,31 @@ final class _$StoreApi extends StoreApi {
       _employeeStoreEmployeeOrdersConfirmPost({
     String? authorization,
     required String? order,
-    required EmployeeStoreEmployeeOrdersConfirmPost$RequestBody? body,
+    String? remark,
+    String? scannedoutside,
+    List<int>? IMAGES,
   }) {
     final Uri $url = Uri.parse('/employee-store/employee-orders/confirm');
-    final Map<String, dynamic> $params = <String, dynamic>{'order': order};
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'order': order,
+      'remark': remark,
+      'SCANNEDOUTSIDE': scannedoutside,
+    };
     final Map<String, String> $headers = {
       if (authorization != null) 'authorization': authorization,
     };
-    final $body = body;
+    final List<PartValue> $parts = <PartValue>[
+      PartValueFile<List<int>?>(
+        'IMAGES',
+        IMAGES,
+      )
+    ];
     final Request $request = Request(
       'POST',
       $url,
       client.baseUrl,
-      body: $body,
+      parts: $parts,
+      multipart: true,
       parameters: $params,
       headers: $headers,
     );

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/utils/Toast.dart';
@@ -9,15 +11,34 @@ import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as _dio;
+
+var resonList = [
+  OrderReason("Traffic", Icons.traffic_outlined),
+  OrderReason("Water flood", Icons.flood_outlined),
+  OrderReason("Vehicle break down ", Icons.fire_truck_outlined),
+];
+
+class OrderReason {
+  final String text;
+  final IconData icon;
+  OrderReason(this.text, this.icon);
+}
 
 class AddOrderController extends AuthController {
   var canCount = 0.obs;
   var crossAxisCount = 1.obs;
-  var activeOrder =
-      EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data().obs;
+  var activeOrder = EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data().obs;
   var homeController = isControllerRegistered<HomeController>(HomeController());
   var loading = true.obs;
   var remark = TextEditingController();
+  var remarkOption = "".obs;
+  Rx<XFile?> photo = Rx(null);
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -33,8 +54,7 @@ class AddOrderController extends AuthController {
       print("calling get active order");
       var request = await ApiClient.employeeStoreEmployeeOrdersActiveOrderGet();
       print("activeOrder: ${request.body?.data}");
-      activeOrder.value = request.body?.data ??
-          EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data();
+      activeOrder.value = request.body?.data ?? EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data();
 
       canCount.value = (activeOrder.value.employeeOrder ?? []).length;
 
@@ -58,8 +78,7 @@ class AddOrderController extends AuthController {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.QR);
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.QR);
       print(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
@@ -102,17 +121,96 @@ class AddOrderController extends AuthController {
 
   confirmOrder(id) async {
     Toast.loading("submitting....");
-    var request = await ApiClient.employeeStoreEmployeeOrdersConfirmPost(
-        order: id,
-        body: EmployeeStoreEmployeeOrdersConfirmPost$RequestBody(
-            remark: "", scannedOutside: false));
 
-    if (!(request.body?.status ?? false)) {
-      Toast.error(request.body?.message);
-      return;
+    final bytes = (await photo.value?.readAsBytes())?.toList();
+    // final file = http.MultipartFile.fromPath();
+    if (this.outSide.value) {
+      var request = await submitSubscription(id);
+    } else {
+      var request = await ApiClient.employeeStoreEmployeeOrdersConfirmPost(
+        order: id,
+      );
+
+      if (!(request.body?.status ?? false)) {
+        Toast.error(request.body?.message);
+        return;
+      }
+      homeController.getHomeDashboardData(DateTime.now());
+      Toast.success(request.body?.message);
+      Get.back(closeOverlays: true);
     }
-    homeController.getHomeDashboardData(DateTime.now());
-    Toast.success(request.body?.message);
-    Get.back(closeOverlays: true);
+  }
+
+  submitSubscription(id) async {
+    ///MultiPart request
+
+    var file = photo.value;
+    Map<String, String> headers = {"Authorization": "Bearer ${getToken()}", "Content-type": "multipart/form-data"};
+
+    var form = new _dio.FormData.fromMap(
+        {"IMAGES": await _dio.MultipartFile.fromFile(file?.path ?? "", filename: file?.name ?? "")});
+
+    var response = await _dio.Dio().post(
+        "https://sarovar-api.krida.top/employee-store/employee-orders/confirm?order=${id}&remark=${remarkOption.value.isEmpty ? remark.text : remarkOption.value}&SCANNEDOUTSIDE=${this.outSide.value ? "true" : "false"}",
+        data: form,
+        options: _dio.Options(
+          contentType: "multipart/form-data",
+          headers: {"Authorization": "Bearer ${getToken()}", "Content-type": "multipart/form-data"},
+        ));
+    print("response: ${response.data}");
+
+    if (response.data != null) {
+      if (response.data['status'] == true) {
+        homeController.getHomeDashboardData(DateTime.now());
+        Toast.success(response.data['message']);
+        Get.back(closeOverlays: true);
+      } else {
+        Toast.error(response.data['message']);
+      }
+    }
+  }
+
+  handleRemarkOptionChange(value) {
+    remarkOption.value = value;
+    update();
+  }
+
+  handleImage() async {
+    final ImagePicker picker = ImagePicker();
+
+    photo.value = await picker.pickImage(source: ImageSource.camera);
+
+    var pathList = photo.value?.path.split(".");
+    var ext = pathList?[(pathList?.length ?? 1) - 1];
+    var targetPath = await getExampleFilePath(ext);
+
+    print("photo.value.mimeType: ${ext}");
+
+    var result = await FlutterImageCompress.compressAndGetFile(
+      photo.value?.path ?? "",
+      targetPath,
+      quality: 88,
+      rotate: 180,
+    );
+
+    print(await photo.value?.length());
+    print(await result?.length());
+
+    update();
+  }
+
+  File createFile(String path) {
+    final file = File(path);
+    if (!file.existsSync()) {
+      file.createSync(recursive: true);
+    }
+    return file;
+  }
+
+  Future<String> getExampleFilePath(ext) async {
+    final dir = await path_provider.getTemporaryDirectory();
+    final File file = createFile('${dir.absolute.path}/test.${ext}');
+    file.createSync(recursive: true);
+    return file.absolute.path;
   }
 }

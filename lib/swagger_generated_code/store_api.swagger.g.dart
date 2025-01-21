@@ -46,20 +46,20 @@ EmployeeStoreEmployeeOrdersPut$RequestBody
     _$EmployeeStoreEmployeeOrdersPut$RequestBodyFromJson(
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersPut$RequestBody(
-          type: json['type'] as String,
-          order: json['order'] as String,
           watercan: json['watercan'] as String,
-          store: json['store'] as String,
-          forecast: json['forecast'] as String,
+          store: json['store'],
+          type: json['type'],
+          order: json['order'],
+          forecast: json['forecast'],
         );
 
 Map<String, dynamic> _$EmployeeStoreEmployeeOrdersPut$RequestBodyToJson(
         EmployeeStoreEmployeeOrdersPut$RequestBody instance) =>
     <String, dynamic>{
-      'type': instance.type,
-      'order': instance.order,
       'watercan': instance.watercan,
       'store': instance.store,
+      'type': instance.type,
+      'order': instance.order,
       'forecast': instance.forecast,
     };
 
@@ -80,15 +80,13 @@ EmployeeStoreEmployeeOrdersConfirmPost$RequestBody
     _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyFromJson(
             Map<String, dynamic> json) =>
         EmployeeStoreEmployeeOrdersConfirmPost$RequestBody(
-          remark: json['remark'] as String?,
-          scannedOutside: json['scanned_outside'] as bool?,
+          images: json['IMAGES'],
         );
 
 Map<String, dynamic> _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyToJson(
         EmployeeStoreEmployeeOrdersConfirmPost$RequestBody instance) =>
     <String, dynamic>{
-      'remark': instance.remark,
-      'scanned_outside': instance.scannedOutside,
+      'IMAGES': instance.images,
     };
 
 EmployeeStoreForecastPost$RequestBody
@@ -192,8 +190,10 @@ EmployeeStoreEmployeeOrdersPut$Response
         EmployeeStoreEmployeeOrdersPut$Response(
           status: json['status'] as bool,
           message: json['message'] as String,
-          data: EmployeeStoreEmployeeOrdersPut$Response$Data.fromJson(
-              json['data'] as Map<String, dynamic>),
+          data: json['data'] == null
+              ? null
+              : EmployeeStoreEmployeeOrdersPut$Response$Data.fromJson(
+                  json['data'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic> _$EmployeeStoreEmployeeOrdersPut$ResponseToJson(
@@ -201,7 +201,7 @@ Map<String, dynamic> _$EmployeeStoreEmployeeOrdersPut$ResponseToJson(
     <String, dynamic>{
       'status': instance.status,
       'message': instance.message,
-      'data': instance.data.toJson(),
+      'data': instance.data?.toJson(),
     };
 
 EmployeeStoreEmployeeOrdersDelete$Response
@@ -778,6 +778,7 @@ EmployeeStoreForecastGet$Response$Data$Item
           watercans: (json['watercans'] as num?)?.toDouble(),
           date: json['date'] as String?,
           store: json['store'] as String?,
+          status: json['status'] as String?,
           createdAt: json['createdAt'] as String?,
           updatedAt: json['updatedAt'] as String?,
         );
@@ -789,6 +790,7 @@ Map<String, dynamic> _$EmployeeStoreForecastGet$Response$Data$ItemToJson(
       'watercans': instance.watercans,
       'date': instance.date,
       'store': instance.store,
+      'status': instance.status,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -820,6 +822,7 @@ EmployeeStoreForecastPost$Response$Data
           watercans: (json['watercans'] as num?)?.toDouble(),
           date: json['date'] as String?,
           store: json['store'] as String?,
+          status: json['status'] as String?,
           createdAt: json['createdAt'] as String?,
           updatedAt: json['updatedAt'] as String?,
         );
@@ -831,6 +834,7 @@ Map<String, dynamic> _$EmployeeStoreForecastPost$Response$DataToJson(
       'watercans': instance.watercans,
       'date': instance.date,
       'store': instance.store,
+      'status': instance.status,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };

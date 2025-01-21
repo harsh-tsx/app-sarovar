@@ -15,8 +15,7 @@ class RequestScreen extends StatefulWidget {
 }
 
 class _RequestScreenState extends State<RequestScreen> {
-  var controller = isControllerRegistered<RequestScreenController>(
-      RequestScreenController());
+  var controller = isControllerRegistered<RequestScreenController>(RequestScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +50,7 @@ class _RequestScreenState extends State<RequestScreen> {
           const SizedBox(height: 12),
           Text(
             "Request",
-            style: GoogleFonts.comfortaa(
-                fontSize: 24, fontWeight: FontWeight.w700),
+            style: GoogleFonts.comfortaa(fontSize: 24, fontWeight: FontWeight.w700),
           ),
         ],
       ),
@@ -63,8 +61,7 @@ class _RequestScreenState extends State<RequestScreen> {
     return Container(
       decoration: BoxDecoration(
           color: theme.scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+          borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))),
       child: Column(
         children: [
           Padding(
@@ -136,8 +133,7 @@ class _RequestScreenState extends State<RequestScreen> {
                       itemBuilder: (context, index) {
                         var item = controller.forecastList[index];
                         return Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.h, horizontal: 14.w),
+                          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
                           decoration: BoxDecoration(
                               border: Border.all(
                                 width: 1,
@@ -148,24 +144,17 @@ class _RequestScreenState extends State<RequestScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _buildField(
-                                    title: "Order ID:",
-                                    value: "${item.id?.substring(0, 5)}..."),
+                                _buildField(title: "Order ID:", value: "${item.id?.substring(0, 5)}..."),
                                 VerticalDivider(
                                   color: Colors.black,
                                   thickness: 1,
                                 ),
-                                _buildField(
-                                    title: "Cans:",
-                                    value: "${item?.watercans?.toInt()}"),
+                                _buildField(title: "Cans:", value: "${item?.watercans?.toInt()}"),
                                 VerticalDivider(
                                   color: Colors.black,
                                   thickness: 1,
                                 ),
-                                _buildField(
-                                    title: "Status:",
-                                    value: "REQUESTED",
-                                    isStatus: true),
+                                _buildField(title: "Status:", value: "${item?.status}", isStatus: true),
                               ],
                             ),
                           ),
@@ -182,16 +171,14 @@ class _RequestScreenState extends State<RequestScreen> {
     );
   }
 
-  Column _buildField(
-      {required String title, required String value, bool isStatus = false}) {
+  Column _buildField({required String title, required String value, bool isStatus = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           title,
-          style: GoogleFonts.comfortaa(
-              fontSize: 10.fSize, fontWeight: FontWeight.w700),
+          style: GoogleFonts.comfortaa(fontSize: 10.fSize, fontWeight: FontWeight.w700),
         ),
         Text(
           value,

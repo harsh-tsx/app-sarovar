@@ -145,23 +145,20 @@ abstract class StoreApi extends ChopperService {
 
   ///
   ///@param authorization
-  ///@param id
   Future<chopper.Response<EmployeeStoreEmployeeOrdersPut$Response>>
       employeeStoreEmployeeOrdersPut({
     String? authorization,
-    required String? id,
     required EmployeeStoreEmployeeOrdersPut$RequestBody? body,
   }) {
     generatedMapping.putIfAbsent(EmployeeStoreEmployeeOrdersPut$Response,
         () => EmployeeStoreEmployeeOrdersPut$Response.fromJsonFactory);
 
     return _employeeStoreEmployeeOrdersPut(
-        authorization: authorization?.toString(), id: id, body: body);
+        authorization: authorization?.toString(), body: body);
   }
 
   ///
   ///@param authorization
-  ///@param id
   @Put(
     path: '/employee-store/employee-orders/',
     optionalBody: true,
@@ -169,7 +166,6 @@ abstract class StoreApi extends ChopperService {
   Future<chopper.Response<EmployeeStoreEmployeeOrdersPut$Response>>
       _employeeStoreEmployeeOrdersPut({
     @Header('authorization') String? authorization,
-    @Query('id') required String? id,
     @Body() required EmployeeStoreEmployeeOrdersPut$RequestBody? body,
   });
 
@@ -247,32 +243,45 @@ abstract class StoreApi extends ChopperService {
   ///
   ///@param authorization
   ///@param order
+  ///@param remark
+  ///@param SCANNEDOUTSIDE
   Future<chopper.Response<EmployeeStoreEmployeeOrdersConfirmPost$Response>>
       employeeStoreEmployeeOrdersConfirmPost({
     String? authorization,
     required String? order,
-    required EmployeeStoreEmployeeOrdersConfirmPost$RequestBody? body,
+    String? remark,
+    String? scannedoutside,
+    List<int>? IMAGES,
   }) {
     generatedMapping.putIfAbsent(
         EmployeeStoreEmployeeOrdersConfirmPost$Response,
         () => EmployeeStoreEmployeeOrdersConfirmPost$Response.fromJsonFactory);
 
     return _employeeStoreEmployeeOrdersConfirmPost(
-        authorization: authorization?.toString(), order: order, body: body);
+        authorization: authorization?.toString(),
+        order: order,
+        remark: remark,
+        scannedoutside: scannedoutside,
+        IMAGES: IMAGES);
   }
 
   ///
   ///@param authorization
   ///@param order
+  ///@param remark
+  ///@param SCANNEDOUTSIDE
   @Post(
     path: '/employee-store/employee-orders/confirm',
     optionalBody: true,
   )
+  @Multipart()
   Future<chopper.Response<EmployeeStoreEmployeeOrdersConfirmPost$Response>>
       _employeeStoreEmployeeOrdersConfirmPost({
     @Header('authorization') String? authorization,
     @Query('order') required String? order,
-    @Body() required EmployeeStoreEmployeeOrdersConfirmPost$RequestBody? body,
+    @Query('remark') String? remark,
+    @Query('SCANNEDOUTSIDE') String? scannedoutside,
+    @PartFile() List<int>? IMAGES,
   });
 
   ///
@@ -548,11 +557,11 @@ extension $EmployeeStoreEmployeeOrdersPost$RequestBodyExtension
 @JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersPut$RequestBody {
   const EmployeeStoreEmployeeOrdersPut$RequestBody({
-    required this.type,
-    required this.order,
     required this.watercan,
-    required this.store,
-    required this.forecast,
+    this.store,
+    this.type,
+    this.order,
+    this.forecast,
   });
 
   factory EmployeeStoreEmployeeOrdersPut$RequestBody.fromJson(
@@ -564,16 +573,16 @@ class EmployeeStoreEmployeeOrdersPut$RequestBody {
   Map<String, dynamic> toJson() =>
       _$EmployeeStoreEmployeeOrdersPut$RequestBodyToJson(this);
 
-  @JsonKey(name: 'type')
-  final String type;
-  @JsonKey(name: 'order')
-  final String order;
   @JsonKey(name: 'watercan')
   final String watercan;
   @JsonKey(name: 'store')
-  final String store;
+  final dynamic store;
+  @JsonKey(name: 'type')
+  final dynamic type;
+  @JsonKey(name: 'order')
+  final dynamic order;
   @JsonKey(name: 'forecast')
-  final String forecast;
+  final dynamic forecast;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersPut$RequestBodyFromJson;
 
@@ -581,15 +590,15 @@ class EmployeeStoreEmployeeOrdersPut$RequestBody {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is EmployeeStoreEmployeeOrdersPut$RequestBody &&
-            (identical(other.type, type) ||
-                const DeepCollectionEquality().equals(other.type, type)) &&
-            (identical(other.order, order) ||
-                const DeepCollectionEquality().equals(other.order, order)) &&
             (identical(other.watercan, watercan) ||
                 const DeepCollectionEquality()
                     .equals(other.watercan, watercan)) &&
             (identical(other.store, store) ||
                 const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.order, order) ||
+                const DeepCollectionEquality().equals(other.order, order)) &&
             (identical(other.forecast, forecast) ||
                 const DeepCollectionEquality()
                     .equals(other.forecast, forecast)));
@@ -600,10 +609,10 @@ class EmployeeStoreEmployeeOrdersPut$RequestBody {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(order) ^
       const DeepCollectionEquality().hash(watercan) ^
       const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(order) ^
       const DeepCollectionEquality().hash(forecast) ^
       runtimeType.hashCode;
 }
@@ -611,30 +620,30 @@ class EmployeeStoreEmployeeOrdersPut$RequestBody {
 extension $EmployeeStoreEmployeeOrdersPut$RequestBodyExtension
     on EmployeeStoreEmployeeOrdersPut$RequestBody {
   EmployeeStoreEmployeeOrdersPut$RequestBody copyWith(
-      {String? type,
-      String? order,
-      String? watercan,
-      String? store,
-      String? forecast}) {
+      {String? watercan,
+      dynamic store,
+      dynamic type,
+      dynamic order,
+      dynamic forecast}) {
     return EmployeeStoreEmployeeOrdersPut$RequestBody(
-        type: type ?? this.type,
-        order: order ?? this.order,
         watercan: watercan ?? this.watercan,
         store: store ?? this.store,
+        type: type ?? this.type,
+        order: order ?? this.order,
         forecast: forecast ?? this.forecast);
   }
 
   EmployeeStoreEmployeeOrdersPut$RequestBody copyWithWrapped(
-      {Wrapped<String>? type,
-      Wrapped<String>? order,
-      Wrapped<String>? watercan,
-      Wrapped<String>? store,
-      Wrapped<String>? forecast}) {
+      {Wrapped<String>? watercan,
+      Wrapped<dynamic>? store,
+      Wrapped<dynamic>? type,
+      Wrapped<dynamic>? order,
+      Wrapped<dynamic>? forecast}) {
     return EmployeeStoreEmployeeOrdersPut$RequestBody(
-        type: (type != null ? type.value : this.type),
-        order: (order != null ? order.value : this.order),
         watercan: (watercan != null ? watercan.value : this.watercan),
         store: (store != null ? store.value : this.store),
+        type: (type != null ? type.value : this.type),
+        order: (order != null ? order.value : this.order),
         forecast: (forecast != null ? forecast.value : this.forecast));
   }
 }
@@ -693,8 +702,7 @@ extension $EmployeeStoreEmployeeOrdersOutPost$RequestBodyExtension
 @JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersConfirmPost$RequestBody {
   const EmployeeStoreEmployeeOrdersConfirmPost$RequestBody({
-    this.remark,
-    this.scannedOutside,
+    this.images,
   });
 
   factory EmployeeStoreEmployeeOrdersConfirmPost$RequestBody.fromJson(
@@ -706,10 +714,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$RequestBody {
   Map<String, dynamic> toJson() =>
       _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyToJson(this);
 
-  @JsonKey(name: 'remark')
-  final String? remark;
-  @JsonKey(name: 'scanned_outside')
-  final bool? scannedOutside;
+  @JsonKey(name: 'IMAGES')
+  final Object? images;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyFromJson;
 
@@ -717,11 +723,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$RequestBody {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other is EmployeeStoreEmployeeOrdersConfirmPost$RequestBody &&
-            (identical(other.remark, remark) ||
-                const DeepCollectionEquality().equals(other.remark, remark)) &&
-            (identical(other.scannedOutside, scannedOutside) ||
-                const DeepCollectionEquality()
-                    .equals(other.scannedOutside, scannedOutside)));
+            (identical(other.images, images) ||
+                const DeepCollectionEquality().equals(other.images, images)));
   }
 
   @override
@@ -729,27 +732,21 @@ class EmployeeStoreEmployeeOrdersConfirmPost$RequestBody {
 
   @override
   int get hashCode =>
-      const DeepCollectionEquality().hash(remark) ^
-      const DeepCollectionEquality().hash(scannedOutside) ^
-      runtimeType.hashCode;
+      const DeepCollectionEquality().hash(images) ^ runtimeType.hashCode;
 }
 
 extension $EmployeeStoreEmployeeOrdersConfirmPost$RequestBodyExtension
     on EmployeeStoreEmployeeOrdersConfirmPost$RequestBody {
   EmployeeStoreEmployeeOrdersConfirmPost$RequestBody copyWith(
-      {String? remark, bool? scannedOutside}) {
+      {Object? images}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$RequestBody(
-        remark: remark ?? this.remark,
-        scannedOutside: scannedOutside ?? this.scannedOutside);
+        images: images ?? this.images);
   }
 
   EmployeeStoreEmployeeOrdersConfirmPost$RequestBody copyWithWrapped(
-      {Wrapped<String?>? remark, Wrapped<bool?>? scannedOutside}) {
+      {Wrapped<Object?>? images}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$RequestBody(
-        remark: (remark != null ? remark.value : this.remark),
-        scannedOutside: (scannedOutside != null
-            ? scannedOutside.value
-            : this.scannedOutside));
+        images: (images != null ? images.value : this.images));
   }
 }
 
@@ -1112,7 +1109,7 @@ class EmployeeStoreEmployeeOrdersPut$Response {
   const EmployeeStoreEmployeeOrdersPut$Response({
     required this.status,
     required this.message,
-    required this.data,
+    this.data,
   });
 
   factory EmployeeStoreEmployeeOrdersPut$Response.fromJson(
@@ -1128,7 +1125,7 @@ class EmployeeStoreEmployeeOrdersPut$Response {
   @JsonKey(name: 'message')
   final String message;
   @JsonKey(name: 'data')
-  final EmployeeStoreEmployeeOrdersPut$Response$Data data;
+  final EmployeeStoreEmployeeOrdersPut$Response$Data? data;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersPut$ResponseFromJson;
 
@@ -1171,7 +1168,7 @@ extension $EmployeeStoreEmployeeOrdersPut$ResponseExtension
   EmployeeStoreEmployeeOrdersPut$Response copyWithWrapped(
       {Wrapped<bool>? status,
       Wrapped<String>? message,
-      Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data>? data}) {
+      Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data?>? data}) {
     return EmployeeStoreEmployeeOrdersPut$Response(
         status: (status != null ? status.value : this.status),
         message: (message != null ? message.value : this.message),
@@ -3399,6 +3396,7 @@ class EmployeeStoreForecastGet$Response$Data$Item {
     this.watercans,
     this.date,
     this.store,
+    this.status,
     this.createdAt,
     this.updatedAt,
   });
@@ -3420,6 +3418,8 @@ class EmployeeStoreForecastGet$Response$Data$Item {
   final String? date;
   @JsonKey(name: 'store')
   final String? store;
+  @JsonKey(name: 'status')
+  final String? status;
   @JsonKey(name: 'createdAt')
   final String? createdAt;
   @JsonKey(name: 'updatedAt')
@@ -3440,6 +3440,8 @@ class EmployeeStoreForecastGet$Response$Data$Item {
                 const DeepCollectionEquality().equals(other.date, date)) &&
             (identical(other.store, store) ||
                 const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -3457,6 +3459,7 @@ class EmployeeStoreForecastGet$Response$Data$Item {
       const DeepCollectionEquality().hash(watercans) ^
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -3469,6 +3472,7 @@ extension $EmployeeStoreForecastGet$Response$Data$ItemExtension
       double? watercans,
       String? date,
       String? store,
+      String? status,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreForecastGet$Response$Data$Item(
@@ -3476,6 +3480,7 @@ extension $EmployeeStoreForecastGet$Response$Data$ItemExtension
         watercans: watercans ?? this.watercans,
         date: date ?? this.date,
         store: store ?? this.store,
+        status: status ?? this.status,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -3485,6 +3490,7 @@ extension $EmployeeStoreForecastGet$Response$Data$ItemExtension
       Wrapped<double?>? watercans,
       Wrapped<String?>? date,
       Wrapped<String?>? store,
+      Wrapped<String?>? status,
       Wrapped<String?>? createdAt,
       Wrapped<String?>? updatedAt}) {
     return EmployeeStoreForecastGet$Response$Data$Item(
@@ -3492,6 +3498,7 @@ extension $EmployeeStoreForecastGet$Response$Data$ItemExtension
         watercans: (watercans != null ? watercans.value : this.watercans),
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
+        status: (status != null ? status.value : this.status),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -3582,6 +3589,7 @@ class EmployeeStoreForecastPost$Response$Data {
     this.watercans,
     this.date,
     this.store,
+    this.status,
     this.createdAt,
     this.updatedAt,
   });
@@ -3602,6 +3610,8 @@ class EmployeeStoreForecastPost$Response$Data {
   final String? date;
   @JsonKey(name: 'store')
   final String? store;
+  @JsonKey(name: 'status')
+  final String? status;
   @JsonKey(name: 'createdAt')
   final String? createdAt;
   @JsonKey(name: 'updatedAt')
@@ -3622,6 +3632,8 @@ class EmployeeStoreForecastPost$Response$Data {
                 const DeepCollectionEquality().equals(other.date, date)) &&
             (identical(other.store, store) ||
                 const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -3639,6 +3651,7 @@ class EmployeeStoreForecastPost$Response$Data {
       const DeepCollectionEquality().hash(watercans) ^
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -3651,6 +3664,7 @@ extension $EmployeeStoreForecastPost$Response$DataExtension
       double? watercans,
       String? date,
       String? store,
+      String? status,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreForecastPost$Response$Data(
@@ -3658,6 +3672,7 @@ extension $EmployeeStoreForecastPost$Response$DataExtension
         watercans: watercans ?? this.watercans,
         date: date ?? this.date,
         store: store ?? this.store,
+        status: status ?? this.status,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -3667,6 +3682,7 @@ extension $EmployeeStoreForecastPost$Response$DataExtension
       Wrapped<double?>? watercans,
       Wrapped<String?>? date,
       Wrapped<String?>? store,
+      Wrapped<String?>? status,
       Wrapped<String?>? createdAt,
       Wrapped<String?>? updatedAt}) {
     return EmployeeStoreForecastPost$Response$Data(
@@ -3674,6 +3690,7 @@ extension $EmployeeStoreForecastPost$Response$DataExtension
         watercans: (watercans != null ? watercans.value : this.watercans),
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
+        status: (status != null ? status.value : this.status),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
