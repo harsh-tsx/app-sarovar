@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 class HomeController extends AuthController {
   TextEditingController searchController = TextEditingController();
   var homeDashboard = EmployeeStoreDashboardHomeGet$Response$Data().obs;
+  var currentDate = DateTime.now();
 
   @override
   void onInit() {
@@ -19,15 +20,14 @@ class HomeController extends AuthController {
   }
 
   getHomeDashboardData(DateTime date) async {
-    homeDashboard.value = EmployeeStoreDashboardHomeGet$Response$Data(
-        liveStock: 0, thisMonth: 0, todaysIn: 0, todaysOut: 0);
-    var request =
-        await ApiClient.employeeStoreDashboardHomeGet(date: date.toString());
+    currentDate = date;
+    homeDashboard.value =
+        EmployeeStoreDashboardHomeGet$Response$Data(liveStock: 0, thisMonth: 0, todaysIn: 0, todaysOut: 0);
+    var request = await ApiClient.employeeStoreDashboardHomeGet(date: date.toString());
     print("request dashboard data: ${request.body}");
 
     homeDashboard.value = request.body?.data ??
-        EmployeeStoreDashboardHomeGet$Response$Data(
-            liveStock: 0, thisMonth: 0, todaysIn: 0, todaysOut: 0);
+        EmployeeStoreDashboardHomeGet$Response$Data(liveStock: 0, thisMonth: 0, todaysIn: 0, todaysOut: 0);
     update();
   }
 

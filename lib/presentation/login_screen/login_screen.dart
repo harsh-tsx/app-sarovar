@@ -38,15 +38,16 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     CustomImageView(
                       imagePath: ImageConstant.appLogo,
-                      width: SizeUtils.width.percent(50),
+                      width: 216.w,
+                      height: 95.h,
                     )
                   ],
                 ),
-                SizedBox(height: 40.h),
+                SizedBox(height: 20.h),
                 Text(
                   'Sign in to your Account',
                   style: GoogleFonts.comfortaa(
-                    fontSize: 28.fSize,
+                    fontSize: 22.fSize,
                     fontWeight: FontWeight.bold,
                     color: appTheme.black900,
                   ),
@@ -55,6 +56,8 @@ class LoginScreen extends StatelessWidget {
                 Text(
                   'Enter your email and password to log in',
                   style: GoogleFonts.comfortaa(
+                    fontSize: 12.fSize,
+                    fontWeight: FontWeight.w600,
                     color: appTheme.black900,
                   ),
                 ),
@@ -85,11 +88,11 @@ class LoginScreen extends StatelessWidget {
                           hintText: "ID",
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: theme.primaryColor),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: theme.primaryColor),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           hintStyle: TextStyle(color: Colors.grey),
                         ),
@@ -108,21 +111,19 @@ class LoginScreen extends StatelessWidget {
                             hintText: "Password",
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             hintStyle: TextStyle(color: Colors.grey),
                             suffixIcon: InkWell(
                               onTap: () {
-                                controller.showPassword.value =
-                                    !controller.showPassword.value;
+                                controller.showPassword.value = !controller.showPassword.value;
                               },
-                              child: controller.showPassword.value
-                                  ? Icon(Icons.visibility_off)
-                                  : Icon(Icons.visibility),
+                              child:
+                                  controller.showPassword.value ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
                             ),
                           ),
                         ),
@@ -137,22 +138,23 @@ class LoginScreen extends StatelessWidget {
                                 () => Checkbox(
                                   value: controller.rememberMe.value,
                                   onChanged: (value) {
-                                    controller.rememberMe.value =
-                                        !controller.rememberMe.value;
+                                    controller.rememberMe.value = !controller.rememberMe.value;
                                   },
                                   side: BorderSide(color: Colors.grey),
-                                  fillColor:
-                                      WidgetStatePropertyAll(Colors.white),
+                                  fillColor: WidgetStatePropertyAll(Colors.white),
                                 ),
                               ),
-                              const Text('Remember me'),
+                              Text(
+                                'Remember me',
+                                style: GoogleFonts.comfortaa(),
+                              ),
                             ],
                           ),
                           TextButton(
                             onPressed: () {},
                             child: Text(
                               'Forgot Password ?',
-                              style: TextStyle(color: Colors.black),
+                              style: GoogleFonts.comfortaa(color: Colors.black),
                             ),
                           ),
                         ],
@@ -174,8 +176,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         child: Text(
                           'Log In',
-                          style:
-                              GoogleFonts.comfortaa(color: theme.primaryColor),
+                          style: GoogleFonts.comfortaa(color: theme.primaryColor),
                         ),
                       ),
                     ],

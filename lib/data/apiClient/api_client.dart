@@ -5,7 +5,7 @@ import 'package:app_1point2_store/swagger_generated_code/client_index.dart';
 import 'package:chopper/chopper.dart';
 
 var ApiClient = StoreApi.create(
-  baseUrl: Uri.tryParse("https://sarovar-api.krida.top"),
+  baseUrl: Uri.tryParse("https://api.1point2percent.com"),
   interceptors: [
     CurlInterceptor(),
     HttpLoggingInterceptor(),
@@ -15,15 +15,12 @@ var ApiClient = StoreApi.create(
 
 class MyAuthenticator extends Authenticator {
   @override
-  FutureOr<Request?> authenticate(Request request, Response response,
-      [reques]) async {
-    final Map<String, String> updatedHeaders =
-        Map<String, String>.of(request.headers);
+  FutureOr<Request?> authenticate(Request request, Response response, [reques]) async {
+    final Map<String, String> updatedHeaders = Map<String, String>.of(request.headers);
 
     var newToken = 'Bearer ${getToken()}';
 
-    updatedHeaders.update('Authorization', (String _) => newToken,
-        ifAbsent: () => newToken);
+    updatedHeaders.update('Authorization', (String _) => newToken, ifAbsent: () => newToken);
 
     return request.copyWith(headers: updatedHeaders);
   }

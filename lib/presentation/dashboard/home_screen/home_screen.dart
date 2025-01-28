@@ -20,18 +20,24 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: appTheme.primaryYellow,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: SizedBox(
-            height: Get.height,
-            width: Get.width,
-            // decoration: BoxDecoration(image: DecorationImage(image: AssetImage(Assets.drops), fit: BoxFit.fill)),
-            child: Column(
-              children: [
-                // Header Section
-                _buildHeaderSection(),
-                // Inventory Section
-                _buildInventorySection()
-              ],
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await controller.getHomeDashboardData(controller.currentDate);
+            return;
+          },
+          child: SingleChildScrollView(
+            child: SizedBox(
+              height: Get.height,
+              width: Get.width,
+              // decoration: BoxDecoration(image: DecorationImage(image: AssetImage(Assets.drops), fit: BoxFit.fill)),
+              child: Column(
+                children: [
+                  // Header Section
+                  _buildHeaderSection(),
+                  // Inventory Section
+                  _buildInventorySection()
+                ],
+              ),
             ),
           ),
         ),
@@ -53,41 +59,54 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          InkWell(
-            onTap: () {
-              logout();
-            },
-            child: Padding(
-              padding: EdgeInsets.all(8.0.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.logout,
-                    size: 18.w,
-                  ),
-                  SizedBox(width: 8.w),
-                  Text(
-                    "Logout",
-                    style: GoogleFonts.comfortaa(
-                        fontSize: 12.fSize, fontWeight: FontWeight.w700),
-                  ),
-                  SizedBox(width: 24.w)
-                ],
+          SizedBox(
+            height: 20.h,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: SizedBox(),
               ),
-            ),
+              Expanded(
+                child: CustomImageView(
+                  imagePath: ImageConstant.appLogo,
+                  width: 84.w,
+                  height: 37.h,
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    logout();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        size: 18.w,
+                      ),
+                      SizedBox(width: 8.w),
+                      Text(
+                        "Logout",
+                        style:
+                            GoogleFonts.comfortaa(fontSize: 12.fSize, fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      SizedBox(width: 24.w)
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 12.h),
-          CustomImageView(
-            imagePath: ImageConstant.appLogo,
-            width: 60.w,
-          ),
           SizedBox(height: 5.h),
           Obx(
             () => Text(
               "${controller.user?.value?.name}",
-              style: GoogleFonts.comfortaa(
-                  fontSize: 18.fSize, fontWeight: FontWeight.w700),
+              style: GoogleFonts.comfortaa(fontSize: 16.fSize, fontWeight: FontWeight.bold, color: Colors.black),
             ),
           ),
           const Spacer(),
@@ -97,8 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 _buildField(
                   title: "Store Number",
-                  value:
-                      "${controller?.user?.value?.store?.code ?? controller?.user?.value?.store?.name}",
+                  value: "${controller?.user?.value?.store?.code ?? controller?.user?.value?.store?.name}",
                 ),
                 _buildField(
                   title: "Code",
@@ -122,8 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         decoration: BoxDecoration(
             color: appTheme.pageBg,
-            borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))),
         child: Column(
           children: [
             Padding(
@@ -133,39 +150,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     'Inventory',
-                    style: GoogleFonts.comfortaa(
-                        fontSize: 20, fontWeight: FontWeight.w700),
+                    style: GoogleFonts.comfortaa(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                   const SizedBox(height: 4),
                   CalendarSection(),
                   const SizedBox(height: 24),
                   Obx(
                     () => GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       crossAxisCount: 2,
                       mainAxisSpacing: 16,
                       crossAxisSpacing: 16,
                       children: [
-                        _buildStatsCard(
-                            'Today\'s In',
-                            "${(controller.homeDashboard.value?.todaysIn ?? 0.0).toInt()}",
+                        _buildStatsCard('Today\'s In', "${(controller.homeDashboard.value?.todaysIn ?? 0.0).toInt()}",
                             Icons.arrow_downward),
                         InkWell(
                           onTap: () {
-                            Get.toNamed(AppRoutes.canOutScreen);
+                            Get.toNamed(AppRoutes.addOrderScreen);
                           },
-                          child: _buildStatsCard(
-                              'Today\'s Out',
-                              "${(controller.homeDashboard.value?.todaysOut ?? 0.0).toInt()}",
-                              Icons.arrow_upward),
+                          child: _buildStatsCard('Today\'s Out',
+                              "${(controller.homeDashboard.value?.todaysOut ?? 0.0).toInt()}", Icons.arrow_upward),
                         ),
-                        _buildStatsCard(
-                            'Live Stock',
-                            "${(controller.homeDashboard.value?.liveStock ?? 0.0).toInt()}",
+                        _buildStatsCard('Live Stock', "${(controller.homeDashboard.value?.liveStock ?? 0.0).toInt()}",
                             Icons.inventory),
-                        _buildStatsCard(
-                            'This Month',
-                            "${(controller.homeDashboard.value?.thisMonth ?? 0.0).toInt()}",
+                        _buildStatsCard('This Month', "${(controller.homeDashboard.value?.thisMonth ?? 0.0).toInt()}",
                             Icons.calendar_month),
                       ],
                     ),
@@ -179,15 +188,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Column _buildField(
-      {required String title, String? value, bool isLocation = false}) {
+  Column _buildField({required String title, String? value, bool isLocation = false}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           title,
-          style: GoogleFonts.comfortaa(
-              fontSize: 12.fSize, fontWeight: FontWeight.w400),
+          style: GoogleFonts.comfortaa(fontSize: 12.fSize, fontWeight: FontWeight.w400, color: Colors.black),
         ),
         Container(
           height: 55.h,
@@ -207,15 +214,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 1,
                 ),
               ),
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10), topLeft: Radius.circular(10))),
+              borderRadius: const BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10))),
           child: Container(
             margin: EdgeInsets.only(left: 1.w, right: 1.w, top: 1.h),
             decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10))),
+                borderRadius: const BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10))),
             child: Center(
               child: isLocation
                   ? controller.outSide.value
@@ -223,8 +227,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Icon(Icons.check, color: appTheme.greenA700)
                   : Text(
                       value ?? "",
-                      style: GoogleFonts.comfortaa(
-                          fontSize: 16.fSize, fontWeight: FontWeight.w700),
+                      style:
+                          GoogleFonts.comfortaa(fontSize: 16.fSize, fontWeight: FontWeight.w700, color: Colors.black),
                     ),
             ),
           ),
@@ -252,11 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(value,
-              style: GoogleFonts.comfortaa(
-                  color: Colors.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold)),
+          Text(value, style: GoogleFonts.comfortaa(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
           Row(
             children: [
@@ -268,10 +268,8 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
               Container(
                 padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border:
-                        Border.all(width: 1, color: appTheme.primaryYellow)),
+                decoration:
+                    BoxDecoration(shape: BoxShape.circle, border: Border.all(width: 1, color: appTheme.primaryYellow)),
                 child: Icon(
                   icon,
                   color: appTheme.primaryYellow,
@@ -288,10 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(height: 14.h),
           Text(label,
-              style: GoogleFonts.comfortaa(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: appTheme.primaryYellow)),
+              style: GoogleFonts.comfortaa(fontSize: 16, fontWeight: FontWeight.w700, color: appTheme.primaryYellow)),
         ],
       ),
     );

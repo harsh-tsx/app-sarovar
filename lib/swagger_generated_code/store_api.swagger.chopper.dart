@@ -166,6 +166,25 @@ final class _$StoreApi extends StoreApi {
   }
 
   @override
+  Future<Response<EmployeeStoreEmployeeOrdersActiveReturnOrderGet$Response>>
+      _employeeStoreEmployeeOrdersActiveReturnOrderGet(
+          {String? authorization}) {
+    final Uri $url =
+        Uri.parse('/employee-store/employee-orders/active-return-order');
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreEmployeeOrdersActiveReturnOrderGet$Response,
+        EmployeeStoreEmployeeOrdersActiveReturnOrderGet$Response>($request);
+  }
+
+  @override
   Future<Response<EmployeeStoreEmployeeOrdersOutPost$Response>>
       _employeeStoreEmployeeOrdersOutPost({
     String? authorization,
@@ -225,6 +244,43 @@ final class _$StoreApi extends StoreApi {
   }
 
   @override
+  Future<Response<EmployeeStoreEmployeeOrdersConfirmPut$Response>>
+      _employeeStoreEmployeeOrdersConfirmPut({
+    String? authorization,
+    required String? order,
+    String? remark,
+    String? scannedoutside,
+    List<int>? IMAGES,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/employee-orders/confirm');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'order': order,
+      'remark': remark,
+      'SCANNEDOUTSIDE': scannedoutside,
+    };
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final List<PartValue> $parts = <PartValue>[
+      PartValueFile<List<int>?>(
+        'IMAGES',
+        IMAGES,
+      )
+    ];
+    final Request $request = Request(
+      'PUT',
+      $url,
+      client.baseUrl,
+      parts: $parts,
+      multipart: true,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreEmployeeOrdersConfirmPut$Response,
+        EmployeeStoreEmployeeOrdersConfirmPut$Response>($request);
+  }
+
+  @override
   Future<Response<EmployeeStoreDashboardHomeGet$Response>>
       _employeeStoreDashboardHomeGet({
     String? authorization,
@@ -269,6 +325,32 @@ final class _$StoreApi extends StoreApi {
     );
     return client.send<EmployeeStoreOrdersGet$Response,
         EmployeeStoreOrdersGet$Response>($request);
+  }
+
+  @override
+  Future<Response<EmployeeStoreReturnOrderGet$Response>>
+      _employeeStoreReturnOrderGet({
+    String? authorization,
+    required String? page,
+    required String? size,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/return-order/');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'page': page,
+      'size': size,
+    };
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreReturnOrderGet$Response,
+        EmployeeStoreReturnOrderGet$Response>($request);
   }
 
   @override

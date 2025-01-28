@@ -44,8 +44,7 @@ class Dashboard extends GetWidget<DashboardController> {
             elevation: 0.0,
             backgroundColor: Colors.transparent,
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.miniCenterDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
 
           bottomNavigationBar: Container(
             height: 70.h,
@@ -71,14 +70,12 @@ class Dashboard extends GetWidget<DashboardController> {
               elevation: 0,
               currentIndex: controller.selectedIndex.value,
               type: BottomNavigationBarType.fixed,
-              items:
-                  List.generate(controller.bottomNavMenuList.length, (index) {
+              items: List.generate(controller.bottomNavMenuList.length, (index) {
                 return BottomNavigationBarItem(
                   icon: Container(
                     width: Get.width / 5,
                     // height: 70.h,
-                    decoration: AppDecoration.fillOnError
-                        .copyWith(color: appTheme.primaryYellow),
+                    decoration: AppDecoration.fillOnError.copyWith(color: appTheme.primaryYellow),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,12 +85,9 @@ class Dashboard extends GetWidget<DashboardController> {
                             ? Padding(
                                 padding: EdgeInsets.only(),
                                 child: CustomImageView(
-                                  imagePath:
-                                      controller.bottomNavMenuList[index].icon,
-                                  height: controller
-                                      .bottomNavMenuList[index].height,
-                                  width:
-                                      controller.bottomNavMenuList[index].width,
+                                  imagePath: controller.bottomNavMenuList[index].icon,
+                                  height: controller.bottomNavMenuList[index].height,
+                                  width: controller.bottomNavMenuList[index].width,
                                   color: Color(0xff1E1E1E),
                                   margin: EdgeInsets.only(top: 8),
                                 ),
@@ -109,8 +103,7 @@ class Dashboard extends GetWidget<DashboardController> {
                               ),
                           child: Text(
                             controller.bottomNavMenuList[index].title ?? "",
-                            style:
-                                CustomTextStyles.titleMediumGray50001.copyWith(
+                            style: CustomTextStyles.titleMediumGray50001.copyWith(
                               fontSize: 12.fSize,
                               color: Colors.black26,
                             ),
@@ -122,8 +115,7 @@ class Dashboard extends GetWidget<DashboardController> {
                   activeIcon: Container(
                     height: 70.h,
                     width: Get.width / 5,
-                    decoration: AppDecoration.fillOnError
-                        .copyWith(color: appTheme.primaryYellow),
+                    decoration: AppDecoration.fillOnError.copyWith(color: appTheme.primaryYellow),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -134,15 +126,11 @@ class Dashboard extends GetWidget<DashboardController> {
                         ),
                         Column(
                           children: [
-                            controller
-                                    .bottomNavMenuList[index].title!.isNotEmpty
+                            controller.bottomNavMenuList[index].title!.isNotEmpty
                                 ? CustomImageView(
-                                    imagePath: controller
-                                        .bottomNavMenuList[index].activeIcon,
-                                    height: controller
-                                        .bottomNavMenuList[index].height,
-                                    width: controller
-                                        .bottomNavMenuList[index].width,
+                                    imagePath: controller.bottomNavMenuList[index].activeIcon,
+                                    height: controller.bottomNavMenuList[index].height,
+                                    width: controller.bottomNavMenuList[index].width,
                                     // color: appTheme.primaryBlue,
                                     margin: EdgeInsets.only(top: 8),
                                   )
@@ -154,8 +142,7 @@ class Dashboard extends GetWidget<DashboardController> {
                               padding: EdgeInsets.only(),
                               child: Text(
                                 controller.bottomNavMenuList[index].title ?? "",
-                                style: CustomTextStyles.titleMediumGray50001
-                                    .copyWith(
+                                style: CustomTextStyles.titleMediumGray50001.copyWith(
                                   fontSize: 13.fSize,
                                   color: appTheme.primaryBlue,
                                 ),

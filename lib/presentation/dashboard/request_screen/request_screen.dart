@@ -3,6 +3,7 @@ import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/core/utils/types.dart';
 import 'package:app_1point2_store/presentation/dashboard/request_screen/widgets/calendar_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'controller/request_screen_controller.dart';
@@ -16,24 +17,38 @@ class RequestScreen extends StatefulWidget {
 
 class _RequestScreenState extends State<RequestScreen> {
   var controller = isControllerRegistered<RequestScreenController>(RequestScreenController());
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_loadMoreItems);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _loadMoreItems() {
+    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+      controller.getForecastList(controller.page.value + 1);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appTheme.primaryYellow,
       body: SafeArea(
-        child: SizedBox(
-          height: Get.height,
-          width: Get.width,
-          // decoration: BoxDecoration(image: DecorationImage(image: AssetImage(Assets.drops), fit: BoxFit.fill)),
-          child: Column(
-            children: [
-              // Header Section
-              _buildHeaderSection(),
-              // Inventory Section
-              _buildInventorySection(),
-            ],
-          ),
+        child: Column(
+          children: [
+            // Header Section
+            _buildHeaderSection(),
+            // Inventory Section
+            _buildInventorySection(),
+          ],
         ),
       ),
     );
@@ -58,115 +73,133 @@ class _RequestScreenState extends State<RequestScreen> {
   }
 
   _buildInventorySection() {
-    return Container(
-      decoration: BoxDecoration(
-          color: theme.scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const SizedBox(height: 4),
-                CalendarSection(),
-                const SizedBox(height: 24),
-                Column(
-                  children: [
-                    Text(
-                      "Can Counts:",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.fSize,
-                      ),
-                    ),
-                    SizedBox(
-                      width: SizeUtils.width.percent(60),
-                      child: TextField(
-                        controller: controller.waterCan,
-                        keyboardType: TextInputType.number,
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+            color: appTheme.pageBg,
+            borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 4.h),
+                  CalendarSection(),
+                  SizedBox(height: 24.h),
+                  Column(
+                    children: [
+                      Text(
+                        "Can Counts:",
                         style: TextStyle(
                           color: Colors.black,
-                        ),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Enter Number',
-                          hintText: 'Enter Number',
+                          fontSize: 20.fSize,
                         ),
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 24.h),
-                SizedBox(
-                  width: SizeUtils.width.percent(60),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      controller.addForecast();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: appTheme.black900,
-                      minimumSize: const Size(double.infinity, 48),
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: Color(0xff375DFB),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 30.h),
-                    ),
-                    child: Text(
-                      'Submit Request',
-                      style: GoogleFonts.comfortaa(color: theme.primaryColor),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 24.h),
-                Container(
-                  height: SizeUtils.height.percent(35),
-                  child: Obx(
-                    () => ListView.builder(
-                      itemCount: controller.forecastList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        var item = controller.forecastList[index];
-                        return Container(
-                          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.transparent,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: IntrinsicHeight(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                _buildField(title: "Order ID:", value: "${item.id?.substring(0, 5)}..."),
-                                VerticalDivider(
-                                  color: Colors.black,
-                                  thickness: 1,
-                                ),
-                                _buildField(title: "Cans:", value: "${item?.watercans?.toInt()}"),
-                                VerticalDivider(
-                                  color: Colors.black,
-                                  thickness: 1,
-                                ),
-                                _buildField(title: "Status:", value: "${item?.status}", isStatus: true),
-                              ],
-                            ),
+                      SizedBox(
+                        width: SizeUtils.width.percent(60),
+                        child: TextFormField(
+                          controller: controller.waterCan,
+                          keyboardType: const TextInputType.numberWithOptions(
+                            signed: true,
+                            decimal: false,
                           ),
-                        );
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*$')),
+                          ],
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Enter Number',
+                            hintText: 'Enter Number',
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 24.h),
+                  SizedBox(
+                    width: SizeUtils.width.percent(60),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        controller.addForecast();
                       },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: appTheme.black900,
+                        minimumSize: const Size(double.infinity, 48),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Color(0xff375DFB),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 30.h),
+                      ),
+                      child: Text(
+                        'Submit Request',
+                        style: GoogleFonts.comfortaa(color: theme.primaryColor),
+                      ),
                     ),
                   ),
-                )
-              ],
+                  SizedBox(height: 24.h),
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      await controller.getForecastList(0);
+                      return null;
+                    },
+                    child: Container(
+                      height: SizeUtils.height.percent(35),
+                      child: Obx(
+                        () => ListView.builder(
+                          controller: _scrollController,
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: controller.forecastList.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            var item = controller.forecastList[index];
+                            return Container(
+                              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Colors.transparent,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    _buildField(title: "Order ID:", value: "${item.id?.substring(0, 5)}..."),
+                                    VerticalDivider(
+                                      color: Colors.black,
+                                      thickness: 1,
+                                    ),
+                                    _buildField(title: "Cans:", value: "${item?.watercans?.toInt()}"),
+                                    VerticalDivider(
+                                      color: Colors.black,
+                                      thickness: 1,
+                                    ),
+                                    Container(
+                                        width: SizeUtils.width.percent(22),
+                                        child: _buildField(title: "Status:", value: "${item?.status}", isStatus: true)),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -104,3 +104,18 @@ Plant - scan out
 ## OPTIONAL - warehouse - scan in
 
 store - scan in
+
+below data need to be shown of between the specific dates and of all stores or any selected store.
+
+Total Cans IN
+Total Cans OUT
+
+Total Deliveries
+Total Deliverd outside of geofencing area
+
+Total Cost
+
+---
+
+loading to be add in each list request.
+confirm image preiview upside down bug.

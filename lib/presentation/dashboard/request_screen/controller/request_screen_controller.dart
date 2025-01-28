@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 class RequestScreenController extends AuthController {
   var forecastList = <EmployeeStoreForecastGet$Response$Data$Item>[].obs;
   late DateTime selectedDate = DateTime.now();
+  var page = 0.obs;
+  var size = 10.obs;
 
   TextEditingController waterCan = TextEditingController();
 
@@ -19,18 +21,26 @@ class RequestScreenController extends AuthController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getForecastList(0, 10, DateTime.now().toString());
+    getForecastList();
   }
 
-  getForecastList(page, size, date) async {
-    forecastList.clear();
+  getForecastList([int? givenPage]) async {
+    if (givenPage != null && givenPage < page.value || givenPage! == 0) {
+      forecastList.clear();
+    }
+    page.value = givenPage ?? page.value;
 
-    var request = await ApiClient.employeeStoreForecastGet(page: page.toString(), size: size.toString(), date: date);
+    var request = await ApiClient.employeeStoreForecastGet(
+        page: page.value.toString(), size: size.value.toString(), date: selectedDate.toString());
     print("getForecastList request: ${request.body}");
     if (!(request.body?.status ?? false)) {
       return;
     }
 
+    forecastList.addAll(request.body?.data ?? []);
+    forecastList.addAll(request.body?.data ?? []);
+    forecastList.addAll(request.body?.data ?? []);
+    forecastList.addAll(request.body?.data ?? []);
     forecastList.addAll(request.body?.data ?? []);
     update();
   }
@@ -38,8 +48,8 @@ class RequestScreenController extends AuthController {
   addForecast() async {
     Toast.loading("Requesting....");
     var request = await ApiClient.employeeStoreForecastPost(
-        body: EmployeeStoreForecastPost$RequestBody(
-            watercans: double.parse(waterCan.text), date: selectedDate.toString()));
+        body:
+            EmployeeStoreForecastPost$RequestBody(watercans: int.parse(waterCan.text), date: selectedDate.toString()));
 
     if (!(request.body?.status ?? false)) {
       Toast.error(request.body?.message);
@@ -48,13 +58,19 @@ class RequestScreenController extends AuthController {
 
     Toast.success(request.body?.message);
     waterCan.clear();
-    getForecastList(0, 10, selectedDate.toString());
+    getForecastList(0);
   }
 
   handleDateUpdate(date) {
     selectedDate = date;
-    getForecastList(0, 10, date.toString());
+    getForecastList(0);
     update();
+  }
+
+  handleCountChange(value) {
+    if (value < 0) {
+      waterCan.text = 0.toString();
+    }
   }
 
   @override

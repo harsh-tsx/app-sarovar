@@ -23,6 +23,7 @@ class ImageConstant {
   static String tabsIcon = 'assets/images/tabsIcon.svg';
   static String tabsIconActive = 'assets/images/tabsIcon_active.svg';
   static String can = 'assets/images/can.png';
+  static String emptyCan = 'assets/images/empty_can.png';
   static String hourGlass = 'assets/images/hourglass.gif';
   static String pageBg = 'assets/images/page_bg.png';
 }

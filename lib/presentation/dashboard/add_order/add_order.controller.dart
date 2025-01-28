@@ -33,6 +33,7 @@ class AddOrderController extends AuthController {
   var canCount = 0.obs;
   var crossAxisCount = 1.obs;
   var activeOrder = EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data().obs;
+  var activeReturnOrder = EmployeeStoreEmployeeOrdersActiveReturnOrderGet$Response$Data().obs;
   var homeController = isControllerRegistered<HomeController>(HomeController());
   var loading = true.obs;
   var remark = TextEditingController();
@@ -46,6 +47,7 @@ class AddOrderController extends AuthController {
     print("hello");
 
     getActiveOrder();
+    getActiveReturnOrder();
   }
 
   getActiveOrder() async {
@@ -74,7 +76,33 @@ class AddOrderController extends AuthController {
     }
   }
 
-  Future<void> scanQR(mounted) async {
+  getActiveReturnOrder() async {
+    try {
+      loading.value = true;
+      print("calling get active return order");
+      var request = await ApiClient.employeeStoreEmployeeOrdersActiveReturnOrderGet();
+      print("activeReturnOrder: ${request.body?.data}");
+      activeReturnOrder.value = request.body?.data ?? EmployeeStoreEmployeeOrdersActiveReturnOrderGet$Response$Data();
+
+      canCount.value = (activeOrder.value.employeeOrder ?? []).length;
+
+      if (canCount.value >= 5) {
+        crossAxisCount.value = 5;
+      } else if (canCount.value == 0) {
+        crossAxisCount.value = 1;
+      } else {
+        crossAxisCount.value = canCount.value;
+      }
+      loading.value = false;
+      update();
+    } catch (error, stacktrace) {
+      loading.value = false;
+      print("error: ${error}");
+      print("stacktrace: ${stacktrace}");
+    }
+  }
+
+  Future<void> scanQR(mounted, [returnOrder = false]) async {
     String barcodeScanRes;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
@@ -94,7 +122,11 @@ class AddOrderController extends AuthController {
       var data = qrMetaDataFromJson(barcodeScanRes);
       print("barcodeScanRes data: ${data}");
       if (data.id != null) {
-        addWaterCan(data.id);
+        if (returnOrder) {
+          returnWaterCan(data.id);
+        } else {
+          addWaterCan(data.id);
+        }
       }
     } catch (error) {
       print("erro: ${error}");
@@ -119,13 +151,34 @@ class AddOrderController extends AuthController {
     getActiveOrder();
   }
 
-  confirmOrder(id) async {
+  returnWaterCan(id) async {
+    var body = EmployeeStoreEmployeeOrdersPut$RequestBody(watercan: id);
+
+    print("body: ${body.toJson()}");
+    var request = await ApiClient.employeeStoreEmployeeOrdersPut(body: body);
+
+    print("request: ${request.body}");
+
+    if (!(request.body?.status ?? false)) {
+      Toast.error(request.body?.message);
+      return;
+    }
+
+    Toast.success(request.body?.message);
+
+    getActiveReturnOrder()();
+  }
+
+  confirmOrder(id, returnId) async {
     Toast.loading("submitting....");
 
-    final bytes = (await photo.value?.readAsBytes())?.toList();
-    // final file = http.MultipartFile.fromPath();
     if (this.outSide.value) {
-      var request = await submitSubscription(id);
+      if (activeOrder.value.id != null) {
+        await submitConfirmRequest(id);
+      }
+      if (activeReturnOrder.value.id != null) {
+        submitReturnConfirmRequest(returnId);
+      }
     } else {
       var request = await ApiClient.employeeStoreEmployeeOrdersConfirmPost(
         order: id,
@@ -135,38 +188,89 @@ class AddOrderController extends AuthController {
         Toast.error(request.body?.message);
         return;
       }
+
+      if (activeReturnOrder.value.id != null) {
+        var request = await ApiClient.employeeStoreEmployeeOrdersConfirmPut(
+          order: returnId,
+        );
+
+        if (!(request.body?.status ?? false)) {
+          Toast.error(request.body?.message);
+          return;
+        }
+      }
+
       homeController.getHomeDashboardData(DateTime.now());
       Toast.success(request.body?.message);
       Get.back(closeOverlays: true);
     }
   }
 
-  submitSubscription(id) async {
+  submitConfirmRequest(id) async {
     ///MultiPart request
 
-    var file = photo.value;
-    Map<String, String> headers = {"Authorization": "Bearer ${getToken()}", "Content-type": "multipart/form-data"};
+    try {
+      var file = photo.value;
 
-    var form = new _dio.FormData.fromMap(
-        {"IMAGES": await _dio.MultipartFile.fromFile(file?.path ?? "", filename: file?.name ?? "")});
+      var form = new _dio.FormData.fromMap(
+          {"IMAGES": await _dio.MultipartFile.fromFile(file?.path ?? "", filename: file?.name ?? "")});
 
-    var response = await _dio.Dio().post(
-        "https://sarovar-api.krida.top/employee-store/employee-orders/confirm?order=${id}&remark=${remarkOption.value.isEmpty ? remark.text : remarkOption.value}&SCANNEDOUTSIDE=${this.outSide.value ? "true" : "false"}",
-        data: form,
-        options: _dio.Options(
-          contentType: "multipart/form-data",
-          headers: {"Authorization": "Bearer ${getToken()}", "Content-type": "multipart/form-data"},
-        ));
-    print("response: ${response.data}");
+      var response = await _dio.Dio().post(
+          "https://api.1point2percent.com/employee-store/employee-orders/confirm?order=${id}&remark=${remarkOption.value.isEmpty ? remark.text : remarkOption.value}&SCANNEDOUTSIDE=${this.outSide.value ? "true" : "false"}",
+          data: form,
+          options: _dio.Options(
+            contentType: "multipart/form-data",
+            headers: {"Authorization": "Bearer ${getToken()}", "Content-type": "multipart/form-data"},
+          ));
+      print("response: ${response.data}");
 
-    if (response.data != null) {
-      if (response.data['status'] == true) {
-        homeController.getHomeDashboardData(DateTime.now());
-        Toast.success(response.data['message']);
-        Get.back(closeOverlays: true);
-      } else {
-        Toast.error(response.data['message']);
+      if (response.data != null) {
+        if (response.data['status'] == true) {
+          if (activeReturnOrder.value.id == null) {
+            homeController.getHomeDashboardData(DateTime.now());
+            Toast.success(response.data['message']);
+            Get.back(closeOverlays: true);
+          }
+        } else {
+          Toast.error("IN - " + response.data['message']);
+        }
       }
+    } catch (error, stackTrace) {
+      print("error: ${error}");
+      print("stackTrace: ${stackTrace}");
+    }
+  }
+
+  submitReturnConfirmRequest(id) async {
+    ///MultiPart request
+
+    try {
+      var file = photo.value;
+
+      var form = new _dio.FormData.fromMap(
+          {"IMAGES": await _dio.MultipartFile.fromFile(file?.path ?? "", filename: file?.name ?? "")});
+
+      var response = await _dio.Dio().put(
+          "https://api.1point2percent.com/employee-store/employee-orders/confirm?order=${id}&remark=${remarkOption.value.isEmpty ? remark.text : remarkOption.value}&SCANNEDOUTSIDE=${this.outSide.value ? "true" : "false"}",
+          data: form,
+          options: _dio.Options(
+            contentType: "multipart/form-data",
+            headers: {"Authorization": "Bearer ${getToken()}", "Content-type": "multipart/form-data"},
+          ));
+      print("response: ${response.data}");
+
+      if (response.data != null) {
+        if (response.data['status'] == true) {
+          homeController.getHomeDashboardData(DateTime.now());
+          Toast.success(response.data['message']);
+          Get.back(closeOverlays: true);
+        } else {
+          Toast.error("OUT - " + response.data['message']);
+        }
+      }
+    } catch (error, stackTrace) {
+      print("error: ${error}");
+      print("stackTrace: ${stackTrace}");
     }
   }
 
@@ -178,23 +282,22 @@ class AddOrderController extends AuthController {
   handleImage() async {
     final ImagePicker picker = ImagePicker();
 
-    photo.value = await picker.pickImage(source: ImageSource.camera);
+    var xFile = await picker.pickImage(source: ImageSource.camera);
 
-    var pathList = photo.value?.path.split(".");
-    var ext = pathList?[(pathList?.length ?? 1) - 1];
+    var pathList = xFile?.path.split(".");
+    var ext = pathList?[(pathList.length) - 1];
     var targetPath = await getExampleFilePath(ext);
 
     print("photo.value.mimeType: ${ext}");
 
-    var result = await FlutterImageCompress.compressAndGetFile(
-      photo.value?.path ?? "",
+    photo.value = await FlutterImageCompress.compressAndGetFile(
+      xFile?.path ?? "",
       targetPath,
-      quality: 88,
+      quality: 50,
       rotate: 180,
     );
 
     print(await photo.value?.length());
-    print(await result?.length());
 
     update();
   }
