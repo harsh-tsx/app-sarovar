@@ -17,6 +17,7 @@ class HomeController extends AuthController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    print("DatetimeNow: ${DateTime.now()}");
   }
 
   getHomeDashboardData(DateTime date) async {

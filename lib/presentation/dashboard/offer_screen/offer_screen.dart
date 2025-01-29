@@ -196,30 +196,50 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ),
                 controller.currentTab.value == "IN"
                     ? Expanded(
-                        child: Container(
-                          // height: Get.height * .69,
-                          decoration: BoxDecoration(color: Color(0xffE4DABA)),
-                          child: ListView.builder(
-                            controller: _scrollController,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemCount: controller.inHistoryList.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) => _buildHistoryRow(controller.inHistoryList[index]),
-                          ),
-                        ),
+                        child: controller.inHistoryList.length > 0
+                            ? Container(
+                                // height: Get.height * .69,
+                                decoration: BoxDecoration(color: Color(0xffE4DABA)),
+                                child: ListView.builder(
+                                  controller: _scrollController,
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  itemCount: controller.inHistoryList.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) => _buildHistoryRow(controller.inHistoryList[index]),
+                                ),
+                              )
+                            : Container(
+                                width: SizeUtils.width,
+                                decoration: BoxDecoration(color: Color(0xffE4DABA)),
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
                       )
                     : Expanded(
-                        child: Container(
-                          // height: Get.height * .69,
-                          decoration: BoxDecoration(color: Color(0xffE4DABA)),
-                          child: ListView.builder(
-                            controller: _scrollController2,
-                            physics: const AlwaysScrollableScrollPhysics(),
-                            itemCount: controller.outHistoryList.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) => _buildHistoryRow2(controller.outHistoryList[index]),
-                          ),
-                        ),
+                        child: controller.outHistoryList.length > 0
+                            ? Container(
+                                // height: Get.height * .69,
+                                decoration: BoxDecoration(color: Color(0xffE4DABA)),
+                                child: ListView.builder(
+                                  controller: _scrollController2,
+                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  itemCount: controller.outHistoryList.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) => _buildHistoryRow2(controller.outHistoryList[index]),
+                                ),
+                              )
+                            : Container(
+                                width: SizeUtils.width,
+                                decoration: BoxDecoration(color: Color(0xffE4DABA)),
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
                       )
               ],
             ),
@@ -230,11 +250,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Widget _buildHistoryRow(EmployeeStoreOrdersGet$Response$Data$Item item) {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    var formatted = formatter.format(DateTime.parse(item.date ?? ""));
-
-    print(formatted);
-
     return Padding(
       padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
       child: Column(
@@ -245,7 +260,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             children: [
               SizedBox(width: 20.w),
               Text(
-                "${formatted}",
+                "${item.date}",
                 style: GoogleFonts.comfortaa(fontSize: 14.fSize, fontWeight: FontWeight.w900),
               ),
             ],
@@ -273,11 +288,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   Widget _buildHistoryRow2(EmployeeStoreReturnOrderGet$Response$Data$Item item) {
-    final DateFormat formatter = DateFormat('yyyy-MM-dd');
-    var formatted = formatter.format(DateTime.parse(item.date ?? ""));
-
-    print(formatted);
-
     return Padding(
       padding: EdgeInsets.only(top: 10.h, left: 10.w, right: 10.w),
       child: Column(
@@ -288,7 +298,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             children: [
               SizedBox(width: 20.w),
               Text(
-                "${formatted}",
+                "${item.date}",
                 style: GoogleFonts.comfortaa(fontSize: 14.fSize, fontWeight: FontWeight.w900),
               ),
             ],

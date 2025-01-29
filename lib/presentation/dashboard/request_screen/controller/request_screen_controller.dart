@@ -25,7 +25,7 @@ class RequestScreenController extends AuthController {
   }
 
   getForecastList([int? givenPage]) async {
-    if (givenPage != null && givenPage < page.value || givenPage! == 0) {
+    if (givenPage != null && givenPage < page.value || givenPage == 0) {
       forecastList.clear();
     }
     page.value = givenPage ?? page.value;
@@ -37,10 +37,6 @@ class RequestScreenController extends AuthController {
       return;
     }
 
-    forecastList.addAll(request.body?.data ?? []);
-    forecastList.addAll(request.body?.data ?? []);
-    forecastList.addAll(request.body?.data ?? []);
-    forecastList.addAll(request.body?.data ?? []);
     forecastList.addAll(request.body?.data ?? []);
     update();
   }
