@@ -4,7 +4,7 @@ import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.dar
 import 'package:app_1point2_store/presentation/dashboard/can_out_screen/can_out_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/complain_screen/complain_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/home_screen.dart';
-import 'package:app_1point2_store/presentation/dashboard/offer_screen/offer_screen.dart';
+import 'package:app_1point2_store/presentation/dashboard/history_screen/history_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/qr_scanner_screen/qr_scanner_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/request_screen/request_screen.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class BottomNavMenuModel {
 
 List<Widget> bottomNavWidgetList = [
   HomeScreen(),
-  OfferScreen(),
+  HistoryScreen(),
   AddOrderScreen(),
   RequestScreen(),
   ComplaintScreen(),

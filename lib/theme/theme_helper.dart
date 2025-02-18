@@ -8,14 +8,10 @@ class ThemeHelper {
   var _appTheme = PrefUtils().getThemeData();
 
 // A map of custom color themes supported by the app
-  Map<String, PrimaryColors> _supportedCustomColor = {
-    'primary': PrimaryColors()
-  };
+  Map<String, PrimaryColors> _supportedCustomColor = {'primary': PrimaryColors()};
 
 // A map of color schemes supported by the app
-  Map<String, ColorScheme> _supportedColorScheme = {
-    'primary': ColorSchemes.primaryColorScheme
-  };
+  Map<String, ColorScheme> _supportedColorScheme = {'primary': ColorSchemes.primaryColorScheme};
 
   /// Changes the app theme to [_newTheme].
   void changeTheme(String _newTheme) {
@@ -44,8 +40,7 @@ class ThemeHelper {
     }
     //return theme from map
 
-    var colorScheme =
-        _supportedColorScheme[_appTheme] ?? ColorSchemes.primaryColorScheme;
+    var colorScheme = _supportedColorScheme[_appTheme] ?? ColorSchemes.primaryColorScheme;
     return ThemeData(
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
@@ -128,49 +123,49 @@ class ThemeHelper {
 class TextThemes {
   static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
         bodyLarge: TextStyle(
-          color: Colors.white,
+          color: Colors.black,
           fontSize: 16.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w400,
         ),
         bodyMedium: TextStyle(
-          color: appTheme.gray70001,
+          color: Colors.black,
           fontSize: 14.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w400,
         ),
         bodySmall: TextStyle(
-          color: appTheme.gray70001,
+          color: Colors.black,
           fontSize: 12.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w400,
         ),
         displaySmall: TextStyle(
-          color: Color(0XFF000000),
+          color: Colors.black,
           fontSize: 36.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
         ),
         headlineLarge: TextStyle(
-          color: colorScheme.primary.withOpacity(1),
+          color: Colors.black,
           fontSize: 30.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
         headlineMedium: TextStyle(
-          color: colorScheme.primary,
+          color: Colors.black,
           fontSize: 26.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
         ),
         headlineSmall: TextStyle(
-          color: colorScheme.primary,
+          color: Colors.black,
           fontSize: 24.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
         ),
         labelLarge: TextStyle(
-          color: colorScheme.primary.withOpacity(1),
+          color: Colors.black,
           fontSize: 12.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
@@ -182,13 +177,13 @@ class TextThemes {
           fontWeight: FontWeight.w700,
         ),
         titleMedium: TextStyle(
-          color: colorScheme.primary.withOpacity(1),
+          color: Colors.black,
           fontSize: 16.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
         titleSmall: TextStyle(
-          color: appTheme.gray50001,
+          color: Colors.black,
           fontSize: 14.fSize,
           fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,

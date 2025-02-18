@@ -55,9 +55,16 @@ class _RequestScreenState extends State<RequestScreen> {
   }
 
   Widget _buildHeaderSection() {
-    return SizedBox(
+    return Container(
       height: Get.height * .1,
       width: Get.width,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(ImageConstant.pageBg),
+          fit: BoxFit.cover,
+          alignment: Alignment.topCenter,
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -76,8 +83,18 @@ class _RequestScreenState extends State<RequestScreen> {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: appTheme.pageBg,
-            borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+          color: appTheme.pageBg,
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              blurRadius: 4.0,
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Padding(

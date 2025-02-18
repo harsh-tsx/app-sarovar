@@ -12,7 +12,7 @@ class ImageConstant {
   }
 
   /** USED IN APP */
-  static String appLogo = 'assets/images/app_logo.svg';
+  static String appLogo = 'assets/images/app_logo.png';
   static String bottomCenterIcon = 'assets/images/bottom_center_icon.svg';
   static String homeIcon = 'assets/images/home_icon.svg';
   static String homeIconActive = 'assets/images/home_icon_active.svg';

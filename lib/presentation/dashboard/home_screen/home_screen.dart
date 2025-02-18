@@ -26,14 +26,24 @@ class _HomeScreenState extends State<HomeScreen> {
             return;
           },
           child: SingleChildScrollView(
-            child: SizedBox(
+            child: Container(
               height: Get.height,
               width: Get.width,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(ImageConstant.pageBg),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
               // decoration: BoxDecoration(image: DecorationImage(image: AssetImage(Assets.drops), fit: BoxFit.fill)),
               child: Column(
                 children: [
                   // Header Section
                   _buildHeaderSection(),
+                  // SizedBox(
+                  //   height: 100.h,
+                  // ),
                   // Inventory Section
                   _buildInventorySection()
                 ],
@@ -49,13 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       height: Get.height * .2,
       width: Get.width,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(ImageConstant.pageBg),
-          fit: BoxFit.cover,
-          alignment: Alignment.topCenter,
-        ),
-      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -74,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   imagePath: ImageConstant.appLogo,
                   width: 84.w,
                   height: 37.h,
+                  fit: BoxFit.contain,
                 ),
               ),
               Expanded(
@@ -139,8 +143,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: appTheme.pageBg,
-            borderRadius: const BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+          color: appTheme.pageBg,
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              blurRadius: 4.0,
+            ),
+          ],
+        ),
         child: Column(
           children: [
             Padding(
@@ -150,7 +164,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     'Inventory',
-                    style: GoogleFonts.comfortaa(fontSize: 20, fontWeight: FontWeight.w700),
+                    style: GoogleFonts.comfortaa(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   CalendarSection(),
@@ -158,10 +176,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Obx(
                     () => GridView.count(
                       physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.all(10.w),
                       shrinkWrap: true,
                       crossAxisCount: 2,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 15.h,
+                      crossAxisSpacing: 30.w,
                       children: [
                         _buildStatsCard('Today\'s In', "${(controller.homeDashboard.value?.todaysIn ?? 0.0).toInt()}",
                             Icons.arrow_downward),
@@ -190,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Column _buildField({required String title, String? value, bool isLocation = false}) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: MainAxisSize.max,
       children: [
         Text(
           title,
@@ -212,6 +231,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 right: BorderSide(
                   color: Color(0xff666666),
                   width: 1,
+                ),
+                bottom: BorderSide(
+                  color: Colors.red,
+                  width: 1,
+                  style: BorderStyle.none,
                 ),
               ),
               borderRadius: const BorderRadius.only(topRight: Radius.circular(10), topLeft: Radius.circular(10))),
@@ -242,6 +266,18 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: appTheme.black900,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 10,
+            spreadRadius: 1,
+            offset: Offset(
+              0,
+              10,
+            ),
+          ),
+        ],
+
         // boxShadow: [
         //   BoxShadow(
         //     color: Colors.black.withOpacity(0.2),

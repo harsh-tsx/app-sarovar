@@ -17,7 +17,7 @@ class Dashboard extends GetWidget<DashboardController> {
       child: GetBuilder<DashboardController>(builder: (_context) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: appTheme.gray50,
+          backgroundColor: appTheme.pageBg,
           body: bottomNavWidgetList[controller.selectedIndex.value],
           // floatingActionButton: FloatingActionButton(
           //   elevation: 0,
@@ -46,10 +46,26 @@ class Dashboard extends GetWidget<DashboardController> {
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterDocked,
 
-          bottomNavigationBar: Container(
+          bottomNavigationBar:
+              // Stack(
+              //   clipBehavior: Clip.none,
+              //   alignment: new FractionalOffset(.5, 1.0),
+              //   children: [
+              Container(
             height: 70.h,
             decoration: BoxDecoration(
               color: appTheme.primaryYellow,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  blurRadius: 4.0,
+                  spreadRadius: 2,
+                ),
+              ],
               // boxShadow: [
               //   BoxShadow(
               //     color: theme.colorScheme.primary.withOpacity(0.15),
@@ -63,7 +79,7 @@ class Dashboard extends GetWidget<DashboardController> {
               // ],
             ),
             child: BottomNavigationBar(
-              backgroundColor: appTheme.primaryYellow,
+              backgroundColor: Colors.transparent,
               showSelectedLabels: false,
               showUnselectedLabels: false,
               selectedFontSize: 0,
@@ -75,7 +91,7 @@ class Dashboard extends GetWidget<DashboardController> {
                   icon: Container(
                     width: Get.width / 5,
                     // height: 70.h,
-                    decoration: AppDecoration.fillOnError.copyWith(color: appTheme.primaryYellow),
+                    decoration: AppDecoration.fillOnError.copyWith(color: Colors.transparent),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,15 +131,15 @@ class Dashboard extends GetWidget<DashboardController> {
                   activeIcon: Container(
                     height: 70.h,
                     width: Get.width / 5,
-                    decoration: AppDecoration.fillOnError.copyWith(color: appTheme.primaryYellow),
+                    decoration: AppDecoration.fillOnError.copyWith(color: Colors.transparent),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Container(),
-                        ),
+                        // Expanded(
+                        //   child: Container(),
+                        // ),
                         Column(
                           children: [
                             controller.bottomNavMenuList[index].title!.isNotEmpty
@@ -150,9 +166,9 @@ class Dashboard extends GetWidget<DashboardController> {
                             ),
                           ],
                         ),
-                        Expanded(
-                          child: Container(),
-                        ),
+                        // Expanded(
+                        //   child: Container(),
+                        // ),
                         controller.bottomNavMenuList[index].title!.isNotEmpty
                             ? Container(
                                 height: 3,
@@ -168,6 +184,58 @@ class Dashboard extends GetWidget<DashboardController> {
               onTap: controller.handlBottomNavChange,
             ),
           ),
+          //     Positioned(
+          //       bottom: 5.h,
+          //       child: InkWell(
+          //         onTap: () {
+          //           // controller.handlBottomNavChange(2);
+          //           if (controller.outSide.value) {
+          //             Toast.error("Your're outside of the Store!");
+          //             // return;
+          //           }
+          //           Get.toNamed(AppRoutes.addOrderScreen);
+          //         },
+          //         child: Column(
+          //           mainAxisSize: MainAxisSize.min,
+          //           mainAxisAlignment: MainAxisAlignment.start,
+          //           children: [
+          //             Container(
+          //               decoration: BoxDecoration(
+          //                   // boxShadow: [
+          //                   //   BoxShadow(
+          //                   //     color: Colors.black.withOpacity(0.25),
+          //                   //     blurRadius: 4.0,
+          //                   //     spreadRadius: 6,
+          //                   //   ),
+          //                   // ],
+          //                   ),
+          //               child: ClipRRect(
+          //                 borderRadius: BorderRadius.circular(100),
+          //                 child: Container(
+          //                   child: CustomImageView(
+          //                     imagePath: ImageConstant.bottomCenterIcon,
+          //                     width: 80.w,
+          //                     // height: 100.h,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             Text(
+          //               "Scan",
+          //               style: CustomTextStyles.titleMediumGray50001.copyWith(
+          //                 fontSize: 12.fSize,
+          //                 color: Colors.black26,
+          //               ),
+          //             ),
+          //             SizedBox(
+          //               height: 15.h,
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //     )
+          //   ],
+          // ),
         );
       }),
     );

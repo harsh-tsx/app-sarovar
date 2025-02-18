@@ -294,7 +294,7 @@ class AddOrderController extends AuthController {
       xFile?.path ?? "",
       targetPath,
       quality: 50,
-      rotate: 180,
+      // rotate: 180,
     );
 
     print(await photo.value?.length());

@@ -4,7 +4,7 @@ import 'package:app_1point2_store/core/utils/Toast.dart';
 import 'package:app_1point2_store/data/apiClient/api_client.dart';
 import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 
-class OfferScreenController extends AuthController {
+class HistoryScreenController extends AuthController {
   var currentTab = "IN".obs;
   var inHistoryList = <EmployeeStoreOrdersGet$Response$Data$Item>[].obs;
   var outHistoryList = <EmployeeStoreReturnOrderGet$Response$Data$Item>[].obs;

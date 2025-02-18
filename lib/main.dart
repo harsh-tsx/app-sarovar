@@ -15,8 +15,7 @@ void main() {
     // Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
     // runApp(MyApp());
 
-    runApp(DevicePreview(
-        enabled: !kReleaseMode, builder: (context) => MyApp() // Wrap your app
+    runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp() // Wrap your app
         ));
   });
 }

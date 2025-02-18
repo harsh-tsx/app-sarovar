@@ -2,23 +2,12 @@ import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/core/utils/types.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/controller/home_controller.dart';
-import 'package:app_1point2_store/presentation/dashboard/offer_screen/offer_screen.controller.dart';
+import 'package:app_1point2_store/presentation/dashboard/history_screen/history_screen.controller.dart';
 import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 import 'package:app_1point2_store/widgets/custom_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
-class OfferScreen extends StatelessWidget {
-  OfferScreen({super.key});
-
-  var list = ["The World Cup", "Asian Cup", "Africa Cup of Nations"];
-
-  @override
-  Widget build(BuildContext context) {
-    return HistoryScreen();
-  }
-}
 
 class HistoryScreen extends StatefulWidget {
   HistoryScreen({super.key});
@@ -29,7 +18,7 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   var homeControllr = isControllerRegistered<HomeController>(HomeController());
-  var controller = isControllerRegistered<OfferScreenController>(OfferScreenController());
+  var controller = isControllerRegistered<HistoryScreenController>(HistoryScreenController());
 
   final ScrollController _scrollController = ScrollController();
   final ScrollController _scrollController2 = ScrollController();
@@ -64,7 +53,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       backgroundColor: theme.primaryColor,
       body: SafeArea(
-        child: GetBuilder<OfferScreenController>(builder: (_context) {
+        child: GetBuilder<HistoryScreenController>(builder: (_context) {
           return RefreshIndicator(
             onRefresh: () async {
               if (controller.currentTab == "IN") {
@@ -75,9 +64,22 @@ class _HistoryScreenState extends State<HistoryScreen> {
             },
             child: Column(
               children: [
-                SizedBox(
+                Container(
                   height: Get.height * .12,
                   width: Get.width,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(ImageConstant.pageBg),
+                      fit: BoxFit.cover,
+                      alignment: Alignment.topCenter,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.25),
+                        blurRadius: 4.0,
+                      ),
+                    ],
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     mainAxisSize: MainAxisSize.min,
@@ -100,24 +102,24 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               controller.handleCurrentTabChange("IN");
                             },
                             child: Container(
-                              width: Get.width * .45,
+                              width: Get.width * .50,
                               height: 40.h,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: controller.currentTab.value == "IN" ? appTheme.pageBg : Colors.black,
+                                color: controller.currentTab.value == "IN" ? Colors.black : Color(0xffD8CBA0),
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                 ),
                                 border: Border(
                                   top: BorderSide(
-                                    color: Colors.black,
+                                    color: Color(0xffE4DABA),
                                   ),
                                   right: BorderSide(
-                                    color: Colors.black,
+                                    color: Color(0xffE4DABA),
                                   ),
                                   left: BorderSide(
-                                    color: Colors.black,
+                                    color: Color(0xffE4DABA),
                                   ),
                                 ),
                               ),
@@ -128,7 +130,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     "IN",
                                     style: TextStyle(
                                       color:
-                                          controller.currentTab.value == "IN" ? Colors.black : appTheme.primaryYellow,
+                                          controller.currentTab.value == "IN" ? appTheme.primaryYellow : Colors.black,
                                     ),
                                   ),
                                   // Text(
@@ -148,24 +150,24 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               controller.handleCurrentTabChange("OUT");
                             },
                             child: Container(
-                              width: Get.width * .45,
+                              width: Get.width * .50,
                               height: 40.h,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: controller.currentTab.value == "OUT" ? appTheme.pageBg : Colors.black,
+                                color: controller.currentTab.value == "OUT" ? Colors.black : Color(0xffD8CBA0),
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),
                                   topRight: Radius.circular(10),
                                 ),
                                 border: Border(
                                   top: BorderSide(
-                                    color: Colors.black,
+                                    color: Color(0xffE4DABA),
                                   ),
                                   right: BorderSide(
-                                    color: Colors.black,
+                                    color: Color(0xffE4DABA),
                                   ),
                                   left: BorderSide(
-                                    color: Colors.black,
+                                    color: Color(0xffE4DABA),
                                   ),
                                 ),
                               ),
@@ -176,7 +178,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     "OUT",
                                     style: TextStyle(
                                       color:
-                                          controller.currentTab.value == "OUT" ? Colors.black : appTheme.primaryYellow,
+                                          controller.currentTab.value == "OUT" ? appTheme.primaryYellow : Colors.black,
                                     ),
                                   ),
                                   // Text(

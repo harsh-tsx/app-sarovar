@@ -119,3 +119,7 @@ Total Cost
 
 loading to be add in each list request.
 confirm image preiview upside down bug.
+
+scan in and out screen to be seperate.
+complaint part to be complete
+time slot to be show in app
