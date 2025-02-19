@@ -19,35 +19,33 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appTheme.primaryYellow,
-      body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () async {
-            await controller.getHomeDashboardData(controller.currentDate);
-            return;
-          },
-          child: SingleChildScrollView(
-            child: Container(
-              height: Get.height,
-              width: Get.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(ImageConstant.pageBg),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.topCenter,
-                ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.getHomeDashboardData(controller.currentDate);
+          return;
+        },
+        child: SingleChildScrollView(
+          child: Container(
+            height: Get.height,
+            width: Get.width,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(ImageConstant.pageBg),
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
               ),
-              // decoration: BoxDecoration(image: DecorationImage(image: AssetImage(Assets.drops), fit: BoxFit.fill)),
-              child: Column(
-                children: [
-                  // Header Section
-                  _buildHeaderSection(),
-                  // SizedBox(
-                  //   height: 100.h,
-                  // ),
-                  // Inventory Section
-                  _buildInventorySection()
-                ],
-              ),
+            ),
+            // decoration: BoxDecoration(image: DecorationImage(image: AssetImage(Assets.drops), fit: BoxFit.fill)),
+            child: Column(
+              children: [
+                // Header Section
+                _buildHeaderSection(),
+                // SizedBox(
+                //   height: 100.h,
+                // ),
+                // Inventory Section
+                _buildInventorySection()
+              ],
             ),
           ),
         ),
@@ -57,13 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildHeaderSection() {
     return Container(
-      height: Get.height * .2,
-      width: Get.width,
+      height: SizeUtils.height * .22,
+      width: SizeUtils.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: 20.h,
+            height: 25.h,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         "Logout",
                         style:
-                            GoogleFonts.comfortaa(fontSize: 12.fSize, fontWeight: FontWeight.bold, color: Colors.black),
+                            GoogleFonts.poppins(fontSize: 12.fSize, fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                       SizedBox(width: 24.w)
                     ],
@@ -106,11 +104,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           SizedBox(height: 12.h),
-          SizedBox(height: 5.h),
           Obx(
             () => Text(
               "${controller.user?.value?.name}",
-              style: GoogleFonts.comfortaa(fontSize: 16.fSize, fontWeight: FontWeight.bold, color: Colors.black),
+              style: GoogleFonts.poppins(fontSize: 16.fSize, fontWeight: FontWeight.bold, color: Colors.black),
             ),
           ),
           const Spacer(),
@@ -164,13 +161,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     'Inventory',
-                    style: GoogleFonts.comfortaa(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
+                    style: GoogleFonts.poppins(
+                      fontSize: 20.fSize,
+                      fontWeight: FontWeight.w500,
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: 10.h),
                   CalendarSection(),
                   const SizedBox(height: 24),
                   Obx(
@@ -186,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icons.arrow_downward),
                         InkWell(
                           onTap: () {
-                            Get.toNamed(AppRoutes.addOrderScreen);
+                            Get.toNamed(AppRoutes.addOrderScreen, arguments: {"type": "OUT"});
                           },
                           child: _buildStatsCard('Today\'s Out',
                               "${(controller.homeDashboard.value?.todaysOut ?? 0.0).toInt()}", Icons.arrow_upward),
@@ -213,11 +210,11 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           title,
-          style: GoogleFonts.comfortaa(fontSize: 12.fSize, fontWeight: FontWeight.w400, color: Colors.black),
+          style: GoogleFonts.poppins(fontSize: 12.fSize, fontWeight: FontWeight.w500, color: Colors.black),
         ),
         Container(
-          height: 55.h,
-          width: Get.width * 0.30,
+          height: 40.h,
+          width: SizeUtils.width * 0.30,
           decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(
@@ -251,8 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Icon(Icons.check, color: appTheme.greenA700)
                   : Text(
                       value ?? "",
-                      style:
-                          GoogleFonts.comfortaa(fontSize: 16.fSize, fontWeight: FontWeight.w700, color: Colors.black),
+                      style: GoogleFonts.poppins(fontSize: 16.fSize, fontWeight: FontWeight.w700, color: Colors.black),
                     ),
             ),
           ),
@@ -292,23 +288,27 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(value, style: GoogleFonts.comfortaa(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+          Text(value, style: GoogleFonts.poppins(color: Colors.white, fontSize: 32.fSize, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
           Row(
             children: [
               Expanded(
-                  child: Divider(
-                thickness: 1,
-                indent: 20,
-                color: appTheme.primaryYellow,
-              )),
+                child: Divider(
+                  thickness: 1,
+                  indent: 20,
+                  color: appTheme.primaryYellow,
+                ),
+              ),
               Container(
                 padding: const EdgeInsets.all(2),
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, border: Border.all(width: 1, color: appTheme.primaryYellow)),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1, color: appTheme.primaryYellow),
+                  color: appTheme.primaryYellow,
+                ),
                 child: Icon(
                   icon,
-                  color: appTheme.primaryYellow,
+                  color: Colors.black,
                   size: 14.w,
                 ),
               ),
@@ -322,7 +322,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(height: 14.h),
           Text(label,
-              style: GoogleFonts.comfortaa(fontSize: 16, fontWeight: FontWeight.w700, color: appTheme.primaryYellow)),
+              style:
+                  GoogleFonts.poppins(fontSize: 16.fSize, fontWeight: FontWeight.w500, color: appTheme.primaryYellow)),
         ],
       ),
     );

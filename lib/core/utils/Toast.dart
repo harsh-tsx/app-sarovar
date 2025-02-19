@@ -24,17 +24,14 @@ class Toast {
           width: 100,
           padding: EdgeInsets.symmetric(vertical: 10),
           // height: 40,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 138, 138, 138),
-                  blurRadius: 6.0,
-                  spreadRadius: 2.0,
-                  offset: Offset(0.1, 0.1),
-                )
-              ]),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white, boxShadow: [
+            BoxShadow(
+              color: Color.fromARGB(255, 138, 138, 138),
+              blurRadius: 6.0,
+              spreadRadius: 2.0,
+              offset: Offset(0.1, 0.1),
+            )
+          ]),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
@@ -50,10 +47,7 @@ class Toast {
                   child: Text(
                     text ?? "Error",
                     style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        overflow: TextOverflow.visible,
-                        fontWeight: FontWeight.w600),
+                        color: Colors.black, fontSize: 14, overflow: TextOverflow.visible, fontWeight: FontWeight.w600),
                   ),
                 ),
               ]),
@@ -99,17 +93,14 @@ class Toast {
           width: 100,
           padding: EdgeInsets.symmetric(vertical: 10),
           // height: 40,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0xffDDDDDD),
-                  blurRadius: 6.0,
-                  spreadRadius: 2.0,
-                  offset: Offset(0.0, 0.0),
-                )
-              ]),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white, boxShadow: [
+            BoxShadow(
+              color: Color(0xffDDDDDD),
+              blurRadius: 6.0,
+              spreadRadius: 2.0,
+              offset: Offset(0.0, 0.0),
+            )
+          ]),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
@@ -125,10 +116,7 @@ class Toast {
                   child: Text(
                     text ?? "Error",
                     style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        overflow: TextOverflow.visible,
-                        fontWeight: FontWeight.w600),
+                        color: Colors.black, fontSize: 14, overflow: TextOverflow.visible, fontWeight: FontWeight.w600),
                   ),
                 ),
               ]),

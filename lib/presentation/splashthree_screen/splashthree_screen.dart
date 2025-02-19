@@ -8,24 +8,22 @@ class SplashthreeScreen extends GetWidget<SplashthreeController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        body: Container(
-          width: SizeUtils.width,
-          height: SizeUtils.height,
-          child: SizedBox(
-            width: double.maxFinite,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.appLogo,
-                  width: SizeUtils.width.percent(80),
-                )
-              ],
-            ),
+    return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      body: Container(
+        width: SizeUtils.width,
+        height: SizeUtils.height,
+        child: SizedBox(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomImageView(
+                imagePath: ImageConstant.appLogo,
+                width: SizeUtils.width.percent(80),
+              )
+            ],
           ),
         ),
       ),

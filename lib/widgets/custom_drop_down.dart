@@ -103,9 +103,7 @@ class CustomDropDown extends StatelessWidget {
           onChanged: (value) {
             onChanged!(value!);
           },
-          value: defaultValue != null
-              ? items?.firstWhere((element) => element.value == defaultValue)
-              : null,
+          value: defaultValue != null ? items?.firstWhere((element) => element.value == defaultValue) : null,
         ),
       );
   InputDecoration get decoration => InputDecoration(
@@ -116,12 +114,12 @@ class CustomDropDown extends StatelessWidget {
         suffixIcon: suffix,
         suffixIconConstraints: suffixConstraints,
         isDense: true,
-        contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 13),
+        contentPadding: contentPadding ?? EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
         fillColor: fillColor,
         filled: filled,
         border: borderDecoration ??
             OutlineInputBorder(
-              // borderRadius: BorderRadius.circular(7),
+              borderRadius: BorderRadius.circular(7),
               borderSide: BorderSide(
                 // color: appTheme.blueGray10001,
                 width: 1,

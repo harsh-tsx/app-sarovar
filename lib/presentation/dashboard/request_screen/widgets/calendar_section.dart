@@ -17,8 +17,7 @@ class _CalendarSectionState extends State<CalendarSection> {
   late DateTime currentMonth;
   late DateTime today;
   var controller = isControllerRegistered<HomeController>(HomeController());
-  var requestController = isControllerRegistered<RequestScreenController>(
-      RequestScreenController());
+  var requestController = isControllerRegistered<RequestScreenController>(RequestScreenController());
 
   @override
   void initState() {
@@ -62,9 +61,7 @@ class _CalendarSectionState extends State<CalendarSection> {
 
   dateTimePickerWidget(BuildContext context) {
     return DatePicker.showDatePicker(context,
-        showTitleActions: true,
-        minTime: today,
-        maxTime: DateTime(today.year + 1, 9, 4), onChanged: (date) {
+        showTitleActions: true, minTime: today, maxTime: DateTime(today.year + 1, 9, 4), onChanged: (date) {
       print('change $date');
       setState(() {
         selectedDate = date;
@@ -97,7 +94,7 @@ class _CalendarSectionState extends State<CalendarSection> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 DateFormat('MMMM yyyy').format(selectedDate),
-                style: GoogleFonts.comfortaa(
+                style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: appTheme.black900,
                   fontWeight: FontWeight.w700,
@@ -148,10 +145,8 @@ class _CalendarSectionState extends State<CalendarSection> {
                             child: Column(
                               children: [
                                 Text(
-                                  DateFormat('EEE')
-                                      .format(date)
-                                      .substring(0, 3),
-                                  style: TextStyle(
+                                  DateFormat('EEE').format(date).substring(0, 3),
+                                  style: GoogleFonts.poppins(
                                     fontSize: 12,
                                     color: Colors.grey[600],
                                   ),
@@ -160,15 +155,14 @@ class _CalendarSectionState extends State<CalendarSection> {
                                   width: 100,
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color:
-                                        isSelected ? theme.primaryColor : null,
+                                    color: isSelected ? theme.primaryColor : null,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Column(
                                     children: [
                                       // Text(
                                       //   '${date.day}',
-                                      //   style: TextStyle(
+                                      //   style: GoogleFonts.poppins(
                                       //     fontWeight: isSelected
                                       //         ? FontWeight.bold
                                       //         : FontWeight.normal,
@@ -176,10 +170,8 @@ class _CalendarSectionState extends State<CalendarSection> {
                                       // ),
                                       Text(
                                         'Today',
-                                        style: TextStyle(
-                                          fontWeight: isSelected
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                         ),
                                       ),
                                     ],
@@ -193,10 +185,8 @@ class _CalendarSectionState extends State<CalendarSection> {
                             child: Column(
                               children: [
                                 Text(
-                                  DateFormat('EEE')
-                                      .format(date)
-                                      .substring(0, 3),
-                                  style: TextStyle(
+                                  DateFormat('EEE').format(date).substring(0, 3),
+                                  style: GoogleFonts.poppins(
                                     fontSize: 12,
                                     color: Colors.grey[600],
                                   ),
@@ -204,16 +194,13 @@ class _CalendarSectionState extends State<CalendarSection> {
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color:
-                                        isSelected ? theme.primaryColor : null,
+                                    color: isSelected ? theme.primaryColor : null,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(
                                     '${date.day}',
-                                    style: TextStyle(
-                                      fontWeight: isSelected
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                     ),
                                   ),
                                 ),

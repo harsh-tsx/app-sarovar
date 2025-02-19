@@ -9,6 +9,9 @@ class HistoryScreenController extends AuthController {
   var inHistoryList = <EmployeeStoreOrdersGet$Response$Data$Item>[].obs;
   var outHistoryList = <EmployeeStoreReturnOrderGet$Response$Data$Item>[].obs;
 
+  var isInLoading = false.obs;
+  var isOutLoading = false.obs;
+
   var inPage = 0.obs;
   var inSize = 10.obs;
 
@@ -24,6 +27,7 @@ class HistoryScreenController extends AuthController {
   }
 
   getInHistory([int? givenPage]) async {
+    isInLoading.value = true;
     if (givenPage != null && givenPage < inPage.value || givenPage == 0) {
       inHistoryList.clear();
     }
@@ -35,14 +39,18 @@ class HistoryScreenController extends AuthController {
     print("getInHistory request: ${request.body}");
 
     if (!(request.body?.status ?? false)) {
+      isInLoading.value = false;
       Toast.error(request?.body?.message);
+
       return;
     }
 
     inHistoryList.addAll(request.body?.data ?? []);
+    isInLoading.value = false;
   }
 
   getOutHistory([int? givenPage]) async {
+    isOutLoading.value = true;
     if (givenPage != null && givenPage < outPage.value || givenPage == 0) {
       outHistoryList.clear();
     }
@@ -55,11 +63,13 @@ class HistoryScreenController extends AuthController {
     print("getOutHistory request: ${request.body}");
 
     if (!(request.body?.status ?? false)) {
+      isOutLoading.value = false;
       Toast.error(request?.body?.message);
       return;
     }
 
     outHistoryList.addAll(request.body?.data ?? []);
+    isOutLoading.value = false;
   }
 
   handleCurrentTabChange(value) {

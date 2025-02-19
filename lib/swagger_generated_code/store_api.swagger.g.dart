@@ -102,6 +102,52 @@ Map<String, dynamic> _$EmployeeStoreEmployeeOrdersConfirmPut$RequestBodyToJson(
       'IMAGES': instance.images,
     };
 
+EmployeeStoreStoreComplaintPost$RequestBody
+    _$EmployeeStoreStoreComplaintPost$RequestBodyFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintPost$RequestBody(
+          order: json['order'] as String,
+          type: json['type'] as String,
+          watercans: json['watercans'] as String,
+          description: json['description'] as String,
+          images: json['images'] as Object,
+          store: json['store'] as String?,
+          storeEmployee: json['store_employee'] as String?,
+          id: (json['id'] as num?)?.toDouble(),
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintPost$RequestBodyToJson(
+        EmployeeStoreStoreComplaintPost$RequestBody instance) =>
+    <String, dynamic>{
+      'order': instance.order,
+      'type': instance.type,
+      'watercans': instance.watercans,
+      'description': instance.description,
+      'images': instance.images,
+      'store': instance.store,
+      'store_employee': instance.storeEmployee,
+      'id': instance.id,
+    };
+
+EmployeeStoreStoreComplaintPut$RequestBody
+    _$EmployeeStoreStoreComplaintPut$RequestBodyFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintPut$RequestBody(
+          watercans: (json['watercans'] as num).toInt(),
+          date: json['date'] as String,
+          store: json['store'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintPut$RequestBodyToJson(
+        EmployeeStoreStoreComplaintPut$RequestBody instance) =>
+    <String, dynamic>{
+      'watercans': instance.watercans,
+      'date': instance.date,
+      'store': instance.store,
+      'store_admin_approval': instance.storeAdminApproval,
+    };
+
 EmployeeStoreForecastPost$RequestBody
     _$EmployeeStoreForecastPost$RequestBodyFromJson(
             Map<String, dynamic> json) =>
@@ -334,6 +380,86 @@ Map<String, dynamic> _$EmployeeStoreEmployeeOrdersConfirmPut$ResponseToJson(
       'status': instance.status,
       'message': instance.message,
       'data': instance.data?.toJson(),
+    };
+
+EmployeeStoreStoreComplaintGet$Response
+    _$EmployeeStoreStoreComplaintGet$ResponseFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintGet$Response(
+          status: json['status'] as bool,
+          message: json['message'] as String,
+          data: (json['data'] as List<dynamic>?)
+              ?.map((e) =>
+                  EmployeeStoreStoreComplaintGet$Response$Data$Item.fromJson(
+                      e as Map<String, dynamic>))
+              .toList(),
+          meta: EmployeeStoreStoreComplaintGet$Response$Meta.fromJson(
+              json['meta'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintGet$ResponseToJson(
+        EmployeeStoreStoreComplaintGet$Response instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data?.map((e) => e.toJson()).toList(),
+      'meta': instance.meta.toJson(),
+    };
+
+EmployeeStoreStoreComplaintPost$Response
+    _$EmployeeStoreStoreComplaintPost$ResponseFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintPost$Response(
+          status: json['status'] as bool,
+          message: json['message'] as String,
+          data: json['data'] == null
+              ? null
+              : EmployeeStoreStoreComplaintPost$Response$Data.fromJson(
+                  json['data'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintPost$ResponseToJson(
+        EmployeeStoreStoreComplaintPost$Response instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data?.toJson(),
+    };
+
+EmployeeStoreStoreComplaintPut$Response
+    _$EmployeeStoreStoreComplaintPut$ResponseFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintPut$Response(
+          status: json['status'] as bool,
+          message: json['message'] as String,
+          data: EmployeeStoreStoreComplaintPut$Response$Data.fromJson(
+              json['data'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintPut$ResponseToJson(
+        EmployeeStoreStoreComplaintPut$Response instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data.toJson(),
+    };
+
+EmployeeStoreStoreComplaintDelete$Response
+    _$EmployeeStoreStoreComplaintDelete$ResponseFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintDelete$Response(
+          status: json['status'] as bool,
+          message: json['message'] as String,
+          data: EmployeeStoreStoreComplaintDelete$Response$Data.fromJson(
+              json['data'] as Map<String, dynamic>),
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintDelete$ResponseToJson(
+        EmployeeStoreStoreComplaintDelete$Response instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data.toJson(),
     };
 
 EmployeeStoreDashboardHomeGet$Response
@@ -854,6 +980,209 @@ Map<String, dynamic>
           'updatedAt': instance.updatedAt,
         };
 
+EmployeeStoreStoreComplaintGet$Response$Data$Item
+    _$EmployeeStoreStoreComplaintGet$Response$Data$ItemFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintGet$Response$Data$Item(
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          store: json['store'] as String?,
+          type: json['type'] as String?,
+          order: json['order'] as String?,
+          watercans: (json['watercans'] as num?)?.toDouble(),
+          status: json['status'] as String?,
+          description: json['description'] as String?,
+          images: (json['images'] as List<dynamic>?)
+                  ?.map((e) => e as Object)
+                  .toList() ??
+              [],
+          storeEmployee: json['store_employee'] as String?,
+          storeAdmin: json['store_admin'] as String?,
+          storeAdminApproval: json['store_admin_approval'] as bool?,
+          plantAdmin: json['plant_admin'] as String?,
+          remark: json['remark'] as String?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintGet$Response$Data$ItemToJson(
+        EmployeeStoreStoreComplaintGet$Response$Data$Item instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'id': instance.$id,
+      'store': instance.store,
+      'type': instance.type,
+      'order': instance.order,
+      'watercans': instance.watercans,
+      'status': instance.status,
+      'description': instance.description,
+      'images': instance.images,
+      'store_employee': instance.storeEmployee,
+      'store_admin': instance.storeAdmin,
+      'store_admin_approval': instance.storeAdminApproval,
+      'plant_admin': instance.plantAdmin,
+      'remark': instance.remark,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
+
+EmployeeStoreStoreComplaintGet$Response$Meta
+    _$EmployeeStoreStoreComplaintGet$Response$MetaFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintGet$Response$Meta(
+          pages: (json['pages'] as num).toDouble(),
+          total: (json['total'] as num).toDouble(),
+          page: (json['page'] as num).toDouble(),
+          size: (json['size'] as num).toDouble(),
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintGet$Response$MetaToJson(
+        EmployeeStoreStoreComplaintGet$Response$Meta instance) =>
+    <String, dynamic>{
+      'pages': instance.pages,
+      'total': instance.total,
+      'page': instance.page,
+      'size': instance.size,
+    };
+
+EmployeeStoreStoreComplaintPost$Response$Data
+    _$EmployeeStoreStoreComplaintPost$Response$DataFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintPost$Response$Data(
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          store: json['store'] as String?,
+          type: json['type'] as String?,
+          order: json['order'] as String?,
+          watercans: (json['watercans'] as num?)?.toDouble(),
+          status: json['status'] as String?,
+          description: json['description'] as String?,
+          images: (json['images'] as List<dynamic>?)
+                  ?.map((e) => e as String)
+                  .toList() ??
+              [],
+          storeEmployee: json['store_employee'] as String?,
+          storeAdmin: json['store_admin'] as String?,
+          storeAdminApproval: json['store_admin_approval'] as bool?,
+          plantAdmin: json['plant_admin'] as String?,
+          remark: json['remark'] as String?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintPost$Response$DataToJson(
+        EmployeeStoreStoreComplaintPost$Response$Data instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'id': instance.$id,
+      'store': instance.store,
+      'type': instance.type,
+      'order': instance.order,
+      'watercans': instance.watercans,
+      'status': instance.status,
+      'description': instance.description,
+      'images': instance.images,
+      'store_employee': instance.storeEmployee,
+      'store_admin': instance.storeAdmin,
+      'store_admin_approval': instance.storeAdminApproval,
+      'plant_admin': instance.plantAdmin,
+      'remark': instance.remark,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
+
+EmployeeStoreStoreComplaintPut$Response$Data
+    _$EmployeeStoreStoreComplaintPut$Response$DataFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintPut$Response$Data(
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          store: json['store'] as String?,
+          type: json['type'] as String?,
+          order: json['order'] as String?,
+          watercans: (json['watercans'] as num?)?.toDouble(),
+          status: json['status'] as String?,
+          description: json['description'] as String?,
+          images: (json['images'] as List<dynamic>?)
+                  ?.map((e) => e as String)
+                  .toList() ??
+              [],
+          storeEmployee: json['store_employee'] as String?,
+          storeAdmin: json['store_admin'] as String?,
+          storeAdminApproval: json['store_admin_approval'] as bool?,
+          plantAdmin: json['plant_admin'] as String?,
+          remark: json['remark'] as String?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintPut$Response$DataToJson(
+        EmployeeStoreStoreComplaintPut$Response$Data instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'id': instance.$id,
+      'store': instance.store,
+      'type': instance.type,
+      'order': instance.order,
+      'watercans': instance.watercans,
+      'status': instance.status,
+      'description': instance.description,
+      'images': instance.images,
+      'store_employee': instance.storeEmployee,
+      'store_admin': instance.storeAdmin,
+      'store_admin_approval': instance.storeAdminApproval,
+      'plant_admin': instance.plantAdmin,
+      'remark': instance.remark,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
+
+EmployeeStoreStoreComplaintDelete$Response$Data
+    _$EmployeeStoreStoreComplaintDelete$Response$DataFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreStoreComplaintDelete$Response$Data(
+          id: json['_id'] as String?,
+          $id: (json['id'] as num?)?.toDouble(),
+          store: json['store'] as String?,
+          type: json['type'] as String?,
+          order: json['order'] as String?,
+          watercans: (json['watercans'] as num?)?.toDouble(),
+          status: json['status'] as String?,
+          description: json['description'] as String?,
+          images: (json['images'] as List<dynamic>?)
+                  ?.map((e) => e as String)
+                  .toList() ??
+              [],
+          storeEmployee: json['store_employee'] as String?,
+          storeAdmin: json['store_admin'] as String?,
+          storeAdminApproval: json['store_admin_approval'] as bool?,
+          plantAdmin: json['plant_admin'] as String?,
+          remark: json['remark'] as String?,
+          createdAt: json['createdAt'] as String?,
+          updatedAt: json['updatedAt'] as String?,
+        );
+
+Map<String, dynamic> _$EmployeeStoreStoreComplaintDelete$Response$DataToJson(
+        EmployeeStoreStoreComplaintDelete$Response$Data instance) =>
+    <String, dynamic>{
+      '_id': instance.id,
+      'id': instance.$id,
+      'store': instance.store,
+      'type': instance.type,
+      'order': instance.order,
+      'watercans': instance.watercans,
+      'status': instance.status,
+      'description': instance.description,
+      'images': instance.images,
+      'store_employee': instance.storeEmployee,
+      'store_admin': instance.storeAdmin,
+      'store_admin_approval': instance.storeAdminApproval,
+      'plant_admin': instance.plantAdmin,
+      'remark': instance.remark,
+      'createdAt': instance.createdAt,
+      'updatedAt': instance.updatedAt,
+    };
+
 EmployeeStoreDashboardHomeGet$Response$Data
     _$EmployeeStoreDashboardHomeGet$Response$DataFromJson(
             Map<String, dynamic> json) =>
@@ -883,6 +1212,7 @@ EmployeeStoreOrdersGet$Response$Data$Item
           status: json['status'] as String?,
           store: json['store'] as String?,
           forecast: json['forecast'] as String?,
+          complaint: json['complaint'] as String?,
           createdAt: json['createdAt'] as String?,
           updatedAt: json['updatedAt'] as String?,
         );
@@ -896,6 +1226,7 @@ Map<String, dynamic> _$EmployeeStoreOrdersGet$Response$Data$ItemToJson(
       'status': instance.status,
       'store': instance.store,
       'forecast': instance.forecast,
+      'complaint': instance.complaint,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -1215,6 +1546,7 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast
               EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1228,6 +1560,7 @@ Map<String,
       'date': instance.date,
       'store': instance.store.toJson(),
       'status': instance.status,
+      'store_admin_approval': instance.storeAdminApproval,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -1357,6 +1690,7 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast
           store: EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store
               .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1370,6 +1704,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1498,6 +1833,7 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast
           store: EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store
               .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1511,6 +1847,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -1641,6 +1978,7 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast
           store: EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store
               .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1654,6 +1992,7 @@ Map<String,
       'date': instance.date,
       'store': instance.store.toJson(),
       'status': instance.status,
+      'store_admin_approval': instance.storeAdminApproval,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -1883,6 +2222,7 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast
           store: EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store
               .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -1896,6 +2236,7 @@ Map<String,
       'date': instance.date,
       'store': instance.store.toJson(),
       'status': instance.status,
+      'store_admin_approval': instance.storeAdminApproval,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };
@@ -2030,6 +2371,7 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast
               EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2044,6 +2386,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2177,6 +2520,7 @@ EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast
               EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2191,6 +2535,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2241,6 +2586,12 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -2256,6 +2607,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast
@@ -2269,6 +2622,7 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast
               EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2283,6 +2637,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2349,6 +2704,12 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -2364,6 +2725,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store
@@ -2380,6 +2743,11 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city: EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City
+              .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String,
@@ -2394,6 +2762,8 @@ Map<String,
       'code': instance.code,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
+      'sector': instance.sector.toJson(),
+      'city': instance.city.toJson(),
     };
 
 EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast
@@ -2407,6 +2777,7 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast
               EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2421,6 +2792,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2487,6 +2859,12 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -2502,6 +2880,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store
@@ -2518,6 +2898,11 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city: EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City
+              .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String,
@@ -2532,6 +2917,8 @@ Map<String,
       'code': instance.code,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
+      'sector': instance.sector.toJson(),
+      'city': instance.city.toJson(),
     };
 
 EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast
@@ -2545,6 +2932,7 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast
               EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2559,6 +2947,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2625,6 +3014,11 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city: EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City
+              .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -2640,6 +3034,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store
@@ -2656,6 +3052,11 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city: EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City
+              .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -2671,6 +3072,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast
@@ -2684,6 +3087,7 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast
               EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2698,6 +3102,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2764,6 +3169,12 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -2779,6 +3190,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersActiveOrderGet$Response$Data$Store$Coordinate
@@ -2858,6 +3271,12 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -2873,6 +3292,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast
@@ -2886,6 +3307,7 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast
               EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -2900,6 +3322,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -2966,6 +3389,12 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -2981,6 +3410,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store
@@ -2997,6 +3428,12 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3012,6 +3449,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast
@@ -3025,6 +3464,7 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast
               EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -3039,6 +3479,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -3105,6 +3546,12 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3120,6 +3567,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store
@@ -3136,6 +3585,12 @@ EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3151,6 +3606,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast
@@ -3164,6 +3621,7 @@ EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast
               EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store
                   .fromJson(json['store'] as Map<String, dynamic>),
           status: json['status'] as String,
+          storeAdminApproval: json['store_admin_approval'] as bool,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
         );
@@ -3178,6 +3636,7 @@ Map<String, dynamic>
           'date': instance.date,
           'store': instance.store.toJson(),
           'status': instance.status,
+          'store_admin_approval': instance.storeAdminApproval,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
         };
@@ -3244,6 +3703,12 @@ EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3259,6 +3724,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Coordinate
@@ -3278,6 +3745,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store
     _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$StoreFromJson(
             Map<String, dynamic> json) =>
@@ -3292,6 +3801,12 @@ EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3307,6 +3822,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Employee$Store$Coordinate
@@ -3343,6 +3860,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3360,6 +3919,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store
     _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$StoreFromJson(
             Map<String, dynamic> json) =>
@@ -3374,6 +3975,12 @@ EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3389,6 +3996,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersPost$Response$Data$Employee$Store$Coordinate
@@ -3425,6 +4034,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3442,6 +4093,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store
     _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$StoreFromJson(
             Map<String, dynamic> json) =>
@@ -3456,6 +4149,12 @@ EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3471,6 +4170,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersPut$Response$Data$Employee$Store$Coordinate
@@ -3507,6 +4208,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3524,6 +4267,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store
     _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$StoreFromJson(
             Map<String, dynamic> json) =>
@@ -3538,6 +4323,12 @@ EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3553,6 +4344,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersDelete$Response$Data$Employee$Store$Coordinate
@@ -3589,6 +4382,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3606,6 +4441,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
     _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$StoreFromJson(
             Map<String, dynamic> json) =>
@@ -3620,6 +4497,12 @@ EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3635,6 +4518,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersOutPost$Response$Data$Employee$Store$Coordinate
@@ -3671,6 +4556,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3688,6 +4615,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store
     _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$StoreFromJson(
             Map<String, dynamic> json) =>
@@ -3702,6 +4671,12 @@ EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3717,6 +4692,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Employee$Store$Coordinate
@@ -3753,6 +4730,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3770,6 +4789,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store
     _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$StoreFromJson(
             Map<String, dynamic> json) =>
@@ -3784,6 +4845,12 @@ EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store
           code: json['code'] as String?,
           createdAt: json['createdAt'] as String,
           updatedAt: json['updatedAt'] as String,
+          sector:
+              EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector
+                  .fromJson(json['sector'] as Map<String, dynamic>),
+          city:
+              EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City
+                  .fromJson(json['city'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic>
@@ -3799,6 +4866,8 @@ Map<String, dynamic>
           'code': instance.code,
           'createdAt': instance.createdAt,
           'updatedAt': instance.updatedAt,
+          'sector': instance.sector.toJson(),
+          'city': instance.city.toJson(),
         };
 
 EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Employee$Store$Coordinate
@@ -3835,6 +4904,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3850,6 +4961,48 @@ Map<String, dynamic>
         <String, dynamic>{
           'lat': instance.lat,
           'long': instance.long,
+        };
+
+EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
         };
 
 EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Coordinate
@@ -3869,6 +5022,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3884,6 +5079,48 @@ Map<String, dynamic>
         <String, dynamic>{
           'lat': instance.lat,
           'long': instance.long,
+        };
+
+EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
         };
 
 EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate
@@ -3903,6 +5140,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3918,6 +5197,48 @@ Map<String, dynamic>
         <String, dynamic>{
           'lat': instance.lat,
           'long': instance.long,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
         };
 
 EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate
@@ -3937,6 +5258,48 @@ Map<String, dynamic>
           'long': instance.long,
         };
 
+EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
 EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Coordinate
     _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$CoordinateFromJson(
             Map<String, dynamic> json) =>
@@ -3952,4 +5315,46 @@ Map<String, dynamic>
         <String, dynamic>{
           'lat': instance.lat,
           'long': instance.long,
+        };
+
+EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$SectorFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$SectorToJson(
+            EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
+        };
+
+EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$CityFromJson(
+            Map<String, dynamic> json) =>
+        EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City(
+          id: json['_id'] as String,
+          name: json['name'] as String,
+          createdAt: json['createdAt'] as String,
+          updatedAt: json['updatedAt'] as String,
+        );
+
+Map<String, dynamic>
+    _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$CityToJson(
+            EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City
+                instance) =>
+        <String, dynamic>{
+          '_id': instance.id,
+          'name': instance.name,
+          'createdAt': instance.createdAt,
+          'updatedAt': instance.updatedAt,
         };

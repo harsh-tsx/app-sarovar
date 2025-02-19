@@ -281,6 +281,142 @@ final class _$StoreApi extends StoreApi {
   }
 
   @override
+  Future<Response<EmployeeStoreStoreComplaintGet$Response>>
+      _employeeStoreStoreComplaintGet({
+    String? authorization,
+    required String? page,
+    required String? size,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/store-complaint/');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'page': page,
+      'size': size,
+    };
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreStoreComplaintGet$Response,
+        EmployeeStoreStoreComplaintGet$Response>($request);
+  }
+
+  @override
+  Future<Response<EmployeeStoreStoreComplaintPost$Response>>
+      _employeeStoreStoreComplaintPost({
+    String? authorization,
+    required String? order,
+    required String? type,
+    required String? watercans,
+    required String? description,
+    required List<int> images,
+    String? store,
+    String? storeEmployee,
+    num? id,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/store-complaint/');
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final List<PartValue> $parts = <PartValue>[
+      PartValue<String?>(
+        'order',
+        order,
+      ),
+      PartValue<String?>(
+        'type',
+        type,
+      ),
+      PartValue<String?>(
+        'watercans',
+        watercans,
+      ),
+      PartValue<String?>(
+        'description',
+        description,
+      ),
+      PartValue<String?>(
+        'store',
+        store,
+      ),
+      PartValue<String?>(
+        'store_employee',
+        storeEmployee,
+      ),
+      PartValue<num?>(
+        'id',
+        id,
+      ),
+      PartValueFile<List<int>>(
+        'images',
+        images,
+      ),
+    ];
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      parts: $parts,
+      multipart: true,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreStoreComplaintPost$Response,
+        EmployeeStoreStoreComplaintPost$Response>($request);
+  }
+
+  @override
+  Future<Response<EmployeeStoreStoreComplaintPut$Response>>
+      _employeeStoreStoreComplaintPut({
+    String? authorization,
+    required String? id,
+    required EmployeeStoreStoreComplaintPut$RequestBody? body,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/store-complaint/');
+    final Map<String, dynamic> $params = <String, dynamic>{'id': id};
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final $body = body;
+    final Request $request = Request(
+      'PUT',
+      $url,
+      client.baseUrl,
+      body: $body,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreStoreComplaintPut$Response,
+        EmployeeStoreStoreComplaintPut$Response>($request);
+  }
+
+  @override
+  Future<Response<EmployeeStoreStoreComplaintDelete$Response>>
+      _employeeStoreStoreComplaintDelete({
+    String? authorization,
+    required String? id,
+  }) {
+    final Uri $url = Uri.parse('/employee-store/store-complaint/');
+    final Map<String, dynamic> $params = <String, dynamic>{'id': id};
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final Request $request = Request(
+      'DELETE',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreStoreComplaintDelete$Response,
+        EmployeeStoreStoreComplaintDelete$Response>($request);
+  }
+
+  @override
   Future<Response<EmployeeStoreDashboardHomeGet$Response>>
       _employeeStoreDashboardHomeGet({
     String? authorization,

@@ -6,8 +6,7 @@ import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart'
 import 'package:geolocator/geolocator.dart';
 
 class AuthController extends GetxController {
-  Rx<EmployeeStoreAuthMeGet$Response$Data> user =
-      EmployeeStoreAuthMeGet$Response$Data().obs;
+  Rx<EmployeeStoreAuthMeGet$Response$Data> user = EmployeeStoreAuthMeGet$Response$Data().obs;
 
   var distance = 0.0.obs;
   var outSide = true.obs;
@@ -31,8 +30,9 @@ class AuthController extends GetxController {
 
       update();
       getCurrentLocation();
-    } catch (error) {
+    } catch (error, stackTrace) {
       print("error: ${error}");
+      print(stackTrace);
     }
   }
 
@@ -64,8 +64,7 @@ class AuthController extends GetxController {
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return Future.error('Location permissions are permanently denied, we cannot request permissions.');
     }
 
     // When we reach here, permissions are granted and we can
@@ -86,8 +85,7 @@ class AuthController extends GetxController {
       accuracy: LocationAccuracy.best,
       distanceFilter: 0,
     );
-    Geolocator.getPositionStream(locationSettings: locationSettings)
-        .listen((Position? position) async {
+    Geolocator.getPositionStream(locationSettings: locationSettings).listen((Position? position) async {
       print(position == null
           ? 'Unknown'
           : 'Current - ${position.latitude.toString()}, ${position.longitude.toString()} Store - ${user.value.store?.coordinate.lat} ${user.value.store?.coordinate.long}');

@@ -13,8 +13,7 @@ class CanOutScreen extends StatefulWidget {
 }
 
 class _CanOutScreenState extends State<CanOutScreen> {
-  var controller =
-      isControllerRegistered<CanOutScreenController>(CanOutScreenController());
+  var controller = isControllerRegistered<CanOutScreenController>(CanOutScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,13 +25,13 @@ class _CanOutScreenState extends State<CanOutScreen> {
           children: [
             Text(
               "Today's out",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 20.fSize,
               ),
             ),
             Text(
               "Number of can returned:",
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 fontSize: 24.fSize,
               ),
             ),
@@ -40,7 +39,7 @@ class _CanOutScreenState extends State<CanOutScreen> {
               width: SizeUtils.width.percent(50),
               child: TextField(
                 keyboardType: TextInputType.number,
-                style: TextStyle(
+                style: GoogleFonts.poppins(
                   color: Colors.black,
                   fontSize: 24.fSize,
                 ),
@@ -78,7 +77,7 @@ class _CanOutScreenState extends State<CanOutScreen> {
                 ),
                 child: Text(
                   'Submit Request',
-                  style: GoogleFonts.comfortaa(color: theme.primaryColor),
+                  style: GoogleFonts.poppins(color: theme.primaryColor),
                 ),
               ),
             ),

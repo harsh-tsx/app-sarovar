@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../core/app_export.dart';
 
 /// Helper class for managing themes and colors.
@@ -122,70 +123,59 @@ class ThemeHelper {
 /// Class containing the supported text theme styles.
 class TextThemes {
   static TextTheme textTheme(ColorScheme colorScheme) => TextTheme(
-        bodyLarge: TextStyle(
+        bodyLarge: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 16.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w400,
         ),
-        bodyMedium: TextStyle(
+        bodyMedium: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 14.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w400,
         ),
-        bodySmall: TextStyle(
+        bodySmall: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 12.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w400,
         ),
-        displaySmall: TextStyle(
+        displaySmall: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 36.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
         ),
-        headlineLarge: TextStyle(
+        headlineLarge: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 30.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
-        headlineMedium: TextStyle(
+        headlineMedium: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 26.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
         ),
-        headlineSmall: TextStyle(
+        headlineSmall: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 24.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
         ),
-        labelLarge: TextStyle(
+        labelLarge: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 12.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
         ),
-        titleLarge: TextStyle(
+        titleLarge: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 20.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
-        titleMedium: TextStyle(
+        titleMedium: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 16.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w700,
         ),
-        titleSmall: TextStyle(
+        titleSmall: GoogleFonts.poppins(
           color: Colors.black,
           fontSize: 14.fSize,
-          fontFamily: 'Poppins',
           fontWeight: FontWeight.w600,
         ),
       );

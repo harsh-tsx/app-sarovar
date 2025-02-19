@@ -102,8 +102,7 @@ class CustomCheckboxButton extends StatelessWidget {
           onChanged: (value) {
             onChange(value!);
           },
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(100))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
         ),
       );
 }

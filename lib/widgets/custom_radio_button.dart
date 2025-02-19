@@ -70,9 +70,7 @@ class CustomRadioButton extends StatelessWidget {
           decoration: decoration,
           width: width,
           padding: padding,
-          child: (isRightCheck ?? false)
-              ? rightSideRadioButton
-              : leftSideRadioButton,
+          child: (isRightCheck ?? false) ? rightSideRadioButton : leftSideRadioButton,
         ),
       );
   Widget get leftSideRadioButton => Row(
@@ -114,6 +112,5 @@ class CustomRadioButton extends StatelessWidget {
           },
         ),
       );
-  BoxDecoration get radioButtonDecoration =>
-      BoxDecoration(color: backgroundColor);
+  BoxDecoration get radioButtonDecoration => BoxDecoration(color: backgroundColor);
 }

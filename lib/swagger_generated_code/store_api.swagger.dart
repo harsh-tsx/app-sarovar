@@ -353,6 +353,139 @@ abstract class StoreApi extends ChopperService {
 
   ///
   ///@param authorization
+  ///@param page
+  ///@param size
+  Future<chopper.Response<EmployeeStoreStoreComplaintGet$Response>>
+      employeeStoreStoreComplaintGet({
+    String? authorization,
+    required String? page,
+    required String? size,
+  }) {
+    generatedMapping.putIfAbsent(EmployeeStoreStoreComplaintGet$Response,
+        () => EmployeeStoreStoreComplaintGet$Response.fromJsonFactory);
+
+    return _employeeStoreStoreComplaintGet(
+        authorization: authorization?.toString(), page: page, size: size);
+  }
+
+  ///
+  ///@param authorization
+  ///@param page
+  ///@param size
+  @Get(path: '/employee-store/store-complaint/')
+  Future<chopper.Response<EmployeeStoreStoreComplaintGet$Response>>
+      _employeeStoreStoreComplaintGet({
+    @Header('authorization') String? authorization,
+    @Query('page') required String? page,
+    @Query('size') required String? size,
+  });
+
+  ///
+  ///@param authorization
+  Future<chopper.Response<EmployeeStoreStoreComplaintPost$Response>>
+      employeeStoreStoreComplaintPost({
+    String? authorization,
+    required String? order,
+    required String? type,
+    required String? watercans,
+    required String? description,
+    required List<int> images,
+    String? store,
+    String? storeEmployee,
+    num? id,
+  }) {
+    generatedMapping.putIfAbsent(EmployeeStoreStoreComplaintPost$Response,
+        () => EmployeeStoreStoreComplaintPost$Response.fromJsonFactory);
+
+    return _employeeStoreStoreComplaintPost(
+        authorization: authorization?.toString(),
+        order: order,
+        type: type,
+        watercans: watercans,
+        description: description,
+        images: images,
+        store: store,
+        storeEmployee: storeEmployee,
+        id: id);
+  }
+
+  ///
+  ///@param authorization
+  @Post(
+    path: '/employee-store/store-complaint/',
+    optionalBody: true,
+  )
+  @Multipart()
+  Future<chopper.Response<EmployeeStoreStoreComplaintPost$Response>>
+      _employeeStoreStoreComplaintPost({
+    @Header('authorization') String? authorization,
+    @Part('order') required String? order,
+    @Part('type') required String? type,
+    @Part('watercans') required String? watercans,
+    @Part('description') required String? description,
+    @PartFile() required List<int> images,
+    @Part('store') String? store,
+    @Part('store_employee') String? storeEmployee,
+    @Part('id') num? id,
+  });
+
+  ///
+  ///@param authorization
+  ///@param id
+  Future<chopper.Response<EmployeeStoreStoreComplaintPut$Response>>
+      employeeStoreStoreComplaintPut({
+    String? authorization,
+    required String? id,
+    required EmployeeStoreStoreComplaintPut$RequestBody? body,
+  }) {
+    generatedMapping.putIfAbsent(EmployeeStoreStoreComplaintPut$Response,
+        () => EmployeeStoreStoreComplaintPut$Response.fromJsonFactory);
+
+    return _employeeStoreStoreComplaintPut(
+        authorization: authorization?.toString(), id: id, body: body);
+  }
+
+  ///
+  ///@param authorization
+  ///@param id
+  @Put(
+    path: '/employee-store/store-complaint/',
+    optionalBody: true,
+  )
+  Future<chopper.Response<EmployeeStoreStoreComplaintPut$Response>>
+      _employeeStoreStoreComplaintPut({
+    @Header('authorization') String? authorization,
+    @Query('id') required String? id,
+    @Body() required EmployeeStoreStoreComplaintPut$RequestBody? body,
+  });
+
+  ///
+  ///@param authorization
+  ///@param id
+  Future<chopper.Response<EmployeeStoreStoreComplaintDelete$Response>>
+      employeeStoreStoreComplaintDelete({
+    String? authorization,
+    required String? id,
+  }) {
+    generatedMapping.putIfAbsent(EmployeeStoreStoreComplaintDelete$Response,
+        () => EmployeeStoreStoreComplaintDelete$Response.fromJsonFactory);
+
+    return _employeeStoreStoreComplaintDelete(
+        authorization: authorization?.toString(), id: id);
+  }
+
+  ///
+  ///@param authorization
+  ///@param id
+  @Delete(path: '/employee-store/store-complaint/')
+  Future<chopper.Response<EmployeeStoreStoreComplaintDelete$Response>>
+      _employeeStoreStoreComplaintDelete({
+    @Header('authorization') String? authorization,
+    @Query('id') required String? id,
+  });
+
+  ///
+  ///@param authorization
   ///@param date
   Future<chopper.Response<EmployeeStoreDashboardHomeGet$Response>>
       employeeStoreDashboardHomeGet({
@@ -893,6 +1026,216 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$RequestBodyExtension
       {Wrapped<Object?>? images}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$RequestBody(
         images: (images != null ? images.value : this.images));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintPost$RequestBody {
+  const EmployeeStoreStoreComplaintPost$RequestBody({
+    required this.order,
+    required this.type,
+    required this.watercans,
+    required this.description,
+    required this.images,
+    this.store,
+    this.storeEmployee,
+    this.id,
+  });
+
+  factory EmployeeStoreStoreComplaintPost$RequestBody.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintPost$RequestBodyFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreStoreComplaintPost$RequestBodyToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintPost$RequestBodyToJson(this);
+
+  @JsonKey(name: 'order')
+  final String order;
+  @JsonKey(name: 'type')
+  final String type;
+  @JsonKey(name: 'watercans')
+  final String watercans;
+  @JsonKey(name: 'description')
+  final String description;
+  @JsonKey(name: 'images')
+  final Object images;
+  @JsonKey(name: 'store')
+  final String? store;
+  @JsonKey(name: 'store_employee')
+  final String? storeEmployee;
+  @JsonKey(name: 'id')
+  final double? id;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintPost$RequestBodyFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintPost$RequestBody &&
+            (identical(other.order, order) ||
+                const DeepCollectionEquality().equals(other.order, order)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.watercans, watercans) ||
+                const DeepCollectionEquality()
+                    .equals(other.watercans, watercans)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.images, images) ||
+                const DeepCollectionEquality().equals(other.images, images)) &&
+            (identical(other.store, store) ||
+                const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.storeEmployee, storeEmployee) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeEmployee, storeEmployee)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(order) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(watercans) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(images) ^
+      const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(storeEmployee) ^
+      const DeepCollectionEquality().hash(id) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintPost$RequestBodyExtension
+    on EmployeeStoreStoreComplaintPost$RequestBody {
+  EmployeeStoreStoreComplaintPost$RequestBody copyWith(
+      {String? order,
+      String? type,
+      String? watercans,
+      String? description,
+      Object? images,
+      String? store,
+      String? storeEmployee,
+      double? id}) {
+    return EmployeeStoreStoreComplaintPost$RequestBody(
+        order: order ?? this.order,
+        type: type ?? this.type,
+        watercans: watercans ?? this.watercans,
+        description: description ?? this.description,
+        images: images ?? this.images,
+        store: store ?? this.store,
+        storeEmployee: storeEmployee ?? this.storeEmployee,
+        id: id ?? this.id);
+  }
+
+  EmployeeStoreStoreComplaintPost$RequestBody copyWithWrapped(
+      {Wrapped<String>? order,
+      Wrapped<String>? type,
+      Wrapped<String>? watercans,
+      Wrapped<String>? description,
+      Wrapped<Object>? images,
+      Wrapped<String?>? store,
+      Wrapped<String?>? storeEmployee,
+      Wrapped<double?>? id}) {
+    return EmployeeStoreStoreComplaintPost$RequestBody(
+        order: (order != null ? order.value : this.order),
+        type: (type != null ? type.value : this.type),
+        watercans: (watercans != null ? watercans.value : this.watercans),
+        description:
+            (description != null ? description.value : this.description),
+        images: (images != null ? images.value : this.images),
+        store: (store != null ? store.value : this.store),
+        storeEmployee:
+            (storeEmployee != null ? storeEmployee.value : this.storeEmployee),
+        id: (id != null ? id.value : this.id));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintPut$RequestBody {
+  const EmployeeStoreStoreComplaintPut$RequestBody({
+    required this.watercans,
+    required this.date,
+    required this.store,
+    this.storeAdminApproval,
+  });
+
+  factory EmployeeStoreStoreComplaintPut$RequestBody.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintPut$RequestBodyFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreStoreComplaintPut$RequestBodyToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintPut$RequestBodyToJson(this);
+
+  @JsonKey(name: 'watercans')
+  final int watercans;
+  @JsonKey(name: 'date')
+  final String date;
+  @JsonKey(name: 'store')
+  final String store;
+  @JsonKey(name: 'store_admin_approval')
+  final bool? storeAdminApproval;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintPut$RequestBodyFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintPut$RequestBody &&
+            (identical(other.watercans, watercans) ||
+                const DeepCollectionEquality()
+                    .equals(other.watercans, watercans)) &&
+            (identical(other.date, date) ||
+                const DeepCollectionEquality().equals(other.date, date)) &&
+            (identical(other.store, store) ||
+                const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(watercans) ^
+      const DeepCollectionEquality().hash(date) ^
+      const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintPut$RequestBodyExtension
+    on EmployeeStoreStoreComplaintPut$RequestBody {
+  EmployeeStoreStoreComplaintPut$RequestBody copyWith(
+      {int? watercans, String? date, String? store, bool? storeAdminApproval}) {
+    return EmployeeStoreStoreComplaintPut$RequestBody(
+        watercans: watercans ?? this.watercans,
+        date: date ?? this.date,
+        store: store ?? this.store,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval);
+  }
+
+  EmployeeStoreStoreComplaintPut$RequestBody copyWithWrapped(
+      {Wrapped<int>? watercans,
+      Wrapped<String>? date,
+      Wrapped<String>? store,
+      Wrapped<bool?>? storeAdminApproval}) {
+    return EmployeeStoreStoreComplaintPut$RequestBody(
+        watercans: (watercans != null ? watercans.value : this.watercans),
+        date: (date != null ? date.value : this.date),
+        store: (store != null ? store.value : this.store),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval));
   }
 }
 
@@ -1756,6 +2099,305 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$ResponseExtension
       Wrapped<String>? message,
       Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data?>? data}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response(
+        status: (status != null ? status.value : this.status),
+        message: (message != null ? message.value : this.message),
+        data: (data != null ? data.value : this.data));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintGet$Response {
+  const EmployeeStoreStoreComplaintGet$Response({
+    required this.status,
+    required this.message,
+    this.data,
+    required this.meta,
+  });
+
+  factory EmployeeStoreStoreComplaintGet$Response.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintGet$ResponseFromJson(json);
+
+  static const toJsonFactory = _$EmployeeStoreStoreComplaintGet$ResponseToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintGet$ResponseToJson(this);
+
+  @JsonKey(name: 'status')
+  final bool status;
+  @JsonKey(name: 'message')
+  final String message;
+  @JsonKey(name: 'data')
+  final List<EmployeeStoreStoreComplaintGet$Response$Data$Item>? data;
+  @JsonKey(name: 'meta')
+  final EmployeeStoreStoreComplaintGet$Response$Meta meta;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintGet$ResponseFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintGet$Response &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)) &&
+            (identical(other.meta, meta) ||
+                const DeepCollectionEquality().equals(other.meta, meta)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(data) ^
+      const DeepCollectionEquality().hash(meta) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintGet$ResponseExtension
+    on EmployeeStoreStoreComplaintGet$Response {
+  EmployeeStoreStoreComplaintGet$Response copyWith(
+      {bool? status,
+      String? message,
+      List<EmployeeStoreStoreComplaintGet$Response$Data$Item>? data,
+      EmployeeStoreStoreComplaintGet$Response$Meta? meta}) {
+    return EmployeeStoreStoreComplaintGet$Response(
+        status: status ?? this.status,
+        message: message ?? this.message,
+        data: data ?? this.data,
+        meta: meta ?? this.meta);
+  }
+
+  EmployeeStoreStoreComplaintGet$Response copyWithWrapped(
+      {Wrapped<bool>? status,
+      Wrapped<String>? message,
+      Wrapped<List<EmployeeStoreStoreComplaintGet$Response$Data$Item>?>? data,
+      Wrapped<EmployeeStoreStoreComplaintGet$Response$Meta>? meta}) {
+    return EmployeeStoreStoreComplaintGet$Response(
+        status: (status != null ? status.value : this.status),
+        message: (message != null ? message.value : this.message),
+        data: (data != null ? data.value : this.data),
+        meta: (meta != null ? meta.value : this.meta));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintPost$Response {
+  const EmployeeStoreStoreComplaintPost$Response({
+    required this.status,
+    required this.message,
+    this.data,
+  });
+
+  factory EmployeeStoreStoreComplaintPost$Response.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintPost$ResponseFromJson(json);
+
+  static const toJsonFactory = _$EmployeeStoreStoreComplaintPost$ResponseToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintPost$ResponseToJson(this);
+
+  @JsonKey(name: 'status')
+  final bool status;
+  @JsonKey(name: 'message')
+  final String message;
+  @JsonKey(name: 'data')
+  final EmployeeStoreStoreComplaintPost$Response$Data? data;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintPost$ResponseFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintPost$Response &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(data) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintPost$ResponseExtension
+    on EmployeeStoreStoreComplaintPost$Response {
+  EmployeeStoreStoreComplaintPost$Response copyWith(
+      {bool? status,
+      String? message,
+      EmployeeStoreStoreComplaintPost$Response$Data? data}) {
+    return EmployeeStoreStoreComplaintPost$Response(
+        status: status ?? this.status,
+        message: message ?? this.message,
+        data: data ?? this.data);
+  }
+
+  EmployeeStoreStoreComplaintPost$Response copyWithWrapped(
+      {Wrapped<bool>? status,
+      Wrapped<String>? message,
+      Wrapped<EmployeeStoreStoreComplaintPost$Response$Data?>? data}) {
+    return EmployeeStoreStoreComplaintPost$Response(
+        status: (status != null ? status.value : this.status),
+        message: (message != null ? message.value : this.message),
+        data: (data != null ? data.value : this.data));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintPut$Response {
+  const EmployeeStoreStoreComplaintPut$Response({
+    required this.status,
+    required this.message,
+    required this.data,
+  });
+
+  factory EmployeeStoreStoreComplaintPut$Response.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintPut$ResponseFromJson(json);
+
+  static const toJsonFactory = _$EmployeeStoreStoreComplaintPut$ResponseToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintPut$ResponseToJson(this);
+
+  @JsonKey(name: 'status')
+  final bool status;
+  @JsonKey(name: 'message')
+  final String message;
+  @JsonKey(name: 'data')
+  final EmployeeStoreStoreComplaintPut$Response$Data data;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintPut$ResponseFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintPut$Response &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(data) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintPut$ResponseExtension
+    on EmployeeStoreStoreComplaintPut$Response {
+  EmployeeStoreStoreComplaintPut$Response copyWith(
+      {bool? status,
+      String? message,
+      EmployeeStoreStoreComplaintPut$Response$Data? data}) {
+    return EmployeeStoreStoreComplaintPut$Response(
+        status: status ?? this.status,
+        message: message ?? this.message,
+        data: data ?? this.data);
+  }
+
+  EmployeeStoreStoreComplaintPut$Response copyWithWrapped(
+      {Wrapped<bool>? status,
+      Wrapped<String>? message,
+      Wrapped<EmployeeStoreStoreComplaintPut$Response$Data>? data}) {
+    return EmployeeStoreStoreComplaintPut$Response(
+        status: (status != null ? status.value : this.status),
+        message: (message != null ? message.value : this.message),
+        data: (data != null ? data.value : this.data));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintDelete$Response {
+  const EmployeeStoreStoreComplaintDelete$Response({
+    required this.status,
+    required this.message,
+    required this.data,
+  });
+
+  factory EmployeeStoreStoreComplaintDelete$Response.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintDelete$ResponseFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreStoreComplaintDelete$ResponseToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintDelete$ResponseToJson(this);
+
+  @JsonKey(name: 'status')
+  final bool status;
+  @JsonKey(name: 'message')
+  final String message;
+  @JsonKey(name: 'data')
+  final EmployeeStoreStoreComplaintDelete$Response$Data data;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintDelete$ResponseFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintDelete$Response &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality()
+                    .equals(other.message, message)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(message) ^
+      const DeepCollectionEquality().hash(data) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintDelete$ResponseExtension
+    on EmployeeStoreStoreComplaintDelete$Response {
+  EmployeeStoreStoreComplaintDelete$Response copyWith(
+      {bool? status,
+      String? message,
+      EmployeeStoreStoreComplaintDelete$Response$Data? data}) {
+    return EmployeeStoreStoreComplaintDelete$Response(
+        status: status ?? this.status,
+        message: message ?? this.message,
+        data: data ?? this.data);
+  }
+
+  EmployeeStoreStoreComplaintDelete$Response copyWithWrapped(
+      {Wrapped<bool>? status,
+      Wrapped<String>? message,
+      Wrapped<EmployeeStoreStoreComplaintDelete$Response$Data>? data}) {
+    return EmployeeStoreStoreComplaintDelete$Response(
         status: (status != null ? status.value : this.status),
         message: (message != null ? message.value : this.message),
         data: (data != null ? data.value : this.data));
@@ -3761,6 +4403,941 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$DataExtension
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintGet$Response$Data$Item {
+  const EmployeeStoreStoreComplaintGet$Response$Data$Item({
+    this.id,
+    this.$id,
+    this.store,
+    this.type,
+    this.order,
+    this.watercans,
+    this.status,
+    this.description,
+    this.images,
+    this.storeEmployee,
+    this.storeAdmin,
+    this.storeAdminApproval,
+    this.plantAdmin,
+    this.remark,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory EmployeeStoreStoreComplaintGet$Response$Data$Item.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintGet$Response$Data$ItemFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreStoreComplaintGet$Response$Data$ItemToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintGet$Response$Data$ItemToJson(this);
+
+  @JsonKey(name: '_id')
+  final String? id;
+  @JsonKey(name: 'id')
+  final double? $id;
+  @JsonKey(name: 'store')
+  final String? store;
+  @JsonKey(name: 'type')
+  final String? type;
+  @JsonKey(name: 'order')
+  final String? order;
+  @JsonKey(name: 'watercans')
+  final double? watercans;
+  @JsonKey(name: 'status')
+  final String? status;
+  @JsonKey(name: 'description')
+  final String? description;
+  @JsonKey(name: 'images', defaultValue: <Object>[])
+  final List<Object>? images;
+  @JsonKey(name: 'store_employee')
+  final String? storeEmployee;
+  @JsonKey(name: 'store_admin')
+  final String? storeAdmin;
+  @JsonKey(name: 'store_admin_approval')
+  final bool? storeAdminApproval;
+  @JsonKey(name: 'plant_admin')
+  final String? plantAdmin;
+  @JsonKey(name: 'remark')
+  final String? remark;
+  @JsonKey(name: 'createdAt')
+  final String? createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String? updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintGet$Response$Data$ItemFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintGet$Response$Data$Item &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
+            (identical(other.store, store) ||
+                const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.order, order) ||
+                const DeepCollectionEquality().equals(other.order, order)) &&
+            (identical(other.watercans, watercans) ||
+                const DeepCollectionEquality()
+                    .equals(other.watercans, watercans)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.images, images) ||
+                const DeepCollectionEquality().equals(other.images, images)) &&
+            (identical(other.storeEmployee, storeEmployee) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeEmployee, storeEmployee)) &&
+            (identical(other.storeAdmin, storeAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdmin, storeAdmin)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
+            (identical(other.plantAdmin, plantAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.plantAdmin, plantAdmin)) &&
+            (identical(other.remark, remark) ||
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
+      const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(order) ^
+      const DeepCollectionEquality().hash(watercans) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(images) ^
+      const DeepCollectionEquality().hash(storeEmployee) ^
+      const DeepCollectionEquality().hash(storeAdmin) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
+      const DeepCollectionEquality().hash(plantAdmin) ^
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintGet$Response$Data$ItemExtension
+    on EmployeeStoreStoreComplaintGet$Response$Data$Item {
+  EmployeeStoreStoreComplaintGet$Response$Data$Item copyWith(
+      {String? id,
+      double? $id,
+      String? store,
+      String? type,
+      String? order,
+      double? watercans,
+      String? status,
+      String? description,
+      List<Object>? images,
+      String? storeEmployee,
+      String? storeAdmin,
+      bool? storeAdminApproval,
+      String? plantAdmin,
+      String? remark,
+      String? createdAt,
+      String? updatedAt}) {
+    return EmployeeStoreStoreComplaintGet$Response$Data$Item(
+        id: id ?? this.id,
+        $id: $id ?? this.$id,
+        store: store ?? this.store,
+        type: type ?? this.type,
+        order: order ?? this.order,
+        watercans: watercans ?? this.watercans,
+        status: status ?? this.status,
+        description: description ?? this.description,
+        images: images ?? this.images,
+        storeEmployee: storeEmployee ?? this.storeEmployee,
+        storeAdmin: storeAdmin ?? this.storeAdmin,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
+        plantAdmin: plantAdmin ?? this.plantAdmin,
+        remark: remark ?? this.remark,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreStoreComplaintGet$Response$Data$Item copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String?>? store,
+      Wrapped<String?>? type,
+      Wrapped<String?>? order,
+      Wrapped<double?>? watercans,
+      Wrapped<String?>? status,
+      Wrapped<String?>? description,
+      Wrapped<List<Object>?>? images,
+      Wrapped<String?>? storeEmployee,
+      Wrapped<String?>? storeAdmin,
+      Wrapped<bool?>? storeAdminApproval,
+      Wrapped<String?>? plantAdmin,
+      Wrapped<String?>? remark,
+      Wrapped<String?>? createdAt,
+      Wrapped<String?>? updatedAt}) {
+    return EmployeeStoreStoreComplaintGet$Response$Data$Item(
+        id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
+        store: (store != null ? store.value : this.store),
+        type: (type != null ? type.value : this.type),
+        order: (order != null ? order.value : this.order),
+        watercans: (watercans != null ? watercans.value : this.watercans),
+        status: (status != null ? status.value : this.status),
+        description:
+            (description != null ? description.value : this.description),
+        images: (images != null ? images.value : this.images),
+        storeEmployee:
+            (storeEmployee != null ? storeEmployee.value : this.storeEmployee),
+        storeAdmin: (storeAdmin != null ? storeAdmin.value : this.storeAdmin),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
+        plantAdmin: (plantAdmin != null ? plantAdmin.value : this.plantAdmin),
+        remark: (remark != null ? remark.value : this.remark),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintGet$Response$Meta {
+  const EmployeeStoreStoreComplaintGet$Response$Meta({
+    required this.pages,
+    required this.total,
+    required this.page,
+    required this.size,
+  });
+
+  factory EmployeeStoreStoreComplaintGet$Response$Meta.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintGet$Response$MetaFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreStoreComplaintGet$Response$MetaToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintGet$Response$MetaToJson(this);
+
+  @JsonKey(name: 'pages')
+  final double pages;
+  @JsonKey(name: 'total')
+  final double total;
+  @JsonKey(name: 'page')
+  final double page;
+  @JsonKey(name: 'size')
+  final double size;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintGet$Response$MetaFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintGet$Response$Meta &&
+            (identical(other.pages, pages) ||
+                const DeepCollectionEquality().equals(other.pages, pages)) &&
+            (identical(other.total, total) ||
+                const DeepCollectionEquality().equals(other.total, total)) &&
+            (identical(other.page, page) ||
+                const DeepCollectionEquality().equals(other.page, page)) &&
+            (identical(other.size, size) ||
+                const DeepCollectionEquality().equals(other.size, size)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(pages) ^
+      const DeepCollectionEquality().hash(total) ^
+      const DeepCollectionEquality().hash(page) ^
+      const DeepCollectionEquality().hash(size) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintGet$Response$MetaExtension
+    on EmployeeStoreStoreComplaintGet$Response$Meta {
+  EmployeeStoreStoreComplaintGet$Response$Meta copyWith(
+      {double? pages, double? total, double? page, double? size}) {
+    return EmployeeStoreStoreComplaintGet$Response$Meta(
+        pages: pages ?? this.pages,
+        total: total ?? this.total,
+        page: page ?? this.page,
+        size: size ?? this.size);
+  }
+
+  EmployeeStoreStoreComplaintGet$Response$Meta copyWithWrapped(
+      {Wrapped<double>? pages,
+      Wrapped<double>? total,
+      Wrapped<double>? page,
+      Wrapped<double>? size}) {
+    return EmployeeStoreStoreComplaintGet$Response$Meta(
+        pages: (pages != null ? pages.value : this.pages),
+        total: (total != null ? total.value : this.total),
+        page: (page != null ? page.value : this.page),
+        size: (size != null ? size.value : this.size));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintPost$Response$Data {
+  const EmployeeStoreStoreComplaintPost$Response$Data({
+    this.id,
+    this.$id,
+    this.store,
+    this.type,
+    this.order,
+    this.watercans,
+    this.status,
+    this.description,
+    this.images,
+    this.storeEmployee,
+    this.storeAdmin,
+    this.storeAdminApproval,
+    this.plantAdmin,
+    this.remark,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory EmployeeStoreStoreComplaintPost$Response$Data.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintPost$Response$DataFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreStoreComplaintPost$Response$DataToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintPost$Response$DataToJson(this);
+
+  @JsonKey(name: '_id')
+  final String? id;
+  @JsonKey(name: 'id')
+  final double? $id;
+  @JsonKey(name: 'store')
+  final String? store;
+  @JsonKey(name: 'type')
+  final String? type;
+  @JsonKey(name: 'order')
+  final String? order;
+  @JsonKey(name: 'watercans')
+  final double? watercans;
+  @JsonKey(name: 'status')
+  final String? status;
+  @JsonKey(name: 'description')
+  final String? description;
+  @JsonKey(name: 'images', defaultValue: <String>[])
+  final List<String>? images;
+  @JsonKey(name: 'store_employee')
+  final String? storeEmployee;
+  @JsonKey(name: 'store_admin')
+  final String? storeAdmin;
+  @JsonKey(name: 'store_admin_approval')
+  final bool? storeAdminApproval;
+  @JsonKey(name: 'plant_admin')
+  final String? plantAdmin;
+  @JsonKey(name: 'remark')
+  final String? remark;
+  @JsonKey(name: 'createdAt')
+  final String? createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String? updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintPost$Response$DataFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintPost$Response$Data &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
+            (identical(other.store, store) ||
+                const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.order, order) ||
+                const DeepCollectionEquality().equals(other.order, order)) &&
+            (identical(other.watercans, watercans) ||
+                const DeepCollectionEquality()
+                    .equals(other.watercans, watercans)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.images, images) ||
+                const DeepCollectionEquality().equals(other.images, images)) &&
+            (identical(other.storeEmployee, storeEmployee) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeEmployee, storeEmployee)) &&
+            (identical(other.storeAdmin, storeAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdmin, storeAdmin)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
+            (identical(other.plantAdmin, plantAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.plantAdmin, plantAdmin)) &&
+            (identical(other.remark, remark) ||
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
+      const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(order) ^
+      const DeepCollectionEquality().hash(watercans) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(images) ^
+      const DeepCollectionEquality().hash(storeEmployee) ^
+      const DeepCollectionEquality().hash(storeAdmin) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
+      const DeepCollectionEquality().hash(plantAdmin) ^
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintPost$Response$DataExtension
+    on EmployeeStoreStoreComplaintPost$Response$Data {
+  EmployeeStoreStoreComplaintPost$Response$Data copyWith(
+      {String? id,
+      double? $id,
+      String? store,
+      String? type,
+      String? order,
+      double? watercans,
+      String? status,
+      String? description,
+      List<String>? images,
+      String? storeEmployee,
+      String? storeAdmin,
+      bool? storeAdminApproval,
+      String? plantAdmin,
+      String? remark,
+      String? createdAt,
+      String? updatedAt}) {
+    return EmployeeStoreStoreComplaintPost$Response$Data(
+        id: id ?? this.id,
+        $id: $id ?? this.$id,
+        store: store ?? this.store,
+        type: type ?? this.type,
+        order: order ?? this.order,
+        watercans: watercans ?? this.watercans,
+        status: status ?? this.status,
+        description: description ?? this.description,
+        images: images ?? this.images,
+        storeEmployee: storeEmployee ?? this.storeEmployee,
+        storeAdmin: storeAdmin ?? this.storeAdmin,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
+        plantAdmin: plantAdmin ?? this.plantAdmin,
+        remark: remark ?? this.remark,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreStoreComplaintPost$Response$Data copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String?>? store,
+      Wrapped<String?>? type,
+      Wrapped<String?>? order,
+      Wrapped<double?>? watercans,
+      Wrapped<String?>? status,
+      Wrapped<String?>? description,
+      Wrapped<List<String>?>? images,
+      Wrapped<String?>? storeEmployee,
+      Wrapped<String?>? storeAdmin,
+      Wrapped<bool?>? storeAdminApproval,
+      Wrapped<String?>? plantAdmin,
+      Wrapped<String?>? remark,
+      Wrapped<String?>? createdAt,
+      Wrapped<String?>? updatedAt}) {
+    return EmployeeStoreStoreComplaintPost$Response$Data(
+        id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
+        store: (store != null ? store.value : this.store),
+        type: (type != null ? type.value : this.type),
+        order: (order != null ? order.value : this.order),
+        watercans: (watercans != null ? watercans.value : this.watercans),
+        status: (status != null ? status.value : this.status),
+        description:
+            (description != null ? description.value : this.description),
+        images: (images != null ? images.value : this.images),
+        storeEmployee:
+            (storeEmployee != null ? storeEmployee.value : this.storeEmployee),
+        storeAdmin: (storeAdmin != null ? storeAdmin.value : this.storeAdmin),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
+        plantAdmin: (plantAdmin != null ? plantAdmin.value : this.plantAdmin),
+        remark: (remark != null ? remark.value : this.remark),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintPut$Response$Data {
+  const EmployeeStoreStoreComplaintPut$Response$Data({
+    this.id,
+    this.$id,
+    this.store,
+    this.type,
+    this.order,
+    this.watercans,
+    this.status,
+    this.description,
+    this.images,
+    this.storeEmployee,
+    this.storeAdmin,
+    this.storeAdminApproval,
+    this.plantAdmin,
+    this.remark,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory EmployeeStoreStoreComplaintPut$Response$Data.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintPut$Response$DataFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreStoreComplaintPut$Response$DataToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintPut$Response$DataToJson(this);
+
+  @JsonKey(name: '_id')
+  final String? id;
+  @JsonKey(name: 'id')
+  final double? $id;
+  @JsonKey(name: 'store')
+  final String? store;
+  @JsonKey(name: 'type')
+  final String? type;
+  @JsonKey(name: 'order')
+  final String? order;
+  @JsonKey(name: 'watercans')
+  final double? watercans;
+  @JsonKey(name: 'status')
+  final String? status;
+  @JsonKey(name: 'description')
+  final String? description;
+  @JsonKey(name: 'images', defaultValue: <String>[])
+  final List<String>? images;
+  @JsonKey(name: 'store_employee')
+  final String? storeEmployee;
+  @JsonKey(name: 'store_admin')
+  final String? storeAdmin;
+  @JsonKey(name: 'store_admin_approval')
+  final bool? storeAdminApproval;
+  @JsonKey(name: 'plant_admin')
+  final String? plantAdmin;
+  @JsonKey(name: 'remark')
+  final String? remark;
+  @JsonKey(name: 'createdAt')
+  final String? createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String? updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintPut$Response$DataFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintPut$Response$Data &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
+            (identical(other.store, store) ||
+                const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.order, order) ||
+                const DeepCollectionEquality().equals(other.order, order)) &&
+            (identical(other.watercans, watercans) ||
+                const DeepCollectionEquality()
+                    .equals(other.watercans, watercans)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.images, images) ||
+                const DeepCollectionEquality().equals(other.images, images)) &&
+            (identical(other.storeEmployee, storeEmployee) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeEmployee, storeEmployee)) &&
+            (identical(other.storeAdmin, storeAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdmin, storeAdmin)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
+            (identical(other.plantAdmin, plantAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.plantAdmin, plantAdmin)) &&
+            (identical(other.remark, remark) ||
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
+      const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(order) ^
+      const DeepCollectionEquality().hash(watercans) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(images) ^
+      const DeepCollectionEquality().hash(storeEmployee) ^
+      const DeepCollectionEquality().hash(storeAdmin) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
+      const DeepCollectionEquality().hash(plantAdmin) ^
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintPut$Response$DataExtension
+    on EmployeeStoreStoreComplaintPut$Response$Data {
+  EmployeeStoreStoreComplaintPut$Response$Data copyWith(
+      {String? id,
+      double? $id,
+      String? store,
+      String? type,
+      String? order,
+      double? watercans,
+      String? status,
+      String? description,
+      List<String>? images,
+      String? storeEmployee,
+      String? storeAdmin,
+      bool? storeAdminApproval,
+      String? plantAdmin,
+      String? remark,
+      String? createdAt,
+      String? updatedAt}) {
+    return EmployeeStoreStoreComplaintPut$Response$Data(
+        id: id ?? this.id,
+        $id: $id ?? this.$id,
+        store: store ?? this.store,
+        type: type ?? this.type,
+        order: order ?? this.order,
+        watercans: watercans ?? this.watercans,
+        status: status ?? this.status,
+        description: description ?? this.description,
+        images: images ?? this.images,
+        storeEmployee: storeEmployee ?? this.storeEmployee,
+        storeAdmin: storeAdmin ?? this.storeAdmin,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
+        plantAdmin: plantAdmin ?? this.plantAdmin,
+        remark: remark ?? this.remark,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreStoreComplaintPut$Response$Data copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String?>? store,
+      Wrapped<String?>? type,
+      Wrapped<String?>? order,
+      Wrapped<double?>? watercans,
+      Wrapped<String?>? status,
+      Wrapped<String?>? description,
+      Wrapped<List<String>?>? images,
+      Wrapped<String?>? storeEmployee,
+      Wrapped<String?>? storeAdmin,
+      Wrapped<bool?>? storeAdminApproval,
+      Wrapped<String?>? plantAdmin,
+      Wrapped<String?>? remark,
+      Wrapped<String?>? createdAt,
+      Wrapped<String?>? updatedAt}) {
+    return EmployeeStoreStoreComplaintPut$Response$Data(
+        id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
+        store: (store != null ? store.value : this.store),
+        type: (type != null ? type.value : this.type),
+        order: (order != null ? order.value : this.order),
+        watercans: (watercans != null ? watercans.value : this.watercans),
+        status: (status != null ? status.value : this.status),
+        description:
+            (description != null ? description.value : this.description),
+        images: (images != null ? images.value : this.images),
+        storeEmployee:
+            (storeEmployee != null ? storeEmployee.value : this.storeEmployee),
+        storeAdmin: (storeAdmin != null ? storeAdmin.value : this.storeAdmin),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
+        plantAdmin: (plantAdmin != null ? plantAdmin.value : this.plantAdmin),
+        remark: (remark != null ? remark.value : this.remark),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreStoreComplaintDelete$Response$Data {
+  const EmployeeStoreStoreComplaintDelete$Response$Data({
+    this.id,
+    this.$id,
+    this.store,
+    this.type,
+    this.order,
+    this.watercans,
+    this.status,
+    this.description,
+    this.images,
+    this.storeEmployee,
+    this.storeAdmin,
+    this.storeAdminApproval,
+    this.plantAdmin,
+    this.remark,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory EmployeeStoreStoreComplaintDelete$Response$Data.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreStoreComplaintDelete$Response$DataFromJson(json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreStoreComplaintDelete$Response$DataToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreStoreComplaintDelete$Response$DataToJson(this);
+
+  @JsonKey(name: '_id')
+  final String? id;
+  @JsonKey(name: 'id')
+  final double? $id;
+  @JsonKey(name: 'store')
+  final String? store;
+  @JsonKey(name: 'type')
+  final String? type;
+  @JsonKey(name: 'order')
+  final String? order;
+  @JsonKey(name: 'watercans')
+  final double? watercans;
+  @JsonKey(name: 'status')
+  final String? status;
+  @JsonKey(name: 'description')
+  final String? description;
+  @JsonKey(name: 'images', defaultValue: <String>[])
+  final List<String>? images;
+  @JsonKey(name: 'store_employee')
+  final String? storeEmployee;
+  @JsonKey(name: 'store_admin')
+  final String? storeAdmin;
+  @JsonKey(name: 'store_admin_approval')
+  final bool? storeAdminApproval;
+  @JsonKey(name: 'plant_admin')
+  final String? plantAdmin;
+  @JsonKey(name: 'remark')
+  final String? remark;
+  @JsonKey(name: 'createdAt')
+  final String? createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String? updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreStoreComplaintDelete$Response$DataFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreStoreComplaintDelete$Response$Data &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.$id, $id) ||
+                const DeepCollectionEquality().equals(other.$id, $id)) &&
+            (identical(other.store, store) ||
+                const DeepCollectionEquality().equals(other.store, store)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.order, order) ||
+                const DeepCollectionEquality().equals(other.order, order)) &&
+            (identical(other.watercans, watercans) ||
+                const DeepCollectionEquality()
+                    .equals(other.watercans, watercans)) &&
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.images, images) ||
+                const DeepCollectionEquality().equals(other.images, images)) &&
+            (identical(other.storeEmployee, storeEmployee) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeEmployee, storeEmployee)) &&
+            (identical(other.storeAdmin, storeAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdmin, storeAdmin)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
+            (identical(other.plantAdmin, plantAdmin) ||
+                const DeepCollectionEquality()
+                    .equals(other.plantAdmin, plantAdmin)) &&
+            (identical(other.remark, remark) ||
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash($id) ^
+      const DeepCollectionEquality().hash(store) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(order) ^
+      const DeepCollectionEquality().hash(watercans) ^
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(images) ^
+      const DeepCollectionEquality().hash(storeEmployee) ^
+      const DeepCollectionEquality().hash(storeAdmin) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
+      const DeepCollectionEquality().hash(plantAdmin) ^
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreStoreComplaintDelete$Response$DataExtension
+    on EmployeeStoreStoreComplaintDelete$Response$Data {
+  EmployeeStoreStoreComplaintDelete$Response$Data copyWith(
+      {String? id,
+      double? $id,
+      String? store,
+      String? type,
+      String? order,
+      double? watercans,
+      String? status,
+      String? description,
+      List<String>? images,
+      String? storeEmployee,
+      String? storeAdmin,
+      bool? storeAdminApproval,
+      String? plantAdmin,
+      String? remark,
+      String? createdAt,
+      String? updatedAt}) {
+    return EmployeeStoreStoreComplaintDelete$Response$Data(
+        id: id ?? this.id,
+        $id: $id ?? this.$id,
+        store: store ?? this.store,
+        type: type ?? this.type,
+        order: order ?? this.order,
+        watercans: watercans ?? this.watercans,
+        status: status ?? this.status,
+        description: description ?? this.description,
+        images: images ?? this.images,
+        storeEmployee: storeEmployee ?? this.storeEmployee,
+        storeAdmin: storeAdmin ?? this.storeAdmin,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
+        plantAdmin: plantAdmin ?? this.plantAdmin,
+        remark: remark ?? this.remark,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreStoreComplaintDelete$Response$Data copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String?>? store,
+      Wrapped<String?>? type,
+      Wrapped<String?>? order,
+      Wrapped<double?>? watercans,
+      Wrapped<String?>? status,
+      Wrapped<String?>? description,
+      Wrapped<List<String>?>? images,
+      Wrapped<String?>? storeEmployee,
+      Wrapped<String?>? storeAdmin,
+      Wrapped<bool?>? storeAdminApproval,
+      Wrapped<String?>? plantAdmin,
+      Wrapped<String?>? remark,
+      Wrapped<String?>? createdAt,
+      Wrapped<String?>? updatedAt}) {
+    return EmployeeStoreStoreComplaintDelete$Response$Data(
+        id: (id != null ? id.value : this.id),
+        $id: ($id != null ? $id.value : this.$id),
+        store: (store != null ? store.value : this.store),
+        type: (type != null ? type.value : this.type),
+        order: (order != null ? order.value : this.order),
+        watercans: (watercans != null ? watercans.value : this.watercans),
+        status: (status != null ? status.value : this.status),
+        description:
+            (description != null ? description.value : this.description),
+        images: (images != null ? images.value : this.images),
+        storeEmployee:
+            (storeEmployee != null ? storeEmployee.value : this.storeEmployee),
+        storeAdmin: (storeAdmin != null ? storeAdmin.value : this.storeAdmin),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
+        plantAdmin: (plantAdmin != null ? plantAdmin.value : this.plantAdmin),
+        remark: (remark != null ? remark.value : this.remark),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreDashboardHomeGet$Response$Data {
   const EmployeeStoreDashboardHomeGet$Response$Data({
     this.todaysIn,
@@ -3855,6 +5432,7 @@ class EmployeeStoreOrdersGet$Response$Data$Item {
     this.status,
     this.store,
     this.forecast,
+    this.complaint,
     this.createdAt,
     this.updatedAt,
   });
@@ -3880,6 +5458,8 @@ class EmployeeStoreOrdersGet$Response$Data$Item {
   final String? store;
   @JsonKey(name: 'forecast')
   final String? forecast;
+  @JsonKey(name: 'complaint')
+  final String? complaint;
   @JsonKey(name: 'createdAt')
   final String? createdAt;
   @JsonKey(name: 'updatedAt')
@@ -3905,6 +5485,9 @@ class EmployeeStoreOrdersGet$Response$Data$Item {
             (identical(other.forecast, forecast) ||
                 const DeepCollectionEquality()
                     .equals(other.forecast, forecast)) &&
+            (identical(other.complaint, complaint) ||
+                const DeepCollectionEquality()
+                    .equals(other.complaint, complaint)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -3924,6 +5507,7 @@ class EmployeeStoreOrdersGet$Response$Data$Item {
       const DeepCollectionEquality().hash(status) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(forecast) ^
+      const DeepCollectionEquality().hash(complaint) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -3938,6 +5522,7 @@ extension $EmployeeStoreOrdersGet$Response$Data$ItemExtension
       String? status,
       String? store,
       String? forecast,
+      String? complaint,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreOrdersGet$Response$Data$Item(
@@ -3947,6 +5532,7 @@ extension $EmployeeStoreOrdersGet$Response$Data$ItemExtension
         status: status ?? this.status,
         store: store ?? this.store,
         forecast: forecast ?? this.forecast,
+        complaint: complaint ?? this.complaint,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -3958,6 +5544,7 @@ extension $EmployeeStoreOrdersGet$Response$Data$ItemExtension
       Wrapped<String?>? status,
       Wrapped<String?>? store,
       Wrapped<String?>? forecast,
+      Wrapped<String?>? complaint,
       Wrapped<String?>? createdAt,
       Wrapped<String?>? updatedAt}) {
     return EmployeeStoreOrdersGet$Response$Data$Item(
@@ -3967,6 +5554,7 @@ extension $EmployeeStoreOrdersGet$Response$Data$ItemExtension
         status: (status != null ? status.value : this.status),
         store: (store != null ? store.value : this.store),
         forecast: (forecast != null ? forecast.value : this.forecast),
+        complaint: (complaint != null ? complaint.value : this.complaint),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -5297,6 +6885,7 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -5321,6 +6910,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast {
   final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -5343,6 +6934,9 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -5361,6 +6955,7 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -5374,6 +6969,7 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$ForecastExtension
       String? date,
       EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store? store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast(
@@ -5382,6 +6978,7 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$ForecastExtension
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -5393,6 +6990,7 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$ForecastExtension
       Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast(
@@ -5401,6 +6999,9 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$ForecastExtension
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -5894,6 +7495,7 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -5917,6 +7519,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast {
   final EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -5939,6 +7543,9 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -5957,6 +7564,7 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -5970,6 +7578,7 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$ForecastExtension
       String? date,
       EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store? store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast(
@@ -5978,6 +7587,7 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$ForecastExtension
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -5989,6 +7599,7 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$ForecastExtension
       Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast(
@@ -5997,6 +7608,9 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$ForecastExtension
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -6489,6 +8103,7 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -6512,6 +8127,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast {
   final EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -6534,6 +8151,9 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -6552,6 +8172,7 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -6565,6 +8186,7 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$ForecastExtension
       String? date,
       EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store? store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast(
@@ -6573,6 +8195,7 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$ForecastExtension
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -6584,6 +8207,7 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$ForecastExtension
       Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast(
@@ -6592,6 +8216,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$ForecastExtension
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -7086,6 +8713,7 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -7109,6 +8737,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast {
   final EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -7131,6 +8761,9 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -7149,6 +8782,7 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -7162,6 +8796,7 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$ForecastExtension
       String? date,
       EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store? store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast(
@@ -7170,6 +8805,7 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$ForecastExtension
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -7181,6 +8817,7 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$ForecastExtension
       Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast(
@@ -7189,6 +8826,9 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$ForecastExtension
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -8103,6 +9743,7 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -8126,6 +9767,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast {
   final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -8148,6 +9791,9 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -8166,6 +9812,7 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -8179,6 +9826,7 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$ForecastExtension
       String? date,
       EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store? store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast(
@@ -8187,6 +9835,7 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$ForecastExtension
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -8198,6 +9847,7 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$ForecastExtension
       Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast(
@@ -8206,6 +9856,9 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$ForecastExtension
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -8710,6 +10363,7 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -8736,6 +10390,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast {
       store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -8758,6 +10414,9 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -8776,6 +10435,7 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -8790,6 +10450,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$ForecastExtensio
       EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store?
           store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast(
@@ -8798,6 +10459,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$ForecastExtensio
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -8809,6 +10471,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$ForecastExtensio
       Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast(
@@ -8817,6 +10480,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$ForecastExtensio
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -9318,6 +10984,7 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -9344,6 +11011,8 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast {
       store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -9366,6 +11035,9 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -9384,6 +11056,7 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -9397,6 +11070,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$ForecastExtension
       String? date,
       EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store? store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast(
@@ -9405,6 +11079,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$ForecastExtension
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -9416,6 +11091,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$ForecastExtension
       Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast(
@@ -9424,6 +11100,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$ForecastExtension
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -9558,6 +11237,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store.fromJson(
@@ -9588,6 +11269,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$StoreFromJson;
 
@@ -9614,7 +11300,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -9630,6 +11320,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -9644,7 +11336,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$StoreExtensio
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -9653,7 +11349,9 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$StoreExtensio
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store copyWithWrapped(
@@ -9665,7 +11363,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$StoreExtensio
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -9674,7 +11376,9 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$StoreExtensio
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -9686,6 +11390,7 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -9712,6 +11417,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast {
       store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -9734,6 +11441,9 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -9752,6 +11462,7 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -9766,6 +11477,7 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$ForecastExten
       EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store?
           store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast(
@@ -9774,6 +11486,7 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$ForecastExten
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -9785,6 +11498,7 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$ForecastExten
       Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast(
@@ -9793,6 +11507,9 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$ForecastExten
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -10001,6 +11718,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store.fromJson(
@@ -10031,6 +11750,12 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$StoreFromJson;
 
@@ -10057,7 +11782,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -10073,6 +11802,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -10087,7 +11818,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$StoreExten
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -10096,7 +11831,9 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$StoreExten
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store copyWithWrapped(
@@ -10108,7 +11845,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$StoreExten
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -10117,7 +11858,9 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$StoreExten
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -10132,6 +11875,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store.fromJson(
@@ -10160,6 +11905,10 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$StoreFromJson;
 
@@ -10186,7 +11935,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -10202,6 +11955,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -10216,7 +11971,9 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$StoreExtension
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector? sector,
+      EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City? city}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -10225,7 +11982,9 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$StoreExtension
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store copyWithWrapped(
@@ -10237,7 +11996,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$StoreExtension
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -10246,7 +12009,9 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$StoreExtension
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -10258,6 +12023,7 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -10284,6 +12050,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast {
       store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -10306,6 +12074,9 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -10324,6 +12095,7 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -10337,6 +12109,7 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$ForecastExtension
       String? date,
       EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store? store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast(
@@ -10345,6 +12118,7 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$ForecastExtension
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -10356,6 +12130,7 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$ForecastExtension
       Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast(
@@ -10364,6 +12139,9 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$ForecastExtension
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -10572,6 +12350,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store.fromJson(
@@ -10602,6 +12382,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$StoreFromJson;
 
@@ -10628,7 +12413,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -10644,6 +12433,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -10658,7 +12449,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$StoreExtension
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -10667,7 +12462,9 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$StoreExtension
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store copyWithWrapped(
@@ -10679,7 +12476,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$StoreExtension
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -10688,7 +12489,9 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$StoreExtension
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -10703,6 +12506,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store.fromJson(
@@ -10731,6 +12536,10 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$StoreFromJson;
 
@@ -10757,7 +12566,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -10773,6 +12586,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -10787,7 +12602,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$StoreExtension
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector? sector,
+      EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City? city}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -10796,7 +12613,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$StoreExtension
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store copyWithWrapped(
@@ -10808,7 +12627,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$StoreExtension
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -10817,7 +12640,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$StoreExtension
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -10829,6 +12654,7 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -10853,6 +12679,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast {
   final EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -10875,6 +12703,9 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -10893,6 +12724,7 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -10906,6 +12738,7 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$ForecastExtension
       String? date,
       EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store? store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast(
@@ -10914,6 +12747,7 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$ForecastExtension
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -10925,6 +12759,7 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$ForecastExtension
       Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast(
@@ -10933,6 +12768,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$ForecastExtension
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -11140,6 +12978,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store.fromJson(
@@ -11169,6 +13009,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$StoreFromJson;
 
@@ -11195,7 +13040,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -11211,6 +13060,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -11225,7 +13076,10 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$StoreExtension
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City? city}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -11234,7 +13088,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$StoreExtension
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store copyWithWrapped(
@@ -11246,7 +13102,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$StoreExtension
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -11255,7 +13115,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$StoreExtension
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -11270,6 +13132,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store.fromJson(
@@ -11299,6 +13163,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$StoreFromJson;
 
@@ -11325,7 +13194,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -11341,6 +13214,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -11355,7 +13230,10 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$StoreExtension
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City? city}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -11364,7 +13242,9 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$StoreExtension
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store copyWithWrapped(
@@ -11376,7 +13256,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$StoreExtension
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -11385,7 +13269,9 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$StoreExtension
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -11397,6 +13283,7 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -11423,6 +13310,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast {
       store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -11445,6 +13334,9 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -11463,6 +13355,7 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -11477,6 +13370,7 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$ForecastExtensi
       EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store?
           store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast(
@@ -11485,6 +13379,7 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$ForecastExtensi
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -11496,6 +13391,7 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$ForecastExtensi
       Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast(
@@ -11504,6 +13400,9 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$ForecastExtensi
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -11712,6 +13611,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store.fromJson(
@@ -11742,6 +13643,12 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$StoreFromJson;
 
@@ -11768,7 +13675,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -11784,6 +13695,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -11798,7 +13711,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$StoreExtensi
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -11807,7 +13724,9 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$StoreExtensi
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store copyWithWrapped(
@@ -11819,7 +13738,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$StoreExtensi
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -11828,7 +13751,9 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$StoreExtensi
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -12096,6 +14021,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store.fromJson(
@@ -12126,6 +14053,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$StoreFromJson;
 
@@ -12152,7 +14084,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -12168,6 +14104,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -12182,7 +14120,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$StoreExtension
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -12191,7 +14133,9 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$StoreExtension
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store copyWithWrapped(
@@ -12203,7 +14147,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$StoreExtension
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -12212,7 +14160,9 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$StoreExtension
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -12224,6 +14174,7 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -12250,6 +14201,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast {
       store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -12272,6 +14225,9 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -12290,6 +14246,7 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -12304,6 +14261,7 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$ForecastExtens
       EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store?
           store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast(
@@ -12312,6 +14270,7 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$ForecastExtens
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -12323,6 +14282,7 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$ForecastExtens
       Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store>?
           store,
       Wrapped<String>? status,
+      Wrapped<bool>? storeAdminApproval,
       Wrapped<String>? createdAt,
       Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast(
@@ -12331,6 +14291,9 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$ForecastExtens
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -12539,6 +14502,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store.fromJson(
@@ -12569,6 +14534,12 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreFromJson;
 
@@ -12595,7 +14566,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -12611,6 +14586,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -12625,7 +14602,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreExtens
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -12634,7 +14615,9 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreExtens
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store copyWithWrapped(
@@ -12646,7 +14629,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreExtens
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -12655,7 +14642,9 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$StoreExtens
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -12670,6 +14659,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store.fromJson(
@@ -12700,6 +14691,12 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$StoreFromJson;
 
@@ -12726,7 +14723,11 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -12742,6 +14743,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -12756,7 +14759,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$StoreExten
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -12765,7 +14772,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$StoreExten
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store copyWithWrapped(
@@ -12777,7 +14786,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$StoreExten
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -12786,7 +14799,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$StoreExten
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -12798,6 +14813,7 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -12824,6 +14840,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast {
       store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -12846,6 +14864,9 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -12864,6 +14885,7 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -12878,6 +14900,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$ForecastEx
       EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store?
           store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast(
@@ -12886,6 +14909,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$ForecastEx
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -12898,6 +14922,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$ForecastEx
           Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store>?
               store,
           Wrapped<String>? status,
+          Wrapped<bool>? storeAdminApproval,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast(
@@ -12906,6 +14931,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$ForecastEx
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -13115,6 +15143,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store.fromJson(
@@ -13145,6 +15175,12 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$StoreFromJson;
 
@@ -13171,7 +15207,11 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -13187,6 +15227,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -13201,7 +15243,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$StoreEx
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -13210,20 +15256,25 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$StoreEx
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
-  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store
-      copyWithWrapped(
-          {Wrapped<String>? id,
-          Wrapped<double?>? $id,
-          Wrapped<String>? name,
-          Wrapped<String>? address,
-          Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Coordinate>?
-              coordinate,
-          Wrapped<String?>? code,
-          Wrapped<String>? createdAt,
-          Wrapped<String>? updatedAt}) {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String>? name,
+      Wrapped<String>? address,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Coordinate>?
+          coordinate,
+      Wrapped<String?>? code,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -13232,7 +15283,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$StoreEx
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -13247,6 +15300,8 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store.fromJson(
@@ -13277,6 +15332,12 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$StoreFromJson;
 
@@ -13303,7 +15364,11 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -13319,6 +15384,8 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -13333,7 +15400,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$StoreExtens
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -13342,7 +15413,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$StoreExtens
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store copyWithWrapped(
@@ -13354,7 +15427,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$StoreExtens
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -13363,7 +15440,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$StoreExtens
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -13375,6 +15454,7 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast {
     required this.date,
     required this.store,
     required this.status,
+    required this.storeAdminApproval,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -13401,6 +15481,8 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast {
       store;
   @JsonKey(name: 'status')
   final String status;
+  @JsonKey(name: 'store_admin_approval')
+  final bool storeAdminApproval;
   @JsonKey(name: 'createdAt')
   final String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -13423,6 +15505,9 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast {
                 const DeepCollectionEquality().equals(other.store, store)) &&
             (identical(other.status, status) ||
                 const DeepCollectionEquality().equals(other.status, status)) &&
+            (identical(other.storeAdminApproval, storeAdminApproval) ||
+                const DeepCollectionEquality()
+                    .equals(other.storeAdminApproval, storeAdminApproval)) &&
             (identical(other.createdAt, createdAt) ||
                 const DeepCollectionEquality()
                     .equals(other.createdAt, createdAt)) &&
@@ -13441,6 +15526,7 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast {
       const DeepCollectionEquality().hash(date) ^
       const DeepCollectionEquality().hash(store) ^
       const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(storeAdminApproval) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
       runtimeType.hashCode;
@@ -13455,6 +15541,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$ForecastExt
       EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store?
           store,
       String? status,
+      bool? storeAdminApproval,
       String? createdAt,
       String? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast(
@@ -13463,6 +15550,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$ForecastExt
         date: date ?? this.date,
         store: store ?? this.store,
         status: status ?? this.status,
+        storeAdminApproval: storeAdminApproval ?? this.storeAdminApproval,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt);
   }
@@ -13475,6 +15563,7 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$ForecastExt
           Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store>?
               store,
           Wrapped<String>? status,
+          Wrapped<bool>? storeAdminApproval,
           Wrapped<String>? createdAt,
           Wrapped<String>? updatedAt}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast(
@@ -13483,6 +15572,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$ForecastExt
         date: (date != null ? date.value : this.date),
         store: (store != null ? store.value : this.store),
         status: (status != null ? status.value : this.status),
+        storeAdminApproval: (storeAdminApproval != null
+            ? storeAdminApproval.value
+            : this.storeAdminApproval),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
         updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
@@ -13692,6 +15784,8 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store.fromJson(
@@ -13722,6 +15816,12 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$StoreFromJson;
 
@@ -13748,7 +15848,11 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -13764,6 +15868,8 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -13778,7 +15884,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$StoreExt
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -13787,20 +15897,25 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$StoreExt
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
-  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store
-      copyWithWrapped(
-          {Wrapped<String>? id,
-          Wrapped<double?>? $id,
-          Wrapped<String>? name,
-          Wrapped<String>? address,
-          Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Coordinate>?
-              coordinate,
-          Wrapped<String?>? code,
-          Wrapped<String>? createdAt,
-          Wrapped<String>? updatedAt}) {
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String>? name,
+      Wrapped<String>? address,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Coordinate>?
+          coordinate,
+      Wrapped<String?>? code,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -13809,7 +15924,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$StoreExt
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -13875,6 +15992,174 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Coordin
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector {
+  const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector {
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City {
+  const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City {
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store({
     required this.id,
@@ -13885,6 +16170,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store.fromJson(
@@ -13915,6 +16202,12 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$StoreFromJson;
 
@@ -13941,7 +16234,11 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -13957,6 +16254,8 @@ class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -13971,7 +16270,11 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Stor
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -13980,20 +16283,25 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Stor
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
-  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store
-      copyWithWrapped(
-          {Wrapped<String>? id,
-          Wrapped<double?>? $id,
-          Wrapped<String>? name,
-          Wrapped<String>? address,
-          Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate>?
-              coordinate,
-          Wrapped<String?>? code,
-          Wrapped<String>? createdAt,
-          Wrapped<String>? updatedAt}) {
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String>? name,
+      Wrapped<String>? address,
+      Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate>?
+          coordinate,
+      Wrapped<String?>? code,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -14002,7 +16310,9 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Stor
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -14129,6 +16439,176 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Coor
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Coordinate({
     required this.lat,
@@ -14190,6 +16670,174 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CoordinateE
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector {
+  const EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector {
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City {
+  const EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City {
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store({
     required this.id,
@@ -14200,6 +16848,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store.fromJson(
@@ -14230,6 +16880,12 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$StoreFromJson;
 
@@ -14256,7 +16912,11 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -14272,6 +16932,8 @@ class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -14286,7 +16948,11 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$StoreExt
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -14295,20 +16961,25 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$StoreExt
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
-  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store
-      copyWithWrapped(
-          {Wrapped<String>? id,
-          Wrapped<double?>? $id,
-          Wrapped<String>? name,
-          Wrapped<String>? address,
-          Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Coordinate>?
-              coordinate,
-          Wrapped<String?>? code,
-          Wrapped<String>? createdAt,
-          Wrapped<String>? updatedAt}) {
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String>? name,
+      Wrapped<String>? address,
+      Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Coordinate>?
+          coordinate,
+      Wrapped<String?>? code,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -14317,7 +16988,9 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$StoreExt
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -14444,6 +17117,174 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Coordina
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Coordinate({
     required this.lat,
@@ -14505,6 +17346,173 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CoordinateEx
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector {
+  const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector {
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City {
+  const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City {
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<String>? name,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store({
     required this.id,
@@ -14515,6 +17523,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store.fromJson(
@@ -14545,6 +17555,12 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$StoreFromJson;
 
@@ -14571,7 +17587,11 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -14587,6 +17607,8 @@ class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -14601,7 +17623,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$StoreExte
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -14610,7 +17636,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$StoreExte
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
   EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store copyWithWrapped(
@@ -14622,7 +17650,11 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$StoreExte
           coordinate,
       Wrapped<String?>? code,
       Wrapped<String>? createdAt,
-      Wrapped<String>? updatedAt}) {
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -14631,7 +17663,9 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$StoreExte
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -14758,6 +17792,174 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Coordinat
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinate({
     required this.lat,
@@ -14819,6 +18021,174 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Coordinat
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector {
+  const EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector {
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City {
+  const EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City {
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store({
     required this.id,
@@ -14829,6 +18199,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store.fromJson(
@@ -14859,6 +18231,12 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$StoreFromJson;
 
@@ -14885,7 +18263,11 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -14901,6 +18283,8 @@ class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -14915,7 +18299,11 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$StoreE
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -14924,20 +18312,25 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$StoreE
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
-  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store
-      copyWithWrapped(
-          {Wrapped<String>? id,
-          Wrapped<double?>? $id,
-          Wrapped<String>? name,
-          Wrapped<String>? address,
-          Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate>?
-              coordinate,
-          Wrapped<String?>? code,
-          Wrapped<String>? createdAt,
-          Wrapped<String>? updatedAt}) {
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String>? name,
+      Wrapped<String>? address,
+      Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Coordinate>?
+          coordinate,
+      Wrapped<String?>? code,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -14946,7 +18339,9 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$StoreE
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -15073,6 +18468,175 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Coordi
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordinate({
     required this.lat,
@@ -15134,6 +18698,174 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Coordina
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector {
+  const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector {
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City {
+  const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City {
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store({
     required this.id,
@@ -15144,6 +18876,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store.fromJson(
@@ -15174,6 +18908,12 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$StoreFromJson;
 
@@ -15200,7 +18940,11 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -15216,6 +18960,8 @@ class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -15230,7 +18976,11 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -15239,20 +18989,25 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
-  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
-      copyWithWrapped(
-          {Wrapped<String>? id,
-          Wrapped<double?>? $id,
-          Wrapped<String>? name,
-          Wrapped<String>? address,
-          Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate>?
-              coordinate,
-          Wrapped<String?>? code,
-          Wrapped<String>? createdAt,
-          Wrapped<String>? updatedAt}) {
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String>? name,
+      Wrapped<String>? address,
+      Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate>?
+          coordinate,
+      Wrapped<String?>? code,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -15261,7 +19016,9 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -15388,6 +19145,175 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Coord
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coordinate({
     required this.lat,
@@ -15449,6 +19375,176 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Coor
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector {
+  const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City {
+  const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store({
     required this.id,
@@ -15459,6 +19555,8 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store.fromJson(
@@ -15489,6 +19587,12 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$StoreFromJson;
 
@@ -15515,7 +19619,11 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -15531,22 +19639,27 @@ class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store 
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
 extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$StoreExtension
     on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store {
-  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store
-      copyWith(
-          {String? id,
-          double? $id,
-          String? name,
-          String? address,
-          EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate?
-              coordinate,
-          String? code,
-          String? createdAt,
-          String? updatedAt}) {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store copyWith(
+      {String? id,
+      double? $id,
+      String? name,
+      String? address,
+      EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate?
+          coordinate,
+      String? code,
+      String? createdAt,
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -15555,20 +19668,25 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$S
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
-  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store
-      copyWithWrapped(
-          {Wrapped<String>? id,
-          Wrapped<double?>? $id,
-          Wrapped<String>? name,
-          Wrapped<String>? address,
-          Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate>?
-              coordinate,
-          Wrapped<String?>? code,
-          Wrapped<String>? createdAt,
-          Wrapped<String>? updatedAt}) {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String>? name,
+      Wrapped<String>? address,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Coordinate>?
+          coordinate,
+      Wrapped<String?>? code,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -15577,7 +19695,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$S
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -15704,6 +19824,176 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$C
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Coordinate({
     required this.lat,
@@ -15765,6 +20055,175 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Coord
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector {
+  const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector {
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City {
+  const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City {
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City copyWith(
+      {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store {
   const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store({
     required this.id,
@@ -15775,6 +20234,8 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store {
     this.code,
     required this.createdAt,
     required this.updatedAt,
+    required this.sector,
+    required this.city,
   });
 
   factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store.fromJson(
@@ -15805,6 +20266,12 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store {
   final String createdAt;
   @JsonKey(name: 'updatedAt')
   final String updatedAt;
+  @JsonKey(name: 'sector')
+  final EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector
+      sector;
+  @JsonKey(name: 'city')
+  final EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City
+      city;
   static const fromJsonFactory =
       _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$StoreFromJson;
 
@@ -15831,7 +20298,11 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store {
                     .equals(other.createdAt, createdAt)) &&
             (identical(other.updatedAt, updatedAt) ||
                 const DeepCollectionEquality()
-                    .equals(other.updatedAt, updatedAt)));
+                    .equals(other.updatedAt, updatedAt)) &&
+            (identical(other.sector, sector) ||
+                const DeepCollectionEquality().equals(other.sector, sector)) &&
+            (identical(other.city, city) ||
+                const DeepCollectionEquality().equals(other.city, city)));
   }
 
   @override
@@ -15847,6 +20318,8 @@ class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store {
       const DeepCollectionEquality().hash(code) ^
       const DeepCollectionEquality().hash(createdAt) ^
       const DeepCollectionEquality().hash(updatedAt) ^
+      const DeepCollectionEquality().hash(sector) ^
+      const DeepCollectionEquality().hash(city) ^
       runtimeType.hashCode;
 }
 
@@ -15861,7 +20334,11 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$St
           coordinate,
       String? code,
       String? createdAt,
-      String? updatedAt}) {
+      String? updatedAt,
+      EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector?
+          sector,
+      EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store(
         id: id ?? this.id,
         $id: $id ?? this.$id,
@@ -15870,20 +20347,25 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$St
         coordinate: coordinate ?? this.coordinate,
         code: code ?? this.code,
         createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt);
+        updatedAt: updatedAt ?? this.updatedAt,
+        sector: sector ?? this.sector,
+        city: city ?? this.city);
   }
 
-  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store
-      copyWithWrapped(
-          {Wrapped<String>? id,
-          Wrapped<double?>? $id,
-          Wrapped<String>? name,
-          Wrapped<String>? address,
-          Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Coordinate>?
-              coordinate,
-          Wrapped<String?>? code,
-          Wrapped<String>? createdAt,
-          Wrapped<String>? updatedAt}) {
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store copyWithWrapped(
+      {Wrapped<String>? id,
+      Wrapped<double?>? $id,
+      Wrapped<String>? name,
+      Wrapped<String>? address,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Coordinate>?
+          coordinate,
+      Wrapped<String?>? code,
+      Wrapped<String>? createdAt,
+      Wrapped<String>? updatedAt,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector>?
+          sector,
+      Wrapped<EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City>?
+          city}) {
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store(
         id: (id != null ? id.value : this.id),
         $id: ($id != null ? $id.value : this.$id),
@@ -15892,7 +20374,9 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$St
         coordinate: (coordinate != null ? coordinate.value : this.coordinate),
         code: (code != null ? code.value : this.code),
         createdAt: (createdAt != null ? createdAt.value : this.createdAt),
-        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt),
+        sector: (sector != null ? sector.value : this.sector),
+        city: (city != null ? city.value : this.city));
   }
 }
 
@@ -16019,6 +20503,176 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Co
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate({
     required this.lat,
@@ -16076,6 +20730,176 @@ extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Stor
     return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Coordinate(
         lat: (lat != null ? lat.value : this.lat),
         long: (long != null ? long.value : this.long));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersGet$Response$Data$Item$Order$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
 }
 
@@ -16141,6 +20965,176 @@ extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Co
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPost$Response$Data$Order$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coordinate({
     required this.lat,
@@ -16198,6 +21192,176 @@ extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coo
     return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Coordinate(
         lat: (lat != null ? lat.value : this.lat),
         long: (long != null ? long.value : this.long));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersPut$Response$Data$Order$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
 }
 
@@ -16263,6 +21427,176 @@ extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersDelete$Response$Data$Order$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate({
     required this.lat,
@@ -16320,6 +21654,176 @@ extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store
     return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Coordinate(
         lat: (lat != null ? lat.value : this.lat),
         long: (long != null ? long.value : this.long));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersOutPost$Response$Data$Order$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
 }
 
@@ -16385,6 +21889,176 @@ extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$S
 }
 
 @JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPost$Response$Data$Order$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Coordinate {
   const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Coordinate({
     required this.lat,
@@ -16442,6 +22116,176 @@ extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$St
     return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Coordinate(
         lat: (lat != null ? lat.value : this.lat),
         long: (long != null ? long.value : this.long));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector {
+  const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$SectorFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$SectorToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$SectorToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$SectorFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$SectorExtension
+    on EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector {
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$Sector(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City {
+  const EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City({
+    required this.id,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$CityFromJson(
+          json);
+
+  static const toJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$CityToJson;
+  Map<String, dynamic> toJson() =>
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$CityToJson(
+          this);
+
+  @JsonKey(name: '_id')
+  final String id;
+  @JsonKey(name: 'name')
+  final String name;
+  @JsonKey(name: 'createdAt')
+  final String createdAt;
+  @JsonKey(name: 'updatedAt')
+  final String updatedAt;
+  static const fromJsonFactory =
+      _$EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$CityFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt) ^
+      runtimeType.hashCode;
+}
+
+extension $EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$CityExtension
+    on EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City {
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City
+      copyWith(
+          {String? id, String? name, String? createdAt, String? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt);
+  }
+
+  EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City
+      copyWithWrapped(
+          {Wrapped<String>? id,
+          Wrapped<String>? name,
+          Wrapped<String>? createdAt,
+          Wrapped<String>? updatedAt}) {
+    return EmployeeStoreEmployeeOrdersConfirmPut$Response$Data$Order$Forecast$Store$City(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        createdAt: (createdAt != null ? createdAt.value : this.createdAt),
+        updatedAt: (updatedAt != null ? updatedAt.value : this.updatedAt));
   }
 }
 

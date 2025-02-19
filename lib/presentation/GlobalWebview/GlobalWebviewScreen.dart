@@ -63,8 +63,7 @@ class _GlobalWebviewScreenState extends State<GlobalWebviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         // appBar: AppBar(title: Text("Official InAppWebView website")),
-        body: SafeArea(
-            child: Column(children: <Widget>[
+        body: Column(children: <Widget>[
       // TextField(
       //   decoration: InputDecoration(prefixIcon: Icon(Icons.search)),
       //   controller: urlController,
@@ -108,15 +107,7 @@ class _GlobalWebviewScreenState extends State<GlobalWebviewScreen> {
               shouldOverrideUrlLoading: (controller, navigationAction) async {
                 var uri = navigationAction.request.url!;
 
-                if (![
-                  "http",
-                  "https",
-                  "file",
-                  "chrome",
-                  "data",
-                  "javascript",
-                  "about"
-                ].contains(uri.scheme)) {
+                if (!["http", "https", "file", "chrome", "data", "javascript", "about"].contains(uri.scheme)) {
                   // if (await canLaunch(url)) {
                   //   // Launch the App
                   //   await launch(
@@ -158,9 +149,7 @@ class _GlobalWebviewScreenState extends State<GlobalWebviewScreen> {
                 print(consoleMessage);
               },
             ),
-            progress < 1.0
-                ? LinearProgressIndicator(value: progress)
-                : Container(),
+            progress < 1.0 ? LinearProgressIndicator(value: progress) : Container(),
           ],
         ),
       ),
@@ -187,6 +176,6 @@ class _GlobalWebviewScreenState extends State<GlobalWebviewScreen> {
       //     ),
       //   ],
       // ),
-    ])));
+    ]));
   }
 }

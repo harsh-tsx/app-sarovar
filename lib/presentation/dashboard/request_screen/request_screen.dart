@@ -41,15 +41,13 @@ class _RequestScreenState extends State<RequestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appTheme.primaryYellow,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Header Section
-            _buildHeaderSection(),
-            // Inventory Section
-            _buildInventorySection(),
-          ],
-        ),
+      body: Column(
+        children: [
+          // Header Section
+          _buildHeaderSection(),
+          // Inventory Section
+          _buildInventorySection(),
+        ],
       ),
     );
   }
@@ -72,7 +70,7 @@ class _RequestScreenState extends State<RequestScreen> {
           const SizedBox(height: 12),
           Text(
             "Request",
-            style: GoogleFonts.comfortaa(fontSize: 24, fontWeight: FontWeight.w700),
+            style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700),
           ),
         ],
       ),
@@ -109,7 +107,7 @@ class _RequestScreenState extends State<RequestScreen> {
                     children: [
                       Text(
                         "Can Counts:",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 20.fSize,
                         ),
@@ -125,7 +123,7 @@ class _RequestScreenState extends State<RequestScreen> {
                           inputFormatters: [
                             FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*$')),
                           ],
-                          style: TextStyle(
+                          style: GoogleFonts.poppins(
                             color: Colors.black,
                           ),
                           decoration: InputDecoration(
@@ -158,7 +156,7 @@ class _RequestScreenState extends State<RequestScreen> {
                       ),
                       child: Text(
                         'Submit Request',
-                        style: GoogleFonts.comfortaa(color: theme.primaryColor),
+                        style: GoogleFonts.poppins(color: theme.primaryColor),
                       ),
                     ),
                   ),
@@ -228,11 +226,11 @@ class _RequestScreenState extends State<RequestScreen> {
       children: [
         Text(
           title,
-          style: GoogleFonts.comfortaa(fontSize: 10.fSize, fontWeight: FontWeight.w700),
+          style: GoogleFonts.poppins(fontSize: 10.fSize, fontWeight: FontWeight.w700),
         ),
         Text(
           value,
-          style: GoogleFonts.comfortaa(
+          style: GoogleFonts.poppins(
             color: isStatus
                 ? value == "DELIVERED"
                     ? Color(0xff008B23)

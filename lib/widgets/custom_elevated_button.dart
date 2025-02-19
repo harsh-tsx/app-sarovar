@@ -57,7 +57,7 @@ class CustomElevatedButton extends BaseButton {
             mainAxisAlignment: leftIcon != null && rightIcon != null
                 ? MainAxisAlignment.spaceAround
                 : leftIcon != null
-                    ? MainAxisAlignment.start
+                    ? MainAxisAlignment.center
                     : MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

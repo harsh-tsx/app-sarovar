@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 @immutable
 class SocialSignInButtonBuilder extends StatelessWidget {
@@ -25,11 +26,7 @@ class SocialSignInButtonBuilder extends StatelessWidget {
 
   /// backgroundColor is required but textColor is default to `Colors.white`
   /// splashColor is default to `Colors.white30`
-  final Color textColor,
-      iconColor,
-      backgroundColor,
-      splashColor,
-      highlightColor;
+  final Color textColor, iconColor, backgroundColor, splashColor, highlightColor;
 
   /// onPressed should be specified as a required field to indicate the callback.
   final Function onPressed;
@@ -117,7 +114,7 @@ class SocialSignInButtonBuilder extends StatelessWidget {
             ),
             Text(
               text,
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 color: textColor,
                 fontSize: fontSize,
                 backgroundColor: const Color.fromRGBO(0, 0, 0, 0),

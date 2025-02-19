@@ -301,19 +301,19 @@ class AddOrderController extends AuthController {
 
     update();
   }
+}
 
-  File createFile(String path) {
-    final file = File(path);
-    if (!file.existsSync()) {
-      file.createSync(recursive: true);
-    }
-    return file;
-  }
+Future<String> getExampleFilePath(ext) async {
+  final dir = await path_provider.getTemporaryDirectory();
+  final File file = createFile('${dir.absolute.path}/test.${ext}');
+  file.createSync(recursive: true);
+  return file.absolute.path;
+}
 
-  Future<String> getExampleFilePath(ext) async {
-    final dir = await path_provider.getTemporaryDirectory();
-    final File file = createFile('${dir.absolute.path}/test.${ext}');
+File createFile(String path) {
+  final file = File(path);
+  if (!file.existsSync()) {
     file.createSync(recursive: true);
-    return file.absolute.path;
   }
+  return file;
 }

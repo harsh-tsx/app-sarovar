@@ -62,28 +62,40 @@ class _CalendarSectionState extends State<CalendarSection> {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Expanded(
-                child: Divider(
-              thickness: 1,
-              indent: 50,
-            )),
+            // const Expanded(
+            //     child: Divider(
+            //   thickness: 1,
+            //   indent: 50,
+            // )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 DateFormat('MMMM yyyy').format(currentMonth),
-                style: GoogleFonts.comfortaa(
-                  fontSize: 12,
+                style: GoogleFonts.poppins(
+                  fontSize: 12.fSize,
                   color: appTheme.black900,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-            const Expanded(
-                child: Divider(
-              thickness: 1,
-              endIndent: 50,
-            )),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                "Time Slot- 03:00 PM to 04:00 PM",
+                style: GoogleFonts.poppins(
+                  fontSize: 12.fSize,
+                  color: appTheme.black900,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            // const Expanded(
+            //     child: Divider(
+            //   thickness: 1,
+            //   endIndent: 50,
+            // )),
           ],
         ),
         const SizedBox(height: 16),
@@ -117,10 +129,8 @@ class _CalendarSectionState extends State<CalendarSection> {
                             child: Column(
                               children: [
                                 Text(
-                                  DateFormat('EEE')
-                                      .format(date)
-                                      .substring(0, 3),
-                                  style: TextStyle(
+                                  DateFormat('EEE').format(date).substring(0, 3),
+                                  style: GoogleFonts.poppins(
                                     fontSize: 12.fSize,
                                     color: Colors.grey[600],
                                   ),
@@ -129,15 +139,14 @@ class _CalendarSectionState extends State<CalendarSection> {
                                   width: 100.w,
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color:
-                                        isSelected ? theme.primaryColor : null,
+                                    color: isSelected ? theme.primaryColor : null,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Column(
                                     children: [
                                       // Text(
                                       //   '${date.day}',
-                                      //   style: TextStyle(
+                                      //   style: GoogleFonts.poppins(
                                       //     fontWeight: isSelected
                                       //         ? FontWeight.bold
                                       //         : FontWeight.normal,
@@ -145,10 +154,8 @@ class _CalendarSectionState extends State<CalendarSection> {
                                       // ),
                                       Text(
                                         'Today',
-                                        style: TextStyle(
-                                          fontWeight: isSelected
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
+                                        style: GoogleFonts.poppins(
+                                          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                         ),
                                       ),
                                     ],
@@ -162,10 +169,8 @@ class _CalendarSectionState extends State<CalendarSection> {
                             child: Column(
                               children: [
                                 Text(
-                                  DateFormat('EEE')
-                                      .format(date)
-                                      .substring(0, 3),
-                                  style: TextStyle(
+                                  DateFormat('EEE').format(date).substring(0, 3),
+                                  style: GoogleFonts.poppins(
                                     fontSize: 12,
                                     color: Colors.grey[600],
                                   ),
@@ -173,16 +178,13 @@ class _CalendarSectionState extends State<CalendarSection> {
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color:
-                                        isSelected ? theme.primaryColor : null,
+                                    color: isSelected ? theme.primaryColor : null,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(
                                     '${date.day}',
-                                    style: TextStyle(
-                                      fontWeight: isSelected
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                     ),
                                   ),
                                 ),

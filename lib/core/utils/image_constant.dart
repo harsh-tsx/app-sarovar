@@ -26,4 +26,5 @@ class ImageConstant {
   static String emptyCan = 'assets/images/empty_can.png';
   static String hourGlass = 'assets/images/hourglass.gif';
   static String pageBg = 'assets/images/page_bg.png';
+  static String camera = 'assets/images/camera.svg';
 }
