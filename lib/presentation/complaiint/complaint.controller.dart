@@ -15,6 +15,7 @@ class ComplaintController extends AuthController {
   var currentTab = "IN".obs;
 
   var orderId = "".obs;
+  var orderWaterCans = 0.obs;
   var complaintType = "".obs;
   var watercans = TextEditingController();
   var description = TextEditingController();
@@ -24,6 +25,8 @@ class ComplaintController extends AuthController {
   var page = 0.obs;
   var size = 10.obs;
   var isLoading = false.obs;
+
+  var isSubmitting = false.obs;
 
   @override
   void onInit() {
@@ -111,6 +114,7 @@ class ComplaintController extends AuthController {
       Toast.error("Upload images!");
       return;
     }
+    isSubmitting.value = true;
 
     try {
       var imageToBeUpload = [];
@@ -144,11 +148,15 @@ class ComplaintController extends AuthController {
           complaintType.value = "";
           watercans.clear();
           description.clear();
+          isSubmitting.value = false;
+          getComplaints(0);
         } else {
           Toast.error("Ticket - " + response.data['message']);
+          isSubmitting.value = false;
         }
       }
     } catch (error, stackTrace) {
+      isSubmitting.value = false;
       print("error: ${error}");
       print("stackTrace: ${stackTrace}");
     }

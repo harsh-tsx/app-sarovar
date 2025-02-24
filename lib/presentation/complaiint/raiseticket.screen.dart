@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:app_1point2_store/core/app_export.dart';
+import 'package:app_1point2_store/core/utils/Toast.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/core/utils/types.dart';
 import 'package:app_1point2_store/presentation/complaiint/complaint.controller.dart';
 import 'package:app_1point2_store/presentation/dashboard/dashboard_controller.dart';
 import 'package:app_1point2_store/widgets/custom_drop_down.dart';
+import 'package:app_1point2_store/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,6 +23,8 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
   var dashboardController = isControllerRegistered<DashboardController>(DashboardController());
 
   final ScrollController _scrollController = ScrollController();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     super.initState();
@@ -210,232 +214,39 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         decoration: BoxDecoration(color: Color(0xffE4DABA)),
                         child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  dashboardController.handlBottomNavChange(1);
-                                },
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 20.w,
-                                        ),
-                                        Text("Order ID"),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 5.h,
-                                    ),
-                                    TextFormField(
-                                      style: GoogleFonts.poppins(
-                                        color: Colors.black,
-                                      ),
-                                      // controller: controller.id,
-                                      enabled: false,
-                                      keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
-                                        fillColor: Colors.white,
-                                        filled: true,
-                                        hintText: "ID",
-                                        border: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.transparent),
-                                          borderRadius: BorderRadius.circular(9),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.transparent),
-                                          borderRadius: BorderRadius.circular(9),
-                                        ),
-                                        hintStyle: GoogleFonts.poppins(color: Colors.grey),
-                                      ),
-                                      initialValue: controller.orderId.value,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    dashboardController.handlBottomNavChange(1);
+                                  },
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
-                                        width: 20.w,
-                                      ),
-                                      Text("Complaint Type"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  CustomDropDown(
-                                    items: [
-                                      SelectionPopupModel(title: "Damaged Cans", value: "Damaged Cans"),
-                                      SelectionPopupModel(title: "Incomplete Delivery", value: "Incomplete Delivery"),
-                                    ],
-                                    fillColor: Colors.white,
-                                    filled: true,
-                                    borderDecoration: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(9),
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                    ),
-                                    onChanged: (p0) {
-                                      controller.complaintType.value = p0.value;
-                                    },
-                                    defaultValue:
-                                        controller.complaintType.value.isEmpty ? null : controller.complaintType.value,
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 20.w,
-                                      ),
-                                      Text("Number of Cans"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  TextFormField(
-                                    style: GoogleFonts.poppins(
-                                      color: Colors.black,
-                                    ),
-                                    keyboardType: TextInputType.number,
-                                    controller: controller.watercans,
-                                    decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      hintText: "0",
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(9),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(9),
-                                      ),
-                                      hintStyle: GoogleFonts.poppins(color: Colors.grey),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              controller.images.length > 0
-                                  ? Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            SizedBox(
-                                              width: 20.w,
-                                            ),
-                                            Text("Images"),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5.h,
-                                        ),
-                                        Container(
-                                          width: SizeUtils.width,
-                                          height: 100.h,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: theme.primaryColor,
-                                            ),
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(9),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 20.w,
                                           ),
-                                          padding: EdgeInsets.all(5.w),
-                                          alignment: Alignment.centerLeft,
-                                          child: ListView.separated(
-                                            scrollDirection: Axis.horizontal,
-                                            shrinkWrap: true,
-                                            separatorBuilder: (context, index) {
-                                              return SizedBox(
-                                                width: 10.w,
-                                              );
-                                            },
-                                            itemBuilder: (context, index) => Container(
-                                              width: 100.w,
-                                              child: Stack(
-                                                children: [
-                                                  Image.file(
-                                                    File(controller.images[index]?.path ?? ""),
-                                                    width: 100.w,
-                                                    height: 100.w,
-                                                    alignment: Alignment.center,
-                                                    colorBlendMode: BlendMode.darken,
-                                                    color: Colors.black.withOpacity(0.3),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                  Positioned(
-                                                    top: 0,
-                                                    right: 0,
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        controller.deleteImage(index);
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.delete,
-                                                        color: Color(0xffCA0000),
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            itemCount: controller.images.length,
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  : Container(),
-                              SizedBox(
-                                height: 10.h,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 20.w,
+                                          Text("Order ID"),
+                                        ],
                                       ),
-                                      Text("Description"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  Stack(
-                                    children: [
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
                                       TextFormField(
                                         style: GoogleFonts.poppins(
                                           color: Colors.black,
                                         ),
-                                        controller: controller.description,
+                                        // controller: controller.id,
+                                        enabled: false,
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                           fillColor: Colors.white,
                                           filled: true,
+                                          hintText: "ID",
                                           border: OutlineInputBorder(
                                             borderSide: BorderSide(color: Colors.transparent),
                                             borderRadius: BorderRadius.circular(9),
@@ -446,56 +257,281 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                                           ),
                                           hintStyle: GoogleFonts.poppins(color: Colors.grey),
                                         ),
-                                        maxLines: 5,
-                                      ),
-                                      Positioned(
-                                        top: 0,
-                                        right: 0,
-                                        child: InkWell(
-                                          onTap: controller.handleImage,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: CustomImageView(
-                                              imagePath: ImageConstant.camera,
-                                              width: 40.w,
-                                            ),
-                                          ),
-                                        ),
+                                        initialValue: controller.orderId.value,
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20.h,
-                              ),
-                              SizedBox(
-                                width: SizeUtils.width.percent(80),
-                                height: 55.h,
-                                child: ElevatedButton(
-                                  onPressed: controller.handleSubmit,
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: appTheme.black900,
-                                    minimumSize: const Size(double.infinity, 48),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        color: Color(0xff375DFB),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 20.w,
+                                        ),
+                                        Text("Complaint Type"),
+                                      ],
                                     ),
-                                    padding: EdgeInsets.symmetric(vertical: 30.h),
-                                  ),
-                                  child: Text(
-                                    'Submit Complaint',
-                                    style: GoogleFonts.poppins(color: theme.primaryColor),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    CustomDropDown(
+                                      items: [
+                                        SelectionPopupModel(title: "Damaged Cans", value: "Damaged Cans"),
+                                        SelectionPopupModel(title: "Incomplete Delivery", value: "Incomplete Delivery"),
+                                      ],
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      borderDecoration: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(9),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      onChanged: (p0) {
+                                        controller.complaintType.value = p0.value;
+                                      },
+                                      defaultValue: controller.complaintType.value.isEmpty
+                                          ? null
+                                          : controller.complaintType.value,
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 20.w,
+                                        ),
+                                        Text("Number of Cans"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    TextFormField(
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                      controller: controller.watercans,
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        hintText: "0",
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.transparent),
+                                          borderRadius: BorderRadius.circular(9),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.transparent),
+                                          borderRadius: BorderRadius.circular(9),
+                                        ),
+                                        hintStyle: GoogleFonts.poppins(color: Colors.grey),
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please enter the nunmber of cans';
+                                        }
+                                        var intValue = int.tryParse(value);
+                                        if (intValue == null) {
+                                          return 'invalid number';
+                                        }
+                                        print(value);
+
+                                        if (intValue > controller.orderWaterCans.toInt()) {
+                                          return 'Number of cans are more than the ordered cans';
+                                        }
+
+                                        if (!(intValue >= 0)) {
+                                          return 'Invalid number';
+                                        }
+                                        return null;
+                                      },
+                                      onChanged: (value) => _formKey.currentState!.validate(),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                controller.images.length > 0
+                                    ? Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              SizedBox(
+                                                width: 20.w,
+                                              ),
+                                              Text("Images"),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 5.h,
+                                          ),
+                                          Container(
+                                            width: SizeUtils.width,
+                                            height: 100.h,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: theme.primaryColor,
+                                              ),
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(9),
+                                            ),
+                                            padding: EdgeInsets.all(5.w),
+                                            alignment: Alignment.centerLeft,
+                                            child: ListView.separated(
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              separatorBuilder: (context, index) {
+                                                return SizedBox(
+                                                  width: 10.w,
+                                                );
+                                              },
+                                              itemBuilder: (context, index) => Container(
+                                                width: 100.w,
+                                                child: Stack(
+                                                  children: [
+                                                    Image.file(
+                                                      File(controller.images[index]?.path ?? ""),
+                                                      width: 100.w,
+                                                      height: 100.w,
+                                                      alignment: Alignment.center,
+                                                      colorBlendMode: BlendMode.darken,
+                                                      color: Colors.black.withOpacity(0.3),
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                    Positioned(
+                                                      top: 0,
+                                                      right: 0,
+                                                      child: IconButton(
+                                                        onPressed: () {
+                                                          controller.deleteImage(index);
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.delete,
+                                                          color: Color(0xffCA0000),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              itemCount: controller.images.length,
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    : Container(),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 20.w,
+                                        ),
+                                        Text("Description"),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    Stack(
+                                      children: [
+                                        TextFormField(
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.black,
+                                          ),
+                                          controller: controller.description,
+                                          keyboardType: TextInputType.text,
+                                          decoration: InputDecoration(
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.transparent),
+                                              borderRadius: BorderRadius.circular(9),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(color: Colors.transparent),
+                                              borderRadius: BorderRadius.circular(9),
+                                            ),
+                                            hintStyle: GoogleFonts.poppins(color: Colors.grey),
+                                          ),
+                                          maxLines: 5,
+                                        ),
+                                        Positioned(
+                                          top: 0,
+                                          right: 0,
+                                          child: InkWell(
+                                            onTap: controller.handleImage,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: CustomImageView(
+                                                imagePath: ImageConstant.camera,
+                                                width: 40.w,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 20.h,
+                                ),
+                                SizedBox(
+                                  width: SizeUtils.width.percent(80),
+                                  height: 55.h,
+                                  child: CustomElevatedButton(
+                                    onPressed: () {
+                                      if (!_formKey.currentState!.validate()) {
+                                        // If the form is valid, display a snackbar. In the real world,
+                                        // you'd often call a server or save the information in a database.
+                                        return;
+                                      }
+                                      controller.handleSubmit();
+                                    },
+                                    isDisabled: controller.isSubmitting.value,
+                                    buttonStyle: ElevatedButton.styleFrom(
+                                      backgroundColor: appTheme.black900,
+                                      disabledBackgroundColor: Color(0xffB0B0B0),
+                                      minimumSize: const Size(double.infinity, 48),
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                          color: Color(0xff375DFB),
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      padding: EdgeInsets.symmetric(vertical: 30.h),
+                                    ),
+                                    buttonTextStyle: GoogleFonts.poppins(
+                                        color: controller.isSubmitting.value ? Color(0xff474747) : theme.primaryColor),
+                                    text: "Submit Complaint",
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 100.h,
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 100.h,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

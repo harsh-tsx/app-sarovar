@@ -312,6 +312,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               complaintScreen.handleCurrentTabChange("IN");
                               dashboardController.handlBottomNavChange(4);
                               complaintScreen.orderId.value = item.id ?? "";
+                              complaintScreen.orderWaterCans.value = item.watercans?.toInt() ?? 0;
                             },
                       isDisabled: item.complaint != null,
                       buttonStyle: ElevatedButton.styleFrom(
