@@ -5,9 +5,11 @@ import 'package:app_1point2_store/presentation/complaiint/complaint.controller.d
 import 'package:app_1point2_store/presentation/complaiint/raiseticket.screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/add_order/add_order.dart';
 import 'package:app_1point2_store/presentation/dashboard/can_out_screen/can_out_screen.dart';
+import 'package:app_1point2_store/presentation/dashboard/history_screen/history_screen.controller.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/home_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/history_screen/history_screen.dart';
 import 'package:app_1point2_store/presentation/dashboard/qr_scanner_screen/qr_scanner_screen.dart';
+import 'package:app_1point2_store/presentation/dashboard/request_screen/controller/request_screen_controller.dart';
 import 'package:app_1point2_store/presentation/dashboard/request_screen/request_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -130,9 +132,21 @@ class DashboardController extends AuthController {
     // }
     selectedIndex.value = index;
 
-    if (index == 3) {}
+    if (index == 1) {
+      var cn = isControllerRegistered<HistoryScreenController>(HistoryScreenController());
+      cn.getInHistory(0);
+      cn.getOutHistory(0);
+    }
 
-    if (index == 4) {}
+    if (index == 3) {
+      var cn = isControllerRegistered<RequestScreenController>(RequestScreenController());
+      cn.getForecastList(0);
+    }
+
+    if (index == 4) {
+      var cn = isControllerRegistered<ComplaintController>(ComplaintController());
+      cn.getComplaints(0);
+    }
 
     update();
   }

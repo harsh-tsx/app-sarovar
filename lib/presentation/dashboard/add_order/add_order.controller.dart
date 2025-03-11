@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_1point2_store/configs/env.dart';
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/utils/Toast.dart';
@@ -23,10 +24,20 @@ var resonList = [
   OrderReason("Vehicle break down ", Icons.fire_truck_outlined),
 ];
 
+var incompleteDeliveriesresonList = [
+  IncompleteDeliveriesReason("Traffic"),
+  IncompleteDeliveriesReason("Water flood"),
+];
+
 class OrderReason {
   final String text;
   final IconData icon;
   OrderReason(this.text, this.icon);
+}
+
+class IncompleteDeliveriesReason {
+  final String text;
+  IncompleteDeliveriesReason(this.text);
 }
 
 class AddOrderController extends AuthController {
@@ -38,6 +49,8 @@ class AddOrderController extends AuthController {
   var loading = true.obs;
   var remark = TextEditingController();
   var remarkOption = "".obs;
+  var incomepleteDeliveries = false.obs;
+  var incompleteDeliveriesresons = [].obs;
   Rx<XFile?> photo = Rx(null);
 
   @override
@@ -109,6 +122,8 @@ class AddOrderController extends AuthController {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.QR);
       print(barcodeScanRes);
     } on PlatformException {
+      print("Failed to get platform version.");
+
       barcodeScanRes = 'Failed to get platform version.';
     }
 
@@ -181,8 +196,8 @@ class AddOrderController extends AuthController {
       }
     } else {
       var request = await ApiClient.employeeStoreEmployeeOrdersConfirmPost(
-        order: id,
-      );
+          order: id,
+          incompleteDeliveryRemark: incompleteDeliveriesresons.length > 0 ? incompleteDeliveriesresons.join(",") : "");
 
       if (!(request.body?.status ?? false)) {
         Toast.error(request.body?.message);
@@ -208,7 +223,7 @@ class AddOrderController extends AuthController {
 
   submitConfirmRequest(id) async {
     ///MultiPart request
-
+    print("incompleteDeliverReasons: ${incompleteDeliveriesresons}");
     try {
       var file = photo.value;
 
@@ -216,7 +231,7 @@ class AddOrderController extends AuthController {
           {"IMAGES": await _dio.MultipartFile.fromFile(file?.path ?? "", filename: file?.name ?? "")});
 
       var response = await _dio.Dio().post(
-          "https://api.1point2percent.com/employee-store/employee-orders/confirm?order=${id}&remark=${remarkOption.value.isEmpty ? remark.text : remarkOption.value}&SCANNEDOUTSIDE=${this.outSide.value ? "true" : "false"}",
+          "${Env.baseUrl}/employee-store/employee-orders/confirm?order=${id}&remark=${remarkOption.value.isEmpty ? remark.text : remarkOption.value}&SCANNEDOUTSIDE=${this.outSide.value ? "true" : "false"}&incomplete_delivery_remark=${incompleteDeliveriesresons.length > 0 ? incompleteDeliveriesresons.join(",") : ""}",
           data: form,
           options: _dio.Options(
             contentType: "multipart/form-data",
@@ -251,7 +266,7 @@ class AddOrderController extends AuthController {
           {"IMAGES": await _dio.MultipartFile.fromFile(file?.path ?? "", filename: file?.name ?? "")});
 
       var response = await _dio.Dio().put(
-          "https://api.1point2percent.com/employee-store/employee-orders/confirm?order=${id}&remark=${remarkOption.value.isEmpty ? remark.text : remarkOption.value}&SCANNEDOUTSIDE=${this.outSide.value ? "true" : "false"}",
+          "${Env.baseUrl}/employee-store/employee-orders/confirm?order=${id}&remark=${remarkOption.value.isEmpty ? remark.text : remarkOption.value}&SCANNEDOUTSIDE=${this.outSide.value ? "true" : "false"}",
           data: form,
           options: _dio.Options(
             contentType: "multipart/form-data",
@@ -300,6 +315,21 @@ class AddOrderController extends AuthController {
     print(await photo.value?.length());
 
     update();
+  }
+
+  hanldeIncompleteDeliveriesCheckBox(value) {
+    incomepleteDeliveries.value = value!;
+    update();
+  }
+
+  handleIncompleteDeliveriesReasons(value) {
+    if (incompleteDeliveriesresons.contains(value)) {
+      incompleteDeliveriesresons.removeWhere((item) => item == value);
+      update();
+    } else {
+      incompleteDeliveriesresons.add(value);
+      update();
+    }
   }
 }
 

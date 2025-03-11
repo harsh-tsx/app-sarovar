@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:app_1point2_store/configs/env.dart';
 import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/core/utils/types.dart';
@@ -31,16 +34,30 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 80.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomImageView(
-                    imagePath: ImageConstant.appLogo,
-                    width: 216.w,
-                    height: 95.h,
-                  )
-                ],
+              GestureDetector(
+                onPanCancel: controller.cancelTimer,
+                onPanDown: controller.handleTimer,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomImageView(
+                      imagePath: ImageConstant.appLogo,
+                      width: 216.w,
+                      height: 95.h,
+                      fit: BoxFit.contain,
+                    ),
+                    Env.name == "Test"
+                        ? Text(
+                            "TEST",
+                            style: GoogleFonts.poppins(
+                              fontSize: 18.fSize,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
               ),
               SizedBox(height: 20.h),
               Text(
@@ -127,36 +144,36 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 16.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Obx(
-                              () => Checkbox(
-                                value: controller.rememberMe.value,
-                                onChanged: (value) {
-                                  controller.rememberMe.value = !controller.rememberMe.value;
-                                },
-                                side: BorderSide(color: Colors.grey),
-                                fillColor: WidgetStatePropertyAll(Colors.white),
-                              ),
-                            ),
-                            Text(
-                              'Remember me',
-                              style: GoogleFonts.poppins(),
-                            ),
-                          ],
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Forgot Password ?',
-                            style: GoogleFonts.poppins(color: Colors.black),
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Row(
+                    //       children: [
+                    //         Obx(
+                    //           () => Checkbox(
+                    //             value: controller.rememberMe.value,
+                    //             onChanged: (value) {
+                    //               controller.rememberMe.value = !controller.rememberMe.value;
+                    //             },
+                    //             side: BorderSide(color: Colors.grey),
+                    //             fillColor: WidgetStatePropertyAll(Colors.white),
+                    //           ),
+                    //         ),
+                    //         Text(
+                    //           'Remember me',
+                    //           style: GoogleFonts.poppins(),
+                    //         ),
+                    //       ],
+                    //     ),
+                    // TextButton(
+                    //   onPressed: () {},
+                    //   child: Text(
+                    //     'Forgot Password ?',
+                    //     style: GoogleFonts.poppins(color: Colors.black),
+                    //   ),
+                    // ),
+                    //   ],
+                    // ),
                     SizedBox(height: 16.h),
                     ElevatedButton(
                       onPressed: controller.onSubmit,

@@ -22,36 +22,41 @@ class HistoryScreenController extends AuthController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getInHistory(0);
-    getOutHistory(0);
   }
 
   getInHistory([int? givenPage]) async {
-    isInLoading.value = true;
-    if (givenPage != null && givenPage < inPage.value || givenPage == 0) {
-      inHistoryList.clear();
-    }
+    try {
+      isInLoading.value = true;
+      if ((givenPage != null && givenPage < inPage.value) || givenPage == 0) {
+        inHistoryList.clear();
+      }
 
-    inPage.value = givenPage ?? inPage.value;
+      inPage.value = givenPage ?? inPage.value;
 
-    var request = await ApiClient.employeeStoreOrdersGet(page: inPage.value.toString(), size: inSize.value.toString());
+      var request =
+          await ApiClient.employeeStoreOrdersGet(page: inPage.value.toString(), size: inSize.value.toString());
 
-    print("getInHistory request: ${request.body}");
+      print("getInHistory request: ${request.body}");
 
-    if (!(request.body?.status ?? false)) {
+      if (!(request.body?.status ?? false)) {
+        isInLoading.value = false;
+        Toast.error(request?.body?.message);
+
+        return;
+      }
+
+      inHistoryList.addAll(request.body?.data ?? []);
       isInLoading.value = false;
-      Toast.error(request?.body?.message);
-
-      return;
+      update();
+    } catch (error) {
+      isInLoading.value = false;
+      update();
     }
-
-    inHistoryList.addAll(request.body?.data ?? []);
-    isInLoading.value = false;
   }
 
   getOutHistory([int? givenPage]) async {
     isOutLoading.value = true;
-    if (givenPage != null && givenPage < outPage.value || givenPage == 0) {
+    if ((givenPage != null && givenPage < outPage.value) || givenPage == 0) {
       outHistoryList.clear();
     }
 

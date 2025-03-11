@@ -106,7 +106,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             controller.handleCurrentTabChange("IN");
                           },
                           child: Container(
-                            width: Get.width * .50,
+                            width: SizeUtils.width * .50,
                             height: 40.h,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
@@ -155,7 +155,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             controller.handleCurrentTabChange("OUT");
                           },
                           child: Container(
-                            width: Get.width * .50,
+                            width: SizeUtils.width * .50,
                             height: 40.h,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
@@ -305,49 +305,51 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomElevatedButton(
-                      onPressed: item.complaint != null
-                          ? null
-                          : () {
-                              complaintScreen.handleCurrentTabChange("IN");
-                              dashboardController.handlBottomNavChange(4);
-                              complaintScreen.orderId.value = item.id ?? "";
-                              complaintScreen.orderWaterCans.value = item.watercans?.toInt() ?? 0;
-                            },
-                      isDisabled: item.complaint != null,
-                      buttonStyle: ElevatedButton.styleFrom(
-                        disabledBackgroundColor: Color(0xffB0B0B0),
-                        backgroundColor: appTheme.black900,
-                        minimumSize: const Size(double.infinity, 48),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 5.w,
-                        ),
-                        alignment: Alignment.center,
-                      ),
-                      alignment: Alignment.center,
-                      buttonTextStyle: GoogleFonts.poppins(
-                        color: item.complaint != null ? Color(0xff474747) : theme.primaryColor,
-                        fontSize: 11.fSize,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      text: 'Raise a Ticket',
-                      width: 130.w,
-                      height: 26.h,
-                      leftIcon: Row(
-                        children: [
-                          Icon(
-                            Icons.warning_rounded,
-                            size: 16.fSize,
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                        ],
-                      ),
-                    ),
+                    item.status == "DELIVERED" || item.status == "COMPLETED"
+                        ? CustomElevatedButton(
+                            onPressed: item.complaint != null
+                                ? null
+                                : () {
+                                    complaintScreen.handleCurrentTabChange("IN");
+                                    dashboardController.handlBottomNavChange(4);
+                                    complaintScreen.orderId.value = item.id ?? "";
+                                    complaintScreen.orderWaterCans.value = item.watercans?.toInt() ?? 0;
+                                  },
+                            isDisabled: item.complaint != null,
+                            buttonStyle: ElevatedButton.styleFrom(
+                              disabledBackgroundColor: Color(0xffB0B0B0),
+                              backgroundColor: appTheme.black900,
+                              minimumSize: const Size(double.infinity, 48),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 5.w,
+                              ),
+                              alignment: Alignment.center,
+                            ),
+                            alignment: Alignment.center,
+                            buttonTextStyle: GoogleFonts.poppins(
+                              color: item.complaint != null ? Color(0xff474747) : theme.primaryColor,
+                              fontSize: 11.fSize,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            text: 'Raise a Ticket',
+                            width: 130.w,
+                            height: 26.h,
+                            leftIcon: Row(
+                              children: [
+                                Icon(
+                                  Icons.warning_rounded,
+                                  size: 16.fSize,
+                                ),
+                                SizedBox(
+                                  width: 5.w,
+                                ),
+                              ],
+                            ),
+                          )
+                        : Container(),
                   ],
                 )
               ],
@@ -370,7 +372,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               SizedBox(width: 20.w),
               Text(
                 "${item.date}",
-                style: GoogleFonts.poppins(fontSize: 14.fSize, fontWeight: FontWeight.w900),
+                style: GoogleFonts.poppins(fontSize: 10.fSize, fontWeight: FontWeight.w900),
               ),
             ],
           ),
@@ -387,9 +389,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildField(title: "Order ID:", value: "${item.id?.substring(0, 5)}..."),
-                _buildField(title: "Cans:", value: "${item?.watercans?.toInt()}"),
-                _buildField(title: "Status:", value: "${item?.status}", isStatus: true),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildField(title: "Order ID:", value: "${item.id?.substring(0, 5)}..."),
+                    _buildField(title: "Cans:", value: "${item?.watercans?.toInt()}"),
+                    _buildField(title: "Status:", value: "${item?.status}", isStatus: true),
+                  ],
+                )
               ],
             ),
           )

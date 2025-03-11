@@ -32,7 +32,6 @@ class ComplaintController extends AuthController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getComplaints(0);
   }
 
   handleCurrentTabChange(value) {
@@ -41,7 +40,7 @@ class ComplaintController extends AuthController {
   }
 
   getComplaints([int? givenPage]) async {
-    if (givenPage != null && givenPage < page.value || givenPage == 0) {
+    if ((givenPage != null && givenPage < page.value) || givenPage == 0) {
       // clear the list
       complaints.clear();
     }

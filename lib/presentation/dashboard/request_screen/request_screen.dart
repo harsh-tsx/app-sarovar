@@ -2,6 +2,7 @@ import 'package:app_1point2_store/core/app_export.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/core/utils/types.dart';
 import 'package:app_1point2_store/presentation/dashboard/request_screen/widgets/calendar_section.dart';
+import 'package:app_1point2_store/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,14 +41,23 @@ class _RequestScreenState extends State<RequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: appTheme.primaryYellow,
-      body: Column(
-        children: [
-          // Header Section
-          _buildHeaderSection(),
-          // Inventory Section
-          _buildInventorySection(),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.getForecastList(0);
+          return null;
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Header Section
+              _buildHeaderSection(),
+              // Inventory Section
+              _buildInventorySection(),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -78,8 +88,9 @@ class _RequestScreenState extends State<RequestScreen> {
   }
 
   _buildInventorySection() {
-    return Expanded(
-      child: Container(
+    return GetBuilder<RequestScreenController>(builder: (context) {
+      return Container(
+        height: SizeUtils.height,
         decoration: BoxDecoration(
           color: appTheme.pageBg,
           borderRadius: const BorderRadius.only(
@@ -138,13 +149,13 @@ class _RequestScreenState extends State<RequestScreen> {
                   SizedBox(height: 24.h),
                   SizedBox(
                     width: SizeUtils.width.percent(60),
-                    child: ElevatedButton(
+                    child: CustomElevatedButton(
                       onPressed: () {
                         controller.addForecast();
                       },
-                      style: ElevatedButton.styleFrom(
+                      buttonStyle: ElevatedButton.styleFrom(
                         backgroundColor: appTheme.black900,
-                        minimumSize: const Size(double.infinity, 48),
+                        // minimumSize: const Size(double.infinity, 48),
                         shape: RoundedRectangleBorder(
                           side: BorderSide(
                             color: Color(0xff375DFB),
@@ -152,62 +163,52 @@ class _RequestScreenState extends State<RequestScreen> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 30.h),
+                        // disabledBackgroundColor: Color(0xffB0B0B0),
+                        // padding: EdgeInsets.symmetric(vertical: 30.h),
                       ),
-                      child: Text(
-                        'Submit Request',
-                        style: GoogleFonts.poppins(color: theme.primaryColor),
-                      ),
+                      text: "Submit request",
+                      buttonTextStyle: GoogleFonts.poppins(color: theme.primaryColor),
                     ),
                   ),
-                  SizedBox(height: 24.h),
-                  RefreshIndicator(
-                    onRefresh: () async {
-                      await controller.getForecastList(0);
-                      return null;
-                    },
-                    child: Container(
-                      height: SizeUtils.height.percent(35),
-                      child: Obx(
-                        () => ListView.builder(
-                          controller: _scrollController,
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          itemCount: controller.forecastList.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            var item = controller.forecastList[index];
-                            return Container(
-                              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.transparent,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: IntrinsicHeight(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    _buildField(title: "Order ID:", value: "${item.id?.substring(0, 5)}..."),
-                                    VerticalDivider(
-                                      color: Colors.black,
-                                      thickness: 1,
-                                    ),
-                                    _buildField(title: "Cans:", value: "${item?.watercans?.toInt()}"),
-                                    VerticalDivider(
-                                      color: Colors.black,
-                                      thickness: 1,
-                                    ),
-                                    Container(
-                                        width: SizeUtils.width.percent(22),
-                                        child: _buildField(title: "Status:", value: "${item?.status}", isStatus: true)),
-                                  ],
-                                ),
+                  // SizedBox(height: 4.h),
+                  Obx(
+                    () => ListView.builder(
+                      controller: _scrollController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: controller.forecastList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        var item = controller.forecastList[index];
+                        return Container(
+                          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.transparent,
                               ),
-                            );
-                          },
-                        ),
-                      ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildField(title: "Order ID:", value: "${item.id?.substring(0, 5)}..."),
+                                VerticalDivider(
+                                  color: Colors.black,
+                                  thickness: 1,
+                                ),
+                                _buildField(title: "Cans:", value: "${item?.watercans?.toInt()}"),
+                                VerticalDivider(
+                                  color: Colors.black,
+                                  thickness: 1,
+                                ),
+                                Container(
+                                    width: SizeUtils.width.percent(22),
+                                    child: _buildField(title: "Status:", value: "${item?.status}", isStatus: true)),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   )
                 ],
@@ -215,8 +216,8 @@ class _RequestScreenState extends State<RequestScreen> {
             ),
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 
   Column _buildField({required String title, required String value, bool isStatus = false}) {
@@ -236,9 +237,10 @@ class _RequestScreenState extends State<RequestScreen> {
                     ? Color(0xff008B23)
                     : Colors.orange
                 : appTheme.black900,
-            fontSize: 12.fSize,
+            fontSize: 10.fSize,
             fontWeight: FontWeight.w900,
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );

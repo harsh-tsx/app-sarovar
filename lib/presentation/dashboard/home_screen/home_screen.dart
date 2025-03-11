@@ -1,4 +1,5 @@
 import 'package:app_1point2_store/core/app_export.dart';
+import 'package:app_1point2_store/core/controllers/auth.controller.dart';
 import 'package:app_1point2_store/core/utils/app_utils.dart';
 import 'package:app_1point2_store/presentation/dashboard/home_screen/widgets/calendar_section.dart';
 import 'package:flutter/material.dart';
@@ -54,86 +55,88 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHeaderSection() {
-    return Container(
-      height: SizeUtils.height * .22,
-      width: SizeUtils.width,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: 25.h,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: SizedBox(),
-              ),
-              Expanded(
-                child: CustomImageView(
-                  imagePath: ImageConstant.appLogo,
-                  width: 84.w,
-                  height: 37.h,
-                  fit: BoxFit.contain,
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    logout();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        size: 18.w,
-                      ),
-                      SizedBox(width: 8.w),
-                      Text(
-                        "Logout",
-                        style:
-                            GoogleFonts.poppins(fontSize: 12.fSize, fontWeight: FontWeight.bold, color: Colors.black),
-                      ),
-                      SizedBox(width: 24.w)
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12.h),
-          Obx(
-            () => Text(
-              "${controller.user?.value?.name}",
-              style: GoogleFonts.poppins(fontSize: 16.fSize, fontWeight: FontWeight.bold, color: Colors.black),
+    return GetBuilder<AuthController>(builder: (context) {
+      return Container(
+        height: SizeUtils.height * .22,
+        width: SizeUtils.width,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 25.h,
             ),
-          ),
-          const Spacer(),
-          Obx(
-            () => Row(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _buildField(
-                  title: "Store Number",
-                  value: "${controller?.user?.value?.store?.code ?? controller?.user?.value?.store?.name}",
+                Expanded(
+                  child: SizedBox(),
                 ),
-                _buildField(
-                  title: "Code",
-                  value: "${controller?.user?.value?.$id}",
+                Expanded(
+                  child: CustomImageView(
+                    imagePath: ImageConstant.appLogo,
+                    width: 84.w,
+                    height: 37.h,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                _buildField(
-                  title: "Location",
-                  value: "${controller.distance}m",
-                  isLocation: true,
-                )
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      logout();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          size: 18.w,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          "Logout",
+                          style:
+                              GoogleFonts.poppins(fontSize: 12.fSize, fontWeight: FontWeight.bold, color: Colors.black),
+                        ),
+                        SizedBox(width: 24.w)
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
-          )
-        ],
-      ),
-    );
+            SizedBox(height: 12.h),
+            Obx(
+              () => Text(
+                "${controller.user?.value?.name}",
+                style: GoogleFonts.poppins(fontSize: 16.fSize, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+            ),
+            const Spacer(),
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildField(
+                    title: "Store Number",
+                    value: "${controller?.user?.value?.store?.code ?? controller?.user?.value?.store?.name}",
+                  ),
+                  _buildField(
+                    title: "Code",
+                    value: "${controller?.user?.value?.$id}",
+                  ),
+                  _buildField(
+                    title: "Location",
+                    value: "${controller.distance}m",
+                    isLocation: true,
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 
   Expanded _buildInventorySection() {

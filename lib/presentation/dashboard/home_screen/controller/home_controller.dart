@@ -12,12 +12,15 @@ class HomeController extends AuthController {
   TextEditingController searchController = TextEditingController();
   var homeDashboard = EmployeeStoreDashboardHomeGet$Response$Data().obs;
   var currentDate = DateTime.now();
+  var storeTime = <EmployeeStoreAuthStoreTimeGet$Response$Data$Item>[].obs;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     print("DatetimeNow: ${DateTime.now()}");
+    me();
+    getStoreTime();
   }
 
   getHomeDashboardData(DateTime date) async {
@@ -29,6 +32,16 @@ class HomeController extends AuthController {
 
     homeDashboard.value = request.body?.data ??
         EmployeeStoreDashboardHomeGet$Response$Data(liveStock: 0, thisMonth: 0, todaysIn: 0, todaysOut: 0);
+    update();
+  }
+
+  getStoreTime() async {
+    storeTime.clear();
+    var request = await ApiClient.employeeStoreAuthStoreTimeGet();
+
+    if (request.body?.status ?? false) {
+      storeTime.addAll(request.body?.data ?? []);
+    }
     update();
   }
 

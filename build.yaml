@@ -16,7 +16,7 @@ targets:
           input_folder: "input_folder/"
           output_folder: "lib/swagger_generated_code/"
           input_urls:
-            - url: "https://api.1point2percent.com/swagger-store-employee-app/json"
+            - url: "https://test-api.1point2percent.com/swagger-store-employee-app/json"
               file_name: "store_api.json"
           with_base_url: true
           with_converter: true

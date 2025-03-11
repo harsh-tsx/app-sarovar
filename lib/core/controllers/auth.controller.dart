@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_1point2_store/core/app_export.dart';
+import 'package:app_1point2_store/core/utils/Toast.dart';
 import 'package:app_1point2_store/data/apiClient/api_client.dart';
 import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart';
 import 'package:geolocator/geolocator.dart';
@@ -21,7 +22,7 @@ class AuthController extends GetxController {
   me() async {
     try {
       var request = await ApiClient.employeeStoreAuthMeGet();
-      print("request: ${request.body?.data}");
+      print("me request: ${request.body?.data}");
       if (!(request.body?.status ?? false)) {
         return;
       }
@@ -29,6 +30,7 @@ class AuthController extends GetxController {
       user.value = request.body?.data ?? EmployeeStoreAuthMeGet$Response$Data();
 
       update();
+      print("me request: ${user.value}");
       getCurrentLocation();
     } catch (error, stackTrace) {
       print("error: ${error}");

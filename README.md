@@ -1,5 +1,7 @@
 # app_1point2_store
 
+com.onepointtwostore.app
+
 A new Flutter project.
 
 ## Getting Started

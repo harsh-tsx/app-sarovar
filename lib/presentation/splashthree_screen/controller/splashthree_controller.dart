@@ -9,7 +9,7 @@ import 'package:app_1point2_store/swagger_generated_code/store_api.swagger.dart'
 ///
 /// This class manages the state of the SplashthreeScreen, including the
 /// current splashthreeModelObj
-class SplashthreeController extends AuthController {
+class SplashthreeController extends GetxController {
   bool astrologer;
   SplashthreeController({this.astrologer = false});
 
@@ -18,7 +18,8 @@ class SplashthreeController extends AuthController {
   @override
   void onReady() {
     Future.delayed(const Duration(milliseconds: 3000), () async {
-      if (getToken() != null) {
+      var token = getToken();
+      if (token != null) {
         Get.offNamed(AppRoutes.dashboard);
         return;
       }

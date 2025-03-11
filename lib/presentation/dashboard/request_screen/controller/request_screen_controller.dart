@@ -21,7 +21,6 @@ class RequestScreenController extends AuthController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getForecastList();
   }
 
   getForecastList([int? givenPage]) async {
@@ -42,6 +41,10 @@ class RequestScreenController extends AuthController {
   }
 
   addForecast() async {
+    if (waterCan.text.isEmpty) {
+      Toast.error("Fill the can count");
+      return;
+    }
     Toast.loading("Requesting....");
     var request = await ApiClient.employeeStoreForecastPost(
         body:

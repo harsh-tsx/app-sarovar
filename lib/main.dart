@@ -8,16 +8,19 @@ import 'core/app_export.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  GetStorage.init();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]).then((value) {
-    // Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
-    // runApp(MyApp());
+  GetStorage.init().then(
+    (value) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+      ]).then((value) {
+        // Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
+        // runApp(MyApp());
 
-    runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp() // Wrap your app
-        ));
-  });
+        runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp() // Wrap your app
+            ));
+      });
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -40,6 +40,23 @@ final class _$StoreApi extends StoreApi {
   }
 
   @override
+  Future<Response<EmployeeStoreAuthEnvGet$Response>> _employeeStoreAuthEnvGet(
+      {String? authorization}) {
+    final Uri $url = Uri.parse('/employee-store/auth/env');
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreAuthEnvGet$Response,
+        EmployeeStoreAuthEnvGet$Response>($request);
+  }
+
+  @override
   Future<Response<EmployeeStoreAuthMeGet$Response>> _employeeStoreAuthMeGet(
       {String? authorization}) {
     final Uri $url = Uri.parse('/employee-store/auth/me');
@@ -54,6 +71,23 @@ final class _$StoreApi extends StoreApi {
     );
     return client.send<EmployeeStoreAuthMeGet$Response,
         EmployeeStoreAuthMeGet$Response>($request);
+  }
+
+  @override
+  Future<Response<EmployeeStoreAuthStoreTimeGet$Response>>
+      _employeeStoreAuthStoreTimeGet({String? authorization}) {
+    final Uri $url = Uri.parse('/employee-store/auth/store-time');
+    final Map<String, String> $headers = {
+      if (authorization != null) 'authorization': authorization,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      headers: $headers,
+    );
+    return client.send<EmployeeStoreAuthStoreTimeGet$Response,
+        EmployeeStoreAuthStoreTimeGet$Response>($request);
   }
 
   @override
@@ -213,6 +247,7 @@ final class _$StoreApi extends StoreApi {
     required String? order,
     String? remark,
     String? scannedoutside,
+    String? incompleteDeliveryRemark,
     List<int>? IMAGES,
   }) {
     final Uri $url = Uri.parse('/employee-store/employee-orders/confirm');
@@ -220,6 +255,7 @@ final class _$StoreApi extends StoreApi {
       'order': order,
       'remark': remark,
       'SCANNEDOUTSIDE': scannedoutside,
+      'incomplete_delivery_remark': incompleteDeliveryRemark,
     };
     final Map<String, String> $headers = {
       if (authorization != null) 'authorization': authorization,
